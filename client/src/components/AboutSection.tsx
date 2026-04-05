@@ -55,7 +55,7 @@ export default function AboutSection() {
           {/* Left: Bio */}
           <div>
             <AnimatedSection delay={0.1}>
-              <h2 className="font-['Syne'] font-extrabold text-4xl lg:text-5xl text-white mb-6 leading-tight">
+              <h2 className="font-['Playfair_Display'] font-extrabold text-4xl lg:text-5xl text-white mb-6 leading-tight">
                 Where Data Meets
                 <br />
                 <span className="text-gradient-cyan">Business Strategy</span>
@@ -63,7 +63,7 @@ export default function AboutSection() {
             </AnimatedSection>
 
             <AnimatedSection delay={0.2}>
-              <p className="font-['DM_Sans'] text-[#7A8FA8] text-base leading-relaxed mb-6">
+              <p className="font-['Lato'] text-[#7A8FA8] text-base leading-relaxed mb-6">
                 I'm a business analytics professional with a unique blend of marketing expertise, 
                 data science capabilities, and strategic leadership experience. Currently pursuing 
                 my Master of Science in Business Analytics at UC San Diego's Rady School of Management — 
@@ -72,7 +72,7 @@ export default function AboutSection() {
             </AnimatedSection>
 
             <AnimatedSection delay={0.3}>
-              <p className="font-['DM_Sans'] text-[#7A8FA8] text-base leading-relaxed mb-8">
+              <p className="font-['Lato'] text-[#7A8FA8] text-base leading-relaxed mb-8">
                 My career spans public relations, banking marketing, and enterprise technology sales, 
                 giving me a 360° view of how organizations leverage data to drive decisions. 
                 I've managed marketing portfolios worth $30M+, pioneered international campaigns, 
@@ -98,7 +98,7 @@ export default function AboutSection() {
           <div>
             <AnimatedSection delay={0.2}>
               <div className="card-cyber rounded-lg p-6 mb-6">
-                <h3 className="font-['Syne'] font-bold text-white text-lg mb-6 flex items-center gap-2">
+                <h3 className="font-['Playfair_Display'] font-bold text-white text-lg mb-6 flex items-center gap-2">
                   <span className="w-1 h-5 bg-gradient-to-b from-[#B8C8DC] to-[#7A8FA8] rounded-full" />
                   Personal Information
                 </h3>
@@ -110,7 +110,7 @@ export default function AboutSection() {
                       </div>
                       <div>
                         <div className="text-xs font-['JetBrains_Mono'] text-[#4A5A6A] uppercase tracking-wider">{label}</div>
-                        <div className="text-sm font-['DM_Sans'] text-[#D8E4F0] mt-0.5">{value}</div>
+                        <div className="text-sm font-['Lato'] text-[#D8E4F0] mt-0.5">{value}</div>
                       </div>
                     </div>
                   ))}
@@ -120,7 +120,7 @@ export default function AboutSection() {
 
             <AnimatedSection delay={0.3}>
               <div className="card-cyber rounded-lg p-6">
-                <h3 className="font-['Syne'] font-bold text-white text-lg mb-4 flex items-center gap-2">
+                <h3 className="font-['Playfair_Display'] font-bold text-white text-lg mb-4 flex items-center gap-2">
                   <span className="w-1 h-5 bg-gradient-to-b from-[#B8C8DC] to-[#7A8FA8] rounded-full" />
                   Current Focus
                 </h3>
@@ -133,7 +133,7 @@ export default function AboutSection() {
                   ].map(({ label, pct }) => (
                     <div key={label}>
                       <div className="flex justify-between mb-1">
-                        <span className="text-xs font-['DM_Sans'] text-[#7A8FA8]">{label}</span>
+                        <span className="text-xs font-['Lato'] text-[#7A8FA8]">{label}</span>
                         <span className="text-xs font-['JetBrains_Mono'] text-[#B8C8DC]">{pct}%</span>
                       </div>
                       <div className="skill-bar-track h-1">

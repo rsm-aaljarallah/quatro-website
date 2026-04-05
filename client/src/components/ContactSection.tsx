@@ -94,12 +94,12 @@ export default function ContactSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
             >
-              <h2 className="font-['Syne'] font-extrabold text-4xl lg:text-5xl text-white mb-6 leading-tight">
+              <h2 className="font-['Playfair_Display'] font-extrabold text-4xl lg:text-5xl text-white mb-6 leading-tight">
                 Let's Build Something
                 <br />
                 <span className="text-gradient-cyan">Data-Driven</span>
               </h2>
-              <p className="font-['DM_Sans'] text-[#7A8FA8] text-lg leading-relaxed mb-8">
+              <p className="font-['Lato'] text-[#7A8FA8] text-lg leading-relaxed mb-8">
                 Whether you're looking for a business analytics expert, a
                 marketing strategist, or someone who can bridge the gap between
                 data and decisions — I'd love to connect.
@@ -121,7 +121,7 @@ export default function ContactSection() {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-5 py-2.5 rounded-sm font-['DM_Sans'] font-medium text-sm transition-all duration-200 hover:scale-105"
+                    className="flex items-center gap-2 px-5 py-2.5 rounded-sm font-['Lato'] font-medium text-sm transition-all duration-200 hover:scale-105"
                     style={{ color, background: bg, border: `1px solid ${border}` }}
                   >
                     <Icon size={15} />
@@ -145,10 +145,10 @@ export default function ContactSection() {
                       border: "1px solid rgba(184,200,220,0.1)",
                     }}
                   >
-                    <div className="font-['Syne'] font-extrabold text-2xl text-gradient-cyan">
+                    <div className="font-['Playfair_Display'] font-extrabold text-2xl text-gradient-cyan">
                       {value}
                     </div>
-                    <div className="font-['DM_Sans'] text-xs text-[#4A5A6A] mt-0.5">
+                    <div className="font-['Lato'] text-xs text-[#4A5A6A] mt-0.5">
                       {label}
                     </div>
                   </div>
@@ -172,7 +172,7 @@ export default function ContactSection() {
                   boxShadow: "0 0 40px rgba(184,200,220,0.08)",
                 }}
               >
-                <h3 className="font-['Syne'] font-bold text-white text-xl mb-6 flex items-center gap-2">
+                <h3 className="font-['Playfair_Display'] font-bold text-white text-xl mb-6 flex items-center gap-2">
                   <span className="w-1 h-5 bg-gradient-to-b from-[#B8C8DC] to-[#7A8FA8] rounded-full" />
                   Get In Touch
                 </h3>
@@ -199,7 +199,7 @@ export default function ContactSection() {
                         <div className="text-xs font-['JetBrains_Mono'] text-[#4A5A6A] uppercase tracking-wider">
                           {label}
                         </div>
-                        <div className="font-['DM_Sans'] text-[#D8E4F0] text-sm mt-0.5 group-hover:text-white transition-colors">
+                        <div className="font-['Lato'] text-[#D8E4F0] text-sm mt-0.5 group-hover:text-white transition-colors">
                           {value}
                         </div>
                       </div>
@@ -214,7 +214,7 @@ export default function ContactSection() {
                 {/* CTA Button */}
                 <a
                   href="mailto:mr.a.aljarallah@gmail.com"
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-sm font-['Syne'] font-bold text-sm transition-all duration-200 hover:shadow-[0_0_30px_rgba(184,200,220,0.4)] hover:scale-[1.02]"
+                  className="w-full flex items-center justify-center gap-2 py-3 rounded-sm font-['Playfair_Display'] font-bold text-sm transition-all duration-200 hover:shadow-[0_0_30px_rgba(184,200,220,0.4)] hover:scale-[1.02]"
                   style={{
                     background: "linear-gradient(90deg, #7A8FA8, #B8C8DC)",
                     color: "#0A0E1A",
@@ -240,7 +240,7 @@ export default function ContactSection() {
               <div className="w-7 h-7 rounded-sm bg-gradient-to-br from-[#B8C8DC] to-[#7A8FA8] flex items-center justify-center text-[#0A0E1A] font-bold text-xs font-mono">
                 AA
               </div>
-              <span className="font-['DM_Sans'] text-[#4A5A6A] text-sm">
+              <span className="font-['Lato'] text-[#4A5A6A] text-sm">
                 Abdullah Aljarallah © {new Date().getFullYear()}
               </span>
             </div>

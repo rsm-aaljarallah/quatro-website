@@ -76,11 +76,11 @@ export default function CertificationsSection() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mb-16"
         >
-          <h2 className="font-['Syne'] font-extrabold text-4xl lg:text-5xl text-white mb-4">
+          <h2 className="font-['Playfair_Display'] font-extrabold text-4xl lg:text-5xl text-white mb-4">
             Courses &{" "}
             <span className="text-gradient-cyan">Certifications</span>
           </h2>
-          <p className="font-['DM_Sans'] text-[#7A8FA8] text-lg max-w-2xl">
+          <p className="font-['Lato'] text-[#7A8FA8] text-lg max-w-2xl">
             Continuous learning across AI, data science, and business strategy
             — staying at the cutting edge of the field.
           </p>
@@ -106,7 +106,7 @@ export default function CertificationsSection() {
                 >
                   <group.icon size={18} style={{ color: group.color }} />
                 </div>
-                <h3 className="font-['Syne'] font-bold text-white text-xl">
+                <h3 className="font-['Playfair_Display'] font-bold text-white text-xl">
                   {group.title}
                 </h3>
               </div>
@@ -140,7 +140,7 @@ export default function CertificationsSection() {
                       <Award size={14} style={{ color: group.color }} />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="font-['DM_Sans'] text-[#D8E4F0] text-sm font-medium leading-tight">
+                      <div className="font-['Lato'] text-[#D8E4F0] text-sm font-medium leading-tight">
                         {cert.name}
                       </div>
                       <div
@@ -178,7 +178,7 @@ export default function CertificationsSection() {
           <div className="mono-label mb-3 justify-center flex">
             DataCamp Certified
           </div>
-          <p className="font-['DM_Sans'] text-[#7A8FA8] text-sm max-w-lg mx-auto">
+          <p className="font-['Lato'] text-[#7A8FA8] text-sm max-w-lg mx-auto">
             Completed multiple DataCamp certifications in Machine Learning,
             Python, Statistical Analysis, and Data Science for Business —
             demonstrating hands-on technical proficiency.

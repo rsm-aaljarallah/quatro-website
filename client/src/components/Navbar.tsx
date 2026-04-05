@@ -67,7 +67,7 @@ export default function Navbar() {
             <div className="w-8 h-8 rounded-sm bg-gradient-to-br from-[#B8C8DC] to-[#7A8FA8] flex items-center justify-center text-[#0A0E1A] font-bold text-sm font-mono">
               AA
             </div>
-            <span className="font-['Syne'] font-bold text-white text-sm tracking-wide hidden sm:block">
+            <span className="font-['Playfair_Display'] font-bold text-white text-sm tracking-wide hidden sm:block">
               Abdullah Aljarallah
             </span>
           </motion.div>
@@ -78,7 +78,7 @@ export default function Navbar() {
               <button
                 key={link.href}
                 onClick={() => handleNavClick(link.href)}
-                className={`relative px-3 py-1.5 text-sm font-['DM_Sans'] font-medium transition-all duration-200 rounded-sm ${
+                className={`relative px-3 py-1.5 text-sm font-['Lato'] font-medium transition-all duration-200 rounded-sm ${
                   activeSection === link.href.replace("#", "")
                     ? "text-[#B8C8DC]"
                     : "text-[#7A8FA8] hover:text-white"
@@ -100,7 +100,7 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             <a
               href="mailto:mr.a.aljarallah@gmail.com"
-              className="hidden sm:flex items-center gap-2 px-4 py-1.5 rounded-sm bg-gradient-to-r from-[#7A8FA8] to-[#B8C8DC] text-[#0A0E1A] text-sm font-['Syne'] font-bold transition-all duration-200 hover:shadow-[0_0_20px_rgba(184,200,220,0.4)] hover:scale-105"
+              className="hidden sm:flex items-center gap-2 px-4 py-1.5 rounded-sm bg-gradient-to-r from-[#7A8FA8] to-[#B8C8DC] text-[#0A0E1A] text-sm font-['Playfair_Display'] font-bold transition-all duration-200 hover:shadow-[0_0_20px_rgba(184,200,220,0.4)] hover:scale-105"
             >
               <Mail size={13} />
               Hire Me
@@ -130,14 +130,14 @@ export default function Navbar() {
                 <button
                   key={link.href}
                   onClick={() => handleNavClick(link.href)}
-                  className="w-full text-left px-4 py-3 text-sm font-['DM_Sans'] text-[#7A8FA8] hover:text-[#B8C8DC] hover:bg-[rgba(184,200,220,0.05)] rounded-sm transition-all duration-200"
+                  className="w-full text-left px-4 py-3 text-sm font-['Lato'] text-[#7A8FA8] hover:text-[#B8C8DC] hover:bg-[rgba(184,200,220,0.05)] rounded-sm transition-all duration-200"
                 >
                   {link.label}
                 </button>
               ))}
               <a
                 href="mailto:mr.a.aljarallah@gmail.com"
-                className="flex items-center gap-2 px-4 py-3 mt-2 rounded-sm bg-gradient-to-r from-[#7A8FA8] to-[#B8C8DC] text-[#0A0E1A] text-sm font-['Syne'] font-bold"
+                className="flex items-center gap-2 px-4 py-3 mt-2 rounded-sm bg-gradient-to-r from-[#7A8FA8] to-[#B8C8DC] text-[#0A0E1A] text-sm font-['Playfair_Display'] font-bold"
               >
                 <Mail size={14} />
                 Hire Me

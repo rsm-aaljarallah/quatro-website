@@ -2,7 +2,7 @@
  * DESIGN PHILOSOPHY: Deep Navy & Crisp White
  * Movement: Bloomberg Terminal meets Apple — clean, minimal, authoritative
  * Colors: Deep navy (#0A0E1A) bg, crisp white (#F8FAFC) text, cool-gray (#94A8C0) accents
- * Typography: Syne (display) + DM Sans (body) + JetBrains Mono (code/labels)
+ * Typography: Playfair Display (display/headings) + Lato (body) + JetBrains Mono (code/labels)
  * Layout: Asymmetric sections, scroll-triggered reveals, no gimmicky glows
  */
 
@@ -100,12 +100,12 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Lato', sans-serif;
     background-color: #0A0E1A;
     color: #F8FAFC;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Playfair Display', serif;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),

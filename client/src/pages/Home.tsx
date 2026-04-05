@@ -2,7 +2,7 @@
  * DESIGN: Cyber-Dark Resume Website — Main Page
  * Assembles all sections in order with smooth scroll
  * Dark theme: #0A0E1A bg, #B8C8DC/#7A8FA8 accents (Deep Navy & Crisp White)
- * Fonts: Syne (display) + DM Sans (body) + JetBrains Mono (labels)
+ * Fonts: Playfair Display (display) + Lato (body) + JetBrains Mono (labels)
  */
 
 import Navbar from "@/components/Navbar";

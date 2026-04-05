@@ -148,11 +148,11 @@ function ExperienceCard({
                 <exp.icon size={18} style={{ color: exp.color }} />
               </div>
               <div>
-                <h3 className="font-['Syne'] font-bold text-white text-lg leading-tight">
+                <h3 className="font-['Playfair_Display'] font-bold text-white text-lg leading-tight">
                   {exp.role}
                 </h3>
                 <p
-                  className="font-['DM_Sans'] text-sm mt-0.5"
+                  className="font-['Lato'] text-sm mt-0.5"
                   style={{ color: exp.color }}
                 >
                   {exp.company}
@@ -170,14 +170,14 @@ function ExperienceCard({
               >
                 {exp.type}
               </span>
-              <span className="text-xs font-['DM_Sans'] text-[#4A5A6A]">
+              <span className="text-xs font-['Lato'] text-[#4A5A6A]">
                 {exp.period}
               </span>
             </div>
           </div>
 
           {/* Description */}
-          <p className="font-['DM_Sans'] text-[#7A8FA8] text-sm leading-relaxed mb-4">
+          <p className="font-['Lato'] text-[#7A8FA8] text-sm leading-relaxed mb-4">
             {exp.description}
           </p>
 
@@ -190,7 +190,7 @@ function ExperienceCard({
                   className="mt-0.5 flex-shrink-0"
                   style={{ color: exp.color }}
                 />
-                <span className="font-['DM_Sans'] text-[#94A8C0] text-sm">
+                <span className="font-['Lato'] text-[#94A8C0] text-sm">
                   {ach}
                 </span>
               </div>
@@ -260,11 +260,11 @@ export default function ExperienceSection() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-center mb-16"
         >
-          <h2 className="font-['Syne'] font-extrabold text-4xl lg:text-5xl text-white mb-4">
+          <h2 className="font-['Playfair_Display'] font-extrabold text-4xl lg:text-5xl text-white mb-4">
             Professional{" "}
             <span className="text-gradient-cyan">Journey</span>
           </h2>
-          <p className="font-['DM_Sans'] text-[#7A8FA8] text-lg max-w-2xl mx-auto">
+          <p className="font-['Lato'] text-[#7A8FA8] text-lg max-w-2xl mx-auto">
             Over a decade of experience across public relations, banking,
             enterprise technology, and entrepreneurship.
           </p>

@@ -240,7 +240,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.7 }}
-              className="font-['Syne'] font-extrabold text-5xl lg:text-7xl text-white leading-none mb-4"
+              className="font-['Playfair_Display'] font-extrabold text-5xl lg:text-7xl text-white leading-none mb-4"
             >
               Abdullah
               <br />
@@ -254,7 +254,7 @@ export default function HeroSection() {
               transition={{ delay: 0.5 }}
               className="h-8 mb-6"
             >
-              <span className="font-['DM_Sans'] text-xl text-[#7A8FA8]">
+              <span className="font-['Lato'] text-xl text-[#7A8FA8]">
                 {typedRole}
                 <span className="animate-blink text-[#B8C8DC]">|</span>
               </span>
@@ -265,7 +265,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="font-['DM_Sans'] text-[#7A8FA8] text-base lg:text-lg max-w-2xl leading-relaxed mb-8"
+              className="font-['Lato'] text-[#7A8FA8] text-base lg:text-lg max-w-2xl leading-relaxed mb-8"
             >
               Bridging the gap between data science and business strategy.
               Currently pursuing MSBA at UC San Diego's Rady School of Management,
@@ -287,7 +287,7 @@ export default function HeroSection() {
                 <a
                   key={text}
                   href={href || "#"}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-[rgba(184,200,220,0.05)] border border-[rgba(184,200,220,0.15)] text-[#7A8FA8] text-sm font-['DM_Sans'] hover:border-[rgba(184,200,220,0.4)] hover:text-[#B8C8DC] transition-all duration-200"
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-[rgba(184,200,220,0.05)] border border-[rgba(184,200,220,0.15)] text-[#7A8FA8] text-sm font-['Lato'] hover:border-[rgba(184,200,220,0.4)] hover:text-[#B8C8DC] transition-all duration-200"
                 >
                   <Icon size={13} className="text-[#B8C8DC]" />
                   {text}
@@ -306,7 +306,7 @@ export default function HeroSection() {
                 href="https://www.linkedin.com/in/abdullah-aljarallah-a72512b7/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-[rgba(90,138,176,0.1)] border border-[rgba(90,138,176,0.25)] text-[#7A8FA8] text-sm font-['DM_Sans'] hover:border-[rgba(10,102,194,0.6)] hover:text-[#0A66C2] transition-all duration-200"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-[rgba(90,138,176,0.1)] border border-[rgba(90,138,176,0.25)] text-[#7A8FA8] text-sm font-['Lato'] hover:border-[rgba(10,102,194,0.6)] hover:text-[#0A66C2] transition-all duration-200"
               >
                 <Linkedin size={13} className="text-[#0A66C2]" />
                 LinkedIn
@@ -315,7 +315,7 @@ export default function HeroSection() {
                 href="https://github.com/rsm-aaljarallah"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-[rgba(139,168,204,0.08)] border border-[rgba(139,168,204,0.2)] text-[#7A8FA8] text-sm font-['DM_Sans'] hover:border-[rgba(139,168,204,0.5)] hover:text-white transition-all duration-200"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-[rgba(139,168,204,0.08)] border border-[rgba(139,168,204,0.2)] text-[#7A8FA8] text-sm font-['Lato'] hover:border-[rgba(139,168,204,0.5)] hover:text-white transition-all duration-200"
               >
                 <Github size={13} className="text-[#7A8FA8]" />
                 GitHub
@@ -331,13 +331,13 @@ export default function HeroSection() {
             >
               <button
                 onClick={() => document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" })}
-                className="px-6 py-3 rounded-sm bg-gradient-to-r from-[#7A8FA8] to-[#B8C8DC] text-[#0A0E1A] font-['Syne'] font-bold text-sm hover:shadow-[0_0_30px_rgba(184,200,220,0.5)] hover:scale-105 transition-all duration-200"
+                className="px-6 py-3 rounded-sm bg-gradient-to-r from-[#7A8FA8] to-[#B8C8DC] text-[#0A0E1A] font-['Playfair_Display'] font-bold text-sm hover:shadow-[0_0_30px_rgba(184,200,220,0.5)] hover:scale-105 transition-all duration-200"
               >
                 View My Work
               </button>
               <a
                 href="mailto:mr.a.aljarallah@gmail.com"
-                className="px-6 py-3 rounded-sm border border-[rgba(184,200,220,0.3)] text-[#B8C8DC] font-['Syne'] font-bold text-sm hover:bg-[rgba(184,200,220,0.08)] hover:border-[rgba(184,200,220,0.6)] transition-all duration-200"
+                className="px-6 py-3 rounded-sm border border-[rgba(184,200,220,0.3)] text-[#B8C8DC] font-['Playfair_Display'] font-bold text-sm hover:bg-[rgba(184,200,220,0.08)] hover:border-[rgba(184,200,220,0.6)] transition-all duration-200"
               >
                 Get In Touch
               </a>
@@ -357,8 +357,8 @@ export default function HeroSection() {
                 { value: "2", label: "Languages" },
               ].map(({ value, label }) => (
                 <div key={label} className="text-center lg:text-left">
-                  <div className="font-['Syne'] font-extrabold text-2xl text-gradient-cyan">{value}</div>
-                  <div className="font-['DM_Sans'] text-xs text-[#4A5A6A] uppercase tracking-wider mt-0.5">{label}</div>
+                  <div className="font-['Playfair_Display'] font-extrabold text-2xl text-gradient-cyan">{value}</div>
+                  <div className="font-['Lato'] text-xs text-[#4A5A6A] uppercase tracking-wider mt-0.5">{label}</div>
                 </div>
               ))}
             </motion.div>

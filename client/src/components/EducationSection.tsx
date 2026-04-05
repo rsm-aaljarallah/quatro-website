@@ -100,10 +100,10 @@ export default function EducationSection() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mb-16"
         >
-          <h2 className="font-['Syne'] font-extrabold text-4xl lg:text-5xl text-white mb-4">
+          <h2 className="font-['Playfair_Display'] font-extrabold text-4xl lg:text-5xl text-white mb-4">
             Academic <span className="text-gradient-cyan">Foundation</span>
           </h2>
-          <p className="font-['DM_Sans'] text-[#7A8FA8] text-lg max-w-2xl">
+          <p className="font-['Lato'] text-[#7A8FA8] text-lg max-w-2xl">
             A progressive academic journey from Kuwait to the United States, culminating in a cutting-edge STEM analytics program.
           </p>
         </motion.div>
@@ -141,7 +141,7 @@ export default function EducationSection() {
                 {/* School badge */}
                 <div className="flex items-start justify-between mb-4">
                   <div
-                    className="w-12 h-12 rounded-lg flex items-center justify-center text-lg font-['Syne'] font-extrabold"
+                    className="w-12 h-12 rounded-lg flex items-center justify-center text-lg font-['Playfair_Display'] font-extrabold"
                     style={{
                       background: `${edu.color}15`,
                       border: `1px solid ${edu.color}30`,
@@ -159,9 +159,9 @@ export default function EducationSection() {
                 </div>
 
                 {/* Degree */}
-                <h3 className="font-['Syne'] font-bold text-white text-lg leading-tight mb-1">{edu.degree}</h3>
-                <p className="font-['DM_Sans'] text-sm mb-0.5" style={{ color: edu.color }}>{edu.school}</p>
-                <p className="font-['DM_Sans'] text-xs text-[#4A5A6A] mb-1">{edu.program}</p>
+                <h3 className="font-['Playfair_Display'] font-bold text-white text-lg leading-tight mb-1">{edu.degree}</h3>
+                <p className="font-['Lato'] text-sm mb-0.5" style={{ color: edu.color }}>{edu.school}</p>
+                <p className="font-['Lato'] text-xs text-[#4A5A6A] mb-1">{edu.program}</p>
 
                 <div className="flex items-center gap-3 mb-4">
                   <span className="text-xs font-['JetBrains_Mono'] text-[#4A5A6A]">{edu.period}</span>
@@ -173,7 +173,7 @@ export default function EducationSection() {
                   )}
                 </div>
 
-                <p className="font-['DM_Sans'] text-[#7A8FA8] text-sm leading-relaxed mb-4 flex-1">{edu.description}</p>
+                <p className="font-['Lato'] text-[#7A8FA8] text-sm leading-relaxed mb-4 flex-1">{edu.description}</p>
 
                 {/* Highlights */}
                 <div className="space-y-1.5 mt-auto">
@@ -183,7 +183,7 @@ export default function EducationSection() {
                         className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0"
                         style={{ background: edu.color }}
                       />
-                      <span className="font-['DM_Sans'] text-[#7A8FA8] text-xs">{h}</span>
+                      <span className="font-['Lato'] text-[#7A8FA8] text-xs">{h}</span>
                     </div>
                   ))}
                 </div>

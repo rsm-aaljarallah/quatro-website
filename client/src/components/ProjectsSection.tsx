@@ -111,10 +111,10 @@ export default function ProjectsSection() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mb-16"
         >
-          <h2 className="font-['Syne'] font-extrabold text-4xl lg:text-5xl text-white mb-4">
+          <h2 className="font-['Playfair_Display'] font-extrabold text-4xl lg:text-5xl text-white mb-4">
             Analytics <span className="text-gradient-cyan">Projects</span>
           </h2>
-          <p className="font-['DM_Sans'] text-[#7A8FA8] text-lg max-w-2xl">
+          <p className="font-['Lato'] text-[#7A8FA8] text-lg max-w-2xl">
             Real-world applications of machine learning, data visualization, and strategic analytics — from predictive models to organizational transformation.
           </p>
         </motion.div>
@@ -154,10 +154,10 @@ export default function ProjectsSection() {
               </div>
 
               {/* Title & description */}
-              <h3 className="font-['Syne'] font-bold text-white text-lg leading-tight mb-2">
+              <h3 className="font-['Playfair_Display'] font-bold text-white text-lg leading-tight mb-2">
                 {project.title}
               </h3>
-              <p className="font-['DM_Sans'] text-[#7A8FA8] text-sm leading-relaxed mb-4">
+              <p className="font-['Lato'] text-[#7A8FA8] text-sm leading-relaxed mb-4">
                 {project.description}
               </p>
 
@@ -173,12 +173,12 @@ export default function ProjectsSection() {
                     }}
                   >
                     <div
-                      className="font-['Syne'] font-extrabold text-lg"
+                      className="font-['Playfair_Display'] font-extrabold text-lg"
                       style={{ color: project.color }}
                     >
                       {metric}
                     </div>
-                    <div className="font-['DM_Sans'] text-[#4A5A6A] text-xs mt-0.5">{label}</div>
+                    <div className="font-['Lato'] text-[#4A5A6A] text-xs mt-0.5">{label}</div>
                   </div>
                 ))}
               </div>
@@ -192,7 +192,7 @@ export default function ProjectsSection() {
                       className="mt-1 flex-shrink-0"
                       style={{ color: project.color }}
                     />
-                    <span className="font-['DM_Sans'] text-[#7A98B8] text-xs leading-relaxed">
+                    <span className="font-['Lato'] text-[#7A98B8] text-xs leading-relaxed">
                       {step}
                     </span>
                   </div>
@@ -231,7 +231,7 @@ export default function ProjectsSection() {
             href="https://github.com/rsm-aaljarallah"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-sm font-['Syne'] font-bold text-sm text-[#B8C8DC] transition-all duration-200 hover:bg-[rgba(184,200,220,0.08)] hover:scale-105"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-sm font-['Playfair_Display'] font-bold text-sm text-[#B8C8DC] transition-all duration-200 hover:bg-[rgba(184,200,220,0.08)] hover:scale-105"
             style={{ border: "1px solid rgba(184,200,220,0.25)" }}
           >
             <ExternalLink size={14} />

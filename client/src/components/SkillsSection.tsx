@@ -94,7 +94,7 @@ function SkillBar({
   return (
     <div>
       <div className="flex justify-between mb-1.5">
-        <span className="text-sm font-['DM_Sans'] text-[#94A8C0]">{name}</span>
+        <span className="text-sm font-['Lato'] text-[#94A8C0]">{name}</span>
         <span
           className="text-xs font-['JetBrains_Mono']"
           style={{ color }}
@@ -160,11 +160,11 @@ export default function SkillsSection() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mb-16"
         >
-          <h2 className="font-['Syne'] font-extrabold text-4xl lg:text-5xl text-white mb-4">
+          <h2 className="font-['Playfair_Display'] font-extrabold text-4xl lg:text-5xl text-white mb-4">
             Skills &{" "}
             <span className="text-gradient-cyan">Expertise</span>
           </h2>
-          <p className="font-['DM_Sans'] text-[#7A8FA8] text-lg max-w-2xl">
+          <p className="font-['Lato'] text-[#7A8FA8] text-lg max-w-2xl">
             A versatile toolkit spanning data science, marketing analytics,
             strategic leadership, and bilingual communication.
           </p>
@@ -224,7 +224,7 @@ export default function SkillsSection() {
                 >
                   <cat.icon size={18} style={{ color: cat.color }} />
                 </div>
-                <h3 className="font-['Syne'] font-bold text-white text-lg">
+                <h3 className="font-['Playfair_Display'] font-bold text-white text-lg">
                   {cat.title}
                 </h3>
               </div>
