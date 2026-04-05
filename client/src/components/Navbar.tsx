@@ -1,0 +1,156 @@
+/*
+ * DESIGN: Cyber-Dark Navbar
+ * Sticky top nav with glassmorphism blur, electric cyan accent
+ * Mobile hamburger menu with slide-down panel
+ */
+
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, Download } from "lucide-react";
+
+const navLinks = [
+  { label: "About", href: "#about" },
+  { label: "Experience", href: "#experience" },
+  { label: "Education", href: "#education" },
+  { label: "Skills", href: "#skills" },
+  { label: "Certifications", href: "#certifications" },
+  { label: "Contact", href: "#contact" },
+];
+
+export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("about");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+
+      // Update active section based on scroll position
+      const sections = navLinks.map(l => l.href.replace("#", ""));
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sections[i]);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 120) {
+            setActiveSection(sections[i]);
+            break;
+          }
+        }
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleNavClick = (href: string) => {
+    setMobileOpen(false);
+    const el = document.querySelector(href);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  return (
+    <motion.nav
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-[#050A18]/90 backdrop-blur-xl border-b border-[rgba(0,212,255,0.15)] shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo / Name */}
+          <motion.div
+            className="flex items-center gap-3"
+            whileHover={{ scale: 1.02 }}
+          >
+            <div className="w-8 h-8 rounded-sm bg-gradient-to-br from-[#00D4FF] to-[#0066FF] flex items-center justify-center text-[#050A18] font-bold text-sm font-mono">
+              AA
+            </div>
+            <span className="font-['Syne'] font-bold text-white text-sm tracking-wide hidden sm:block">
+              Abdullah Aljarallah
+            </span>
+          </motion.div>
+
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-1">
+            {navLinks.map((link) => (
+              <button
+                key={link.href}
+                onClick={() => handleNavClick(link.href)}
+                className={`relative px-3 py-1.5 text-sm font-['DM_Sans'] font-medium transition-all duration-200 rounded-sm group ${
+                  activeSection === link.href.replace("#", "")
+                    ? "text-[#00D4FF]"
+                    : "text-[#8BA8CC] hover:text-white"
+                }`}
+              >
+                {activeSection === link.href.replace("#", "") && (
+                  <motion.span
+                    layoutId="nav-indicator"
+                    className="absolute inset-0 bg-[rgba(0,212,255,0.08)] rounded-sm border border-[rgba(0,212,255,0.2)]"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
+                  />
+                )}
+                <span className="relative z-10">{link.label}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* CTA + Mobile Toggle */}
+          <div className="flex items-center gap-3">
+            <a
+              href="mailto:mr.a.aljarallah@gmail.com"
+              className="hidden sm:flex items-center gap-2 px-4 py-1.5 rounded-sm bg-gradient-to-r from-[#0066FF] to-[#00D4FF] text-[#050A18] text-sm font-['Syne'] font-bold transition-all duration-200 hover:shadow-[0_0_20px_rgba(0,212,255,0.4)] hover:scale-105"
+            >
+              <Download size={14} />
+              Hire Me
+            </a>
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="md:hidden p-2 text-[#8BA8CC] hover:text-[#00D4FF] transition-colors"
+            >
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-[#050A18]/95 backdrop-blur-xl border-b border-[rgba(0,212,255,0.15)]"
+          >
+            <div className="px-4 py-4 space-y-1">
+              {navLinks.map((link) => (
+                <button
+                  key={link.href}
+                  onClick={() => handleNavClick(link.href)}
+                  className="w-full text-left px-4 py-3 text-sm font-['DM_Sans'] text-[#8BA8CC] hover:text-[#00D4FF] hover:bg-[rgba(0,212,255,0.05)] rounded-sm transition-all duration-200"
+                >
+                  {link.label}
+                </button>
+              ))}
+              <a
+                href="mailto:mr.a.aljarallah@gmail.com"
+                className="flex items-center gap-2 px-4 py-3 mt-2 rounded-sm bg-gradient-to-r from-[#0066FF] to-[#00D4FF] text-[#050A18] text-sm font-['Syne'] font-bold"
+              >
+                <Download size={14} />
+                Hire Me
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
+  );
+}

@@ -1,0 +1,158 @@
+/*
+ * DESIGN: Cyber-Dark About Section
+ * Two-column layout with personal info grid and bio
+ * Animated entry on scroll
+ */
+
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
+import { User, Globe, Calendar, Heart, Flag, BookOpen } from "lucide-react";
+
+const personalInfo = [
+  { icon: Flag, label: "Nationality", value: "Kuwaiti" },
+  { icon: Calendar, label: "Date of Birth", value: "January 5, 1992" },
+  { icon: Globe, label: "Languages", value: "English & Arabic" },
+  { icon: Heart, label: "Status", value: "Single" },
+  { icon: BookOpen, label: "Current Study", value: "MSBA @ UC San Diego" },
+  { icon: User, label: "Gender", value: "Male" },
+];
+
+function AnimatedSection({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay, ease: "easeOut" }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export default function AboutSection() {
+  return (
+    <section id="about" className="py-24 relative overflow-hidden" style={{ background: "#050A18" }}>
+      {/* Background accent */}
+      <div className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-5 pointer-events-none"
+        style={{ background: "radial-gradient(circle, #00D4FF 0%, transparent 70%)", transform: "translate(30%, -30%)" }}
+      />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section header */}
+        <AnimatedSection>
+          <div className="flex items-center gap-4 mb-16">
+            <div className="mono-label">01 / About</div>
+            <div className="flex-1 section-divider" />
+          </div>
+        </AnimatedSection>
+
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
+          {/* Left: Bio */}
+          <div>
+            <AnimatedSection delay={0.1}>
+              <h2 className="font-['Syne'] font-extrabold text-4xl lg:text-5xl text-white mb-6 leading-tight">
+                Where Data Meets
+                <br />
+                <span className="text-gradient-cyan">Business Strategy</span>
+              </h2>
+            </AnimatedSection>
+
+            <AnimatedSection delay={0.2}>
+              <p className="font-['DM_Sans'] text-[#8BA8CC] text-base leading-relaxed mb-6">
+                I'm a business analytics professional with a unique blend of marketing expertise, 
+                data science capabilities, and strategic leadership experience. Currently pursuing 
+                my Master of Science in Business Analytics at UC San Diego's Rady School of Management — 
+                a STEM-designated program that sits at the intersection of technology and business.
+              </p>
+            </AnimatedSection>
+
+            <AnimatedSection delay={0.3}>
+              <p className="font-['DM_Sans'] text-[#8BA8CC] text-base leading-relaxed mb-8">
+                My career spans public relations, banking marketing, and enterprise technology sales, 
+                giving me a 360° view of how organizations leverage data to drive decisions. 
+                I've managed marketing portfolios worth $30M+, pioneered international campaigns, 
+                and led digital transformation initiatives that reshaped organizational culture.
+              </p>
+            </AnimatedSection>
+
+            <AnimatedSection delay={0.4}>
+              <div className="flex flex-wrap gap-2">
+                {["Python", "R", "SQL", "Tableau", "Power BI", "Machine Learning", "LLMs", "Marketing Analytics"].map(tag => (
+                  <span
+                    key={tag}
+                    className="px-3 py-1 text-xs font-['JetBrains_Mono'] text-[#00D4FF] bg-[rgba(0,212,255,0.06)] border border-[rgba(0,212,255,0.15)] rounded-sm"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </AnimatedSection>
+          </div>
+
+          {/* Right: Personal Info Grid */}
+          <div>
+            <AnimatedSection delay={0.2}>
+              <div className="card-cyber rounded-lg p-6 mb-6">
+                <h3 className="font-['Syne'] font-bold text-white text-lg mb-6 flex items-center gap-2">
+                  <span className="w-1 h-5 bg-gradient-to-b from-[#00D4FF] to-[#0066FF] rounded-full" />
+                  Personal Information
+                </h3>
+                <div className="grid grid-cols-2 gap-4">
+                  {personalInfo.map(({ icon: Icon, label, value }) => (
+                    <div key={label} className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-sm bg-[rgba(0,212,255,0.08)] border border-[rgba(0,212,255,0.15)] flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Icon size={14} className="text-[#00D4FF]" />
+                      </div>
+                      <div>
+                        <div className="text-xs font-['JetBrains_Mono'] text-[#5A7A9A] uppercase tracking-wider">{label}</div>
+                        <div className="text-sm font-['DM_Sans'] text-[#C8D8F0] mt-0.5">{value}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection delay={0.3}>
+              <div className="card-cyber rounded-lg p-6">
+                <h3 className="font-['Syne'] font-bold text-white text-lg mb-4 flex items-center gap-2">
+                  <span className="w-1 h-5 bg-gradient-to-b from-[#00D4FF] to-[#0066FF] rounded-full" />
+                  Current Focus
+                </h3>
+                <div className="space-y-3">
+                  {[
+                    { label: "AI & Machine Learning", pct: 90 },
+                    { label: "Business Analytics", pct: 95 },
+                    { label: "Marketing Strategy", pct: 88 },
+                    { label: "Data Visualization", pct: 85 },
+                  ].map(({ label, pct }) => (
+                    <div key={label}>
+                      <div className="flex justify-between mb-1">
+                        <span className="text-xs font-['DM_Sans'] text-[#8BA8CC]">{label}</span>
+                        <span className="text-xs font-['JetBrains_Mono'] text-[#00D4FF]">{pct}%</span>
+                      </div>
+                      <div className="skill-bar-track h-1">
+                        <motion.div
+                          className="skill-bar-fill"
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${pct}%` }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </AnimatedSection>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
