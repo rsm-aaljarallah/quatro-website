@@ -6,7 +6,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Briefcase, TrendingUp, Award, ChevronRight } from "lucide-react";
+import { Briefcase, TrendingUp, Award, Heart, ChevronRight } from "lucide-react";
 
 const experiences = [
   {
@@ -72,6 +72,22 @@ const experiences = [
       "Developing confident divers by overcoming obstacles novice divers face",
     ],
     tags: ["Instruction", "Business Operations", "Leadership", "Safety Management"],
+  },
+  {
+    id: 5,
+    role: "Volunteer Guide",
+    company: "Kuwait Scientific Center",
+    period: "June 2007",
+    type: "Volunteer",
+    color: "#1A4A6A",
+    icon: Heart,
+    description: "Provided educational guidance to visitors through the aquarium's three distinct environmental zones, delivering engaging descriptions of animal, plant, and marine life to enhance visitor experience and learning.",
+    achievements: [
+      "Guided visitors through three distinct aquarium environmental zones",
+      "Delivered engaging educational descriptions of marine life and ecosystems",
+      "Enhanced visitor experience and learning outcomes",
+    ],
+    tags: ["Education", "Marine Life", "Public Engagement", "Volunteering"],
   },
 ];
 

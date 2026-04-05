@@ -57,7 +57,7 @@ export default function CertificationsSection() {
           transition={{ duration: 0.6 }}
           className="flex items-center gap-4 mb-16"
         >
-          <div className="mono-label">05 / Certifications</div>
+          <div className="mono-label">06 / Certifications</div>
           <div className="flex-1 section-divider" />
         </motion.div>
 

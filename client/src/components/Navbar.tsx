@@ -6,12 +6,13 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Download } from "lucide-react";
+import { Menu, X, Mail } from "lucide-react";
 
 const navLinks = [
   { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
   { label: "Education", href: "#education" },
+  { label: "Projects", href: "#projects" },
   { label: "Skills", href: "#skills" },
   { label: "Certifications", href: "#certifications" },
   { label: "Contact", href: "#contact" },
@@ -26,8 +27,7 @@ export default function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
-      // Update active section based on scroll position
-      const sections = navLinks.map(l => l.href.replace("#", ""));
+      const sections = navLinks.map((l) => l.href.replace("#", ""));
       for (let i = sections.length - 1; i >= 0; i--) {
         const el = document.getElementById(sections[i]);
         if (el) {
@@ -46,9 +46,7 @@ export default function Navbar() {
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
     const el = document.querySelector(href);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
+    if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -65,10 +63,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo / Name */}
-          <motion.div
-            className="flex items-center gap-3"
-            whileHover={{ scale: 1.02 }}
-          >
+          <motion.div className="flex items-center gap-3" whileHover={{ scale: 1.02 }}>
             <div className="w-8 h-8 rounded-sm bg-gradient-to-br from-[#00D4FF] to-[#0066FF] flex items-center justify-center text-[#050A18] font-bold text-sm font-mono">
               AA
             </div>
@@ -78,12 +73,12 @@ export default function Navbar() {
           </motion.div>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-0.5">
             {navLinks.map((link) => (
               <button
                 key={link.href}
                 onClick={() => handleNavClick(link.href)}
-                className={`relative px-3 py-1.5 text-sm font-['DM_Sans'] font-medium transition-all duration-200 rounded-sm group ${
+                className={`relative px-3 py-1.5 text-sm font-['DM_Sans'] font-medium transition-all duration-200 rounded-sm ${
                   activeSection === link.href.replace("#", "")
                     ? "text-[#00D4FF]"
                     : "text-[#8BA8CC] hover:text-white"
@@ -107,12 +102,12 @@ export default function Navbar() {
               href="mailto:mr.a.aljarallah@gmail.com"
               className="hidden sm:flex items-center gap-2 px-4 py-1.5 rounded-sm bg-gradient-to-r from-[#0066FF] to-[#00D4FF] text-[#050A18] text-sm font-['Syne'] font-bold transition-all duration-200 hover:shadow-[0_0_20px_rgba(0,212,255,0.4)] hover:scale-105"
             >
-              <Download size={14} />
+              <Mail size={13} />
               Hire Me
             </a>
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden p-2 text-[#8BA8CC] hover:text-[#00D4FF] transition-colors"
+              className="lg:hidden p-2 text-[#8BA8CC] hover:text-[#00D4FF] transition-colors"
             >
               {mobileOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -128,7 +123,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-[#050A18]/95 backdrop-blur-xl border-b border-[rgba(0,212,255,0.15)]"
+            className="lg:hidden bg-[#050A18]/95 backdrop-blur-xl border-b border-[rgba(0,212,255,0.15)]"
           >
             <div className="px-4 py-4 space-y-1">
               {navLinks.map((link) => (
@@ -144,7 +139,7 @@ export default function Navbar() {
                 href="mailto:mr.a.aljarallah@gmail.com"
                 className="flex items-center gap-2 px-4 py-3 mt-2 rounded-sm bg-gradient-to-r from-[#0066FF] to-[#00D4FF] text-[#050A18] text-sm font-['Syne'] font-bold"
               >
-                <Download size={14} />
+                <Mail size={14} />
                 Hire Me
               </a>
             </div>

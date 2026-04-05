@@ -124,7 +124,7 @@ export default function SkillsSection() {
           transition={{ duration: 0.6 }}
           className="flex items-center gap-4 mb-16"
         >
-          <div className="mono-label">04 / Skills</div>
+          <div className="mono-label">05 / Skills</div>
           <div className="flex-1 section-divider" />
         </motion.div>
 

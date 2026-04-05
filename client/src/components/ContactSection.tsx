@@ -1,12 +1,12 @@
 /*
  * DESIGN: Cyber-Dark Contact Section + Footer
- * Clean contact card with email, phone, location
+ * Clean contact card with email, phone, location, LinkedIn, GitHub
  * Glowing CTA button, social links
  */
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Mail, Phone, MapPin, Send, Github, Linkedin, ExternalLink } from "lucide-react";
+import { Mail, Phone, MapPin, Send, ExternalLink, Github, Linkedin } from "lucide-react";
 
 const contactItems = [
   {
@@ -32,6 +32,23 @@ const contactItems = [
   },
 ];
 
+const socialLinks = [
+  {
+    icon: Linkedin,
+    label: "LinkedIn",
+    handle: "abdullah-aljarallah",
+    href: "https://www.linkedin.com/in/abdullah-aljarallah-a72512b7/",
+    color: "#0A66C2",
+  },
+  {
+    icon: Github,
+    label: "GitHub",
+    handle: "rsm-aaljarallah",
+    href: "https://github.com/rsm-aaljarallah",
+    color: "#8BA8CC",
+  },
+];
+
 export default function ContactSection() {
   const headerRef = useRef(null);
   const headerInView = useInView(headerRef, { once: true });
@@ -53,7 +70,7 @@ export default function ContactSection() {
             transition={{ duration: 0.6 }}
             className="flex items-center gap-4 mb-16"
           >
-            <div className="mono-label">06 / Contact</div>
+            <div className="mono-label">07 / Contact</div>
             <div className="flex-1 section-divider" />
           </motion.div>
 
@@ -71,7 +88,7 @@ export default function ContactSection() {
                 <span className="text-gradient-cyan">Data-Driven</span>
               </h2>
               <p className="font-['DM_Sans'] text-[#8BA8CC] text-lg leading-relaxed mb-8">
-                Whether you're looking for a business analytics expert, a marketing strategist, 
+                Whether you're looking for a business analytics expert, a marketing strategist,
                 or someone who can bridge the gap between data and decisions — I'd love to connect.
               </p>
 
@@ -79,6 +96,30 @@ export default function ContactSection() {
               <div className="inline-flex items-center gap-3 px-4 py-2 rounded-sm bg-[rgba(0,212,255,0.05)] border border-[rgba(0,212,255,0.2)] mb-8">
                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
                 <span className="font-['JetBrains_Mono'] text-sm text-[#00D4FF]">Available for opportunities</span>
+              </div>
+
+              {/* Social links */}
+              <div className="flex flex-wrap gap-3 mb-8">
+                {socialLinks.map(({ icon: Icon, label, handle, href, color }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2.5 px-4 py-2.5 rounded-sm transition-all duration-200 hover:scale-105 group"
+                    style={{
+                      background: `${color}10`,
+                      border: `1px solid ${color}30`,
+                    }}
+                  >
+                    <Icon size={16} style={{ color }} />
+                    <div>
+                      <div className="text-xs font-['JetBrains_Mono'] text-[#5A7A9A]">{label}</div>
+                      <div className="text-sm font-['DM_Sans'] text-[#C8D8F0] group-hover:text-white transition-colors">{handle}</div>
+                    </div>
+                    <ExternalLink size={11} className="ml-1 text-[#5A7A9A] group-hover:text-[#00D4FF] transition-colors" />
+                  </a>
+                ))}
               </div>
 
               {/* Quick stats */}
@@ -174,8 +215,22 @@ export default function ContactSection() {
                 Abdullah Aljarallah © {new Date().getFullYear()}
               </span>
             </div>
-            <div className="font-['JetBrains_Mono'] text-xs text-[#3A5A7A]">
-              Business Analytics & Strategy
+            <div className="flex items-center gap-4">
+              {socialLinks.map(({ icon: Icon, label, href, color }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#3A5A7A] hover:text-[#00D4FF] transition-colors"
+                  title={label}
+                >
+                  <Icon size={16} />
+                </a>
+              ))}
+              <span className="font-['JetBrains_Mono'] text-xs text-[#3A5A7A]">
+                Business Analytics & Strategy
+              </span>
             </div>
           </div>
         </div>
