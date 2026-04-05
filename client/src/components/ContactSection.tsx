@@ -1,12 +1,12 @@
 /*
  * DESIGN: Cyber-Dark Contact Section + Footer
- * Clean contact card with email, phone, location, LinkedIn, GitHub
- * Glowing CTA button, social links
+ * Clean contact card with email, phone, location
+ * Glowing CTA button, social links (LinkedIn + GitHub from Quarto site)
  */
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Mail, Phone, MapPin, Send, ExternalLink, Github, Linkedin } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Linkedin, Github, ExternalLink } from "lucide-react";
 
 const contactItems = [
   {
@@ -36,16 +36,18 @@ const socialLinks = [
   {
     icon: Linkedin,
     label: "LinkedIn",
-    handle: "abdullah-aljarallah",
     href: "https://www.linkedin.com/in/abdullah-aljarallah-a72512b7/",
     color: "#0A66C2",
+    bg: "rgba(10,102,194,0.12)",
+    border: "rgba(10,102,194,0.35)",
   },
   {
     icon: Github,
     label: "GitHub",
-    handle: "rsm-aaljarallah",
     href: "https://github.com/rsm-aaljarallah",
-    color: "#8BA8CC",
+    color: "#C8D8F0",
+    bg: "rgba(255,255,255,0.06)",
+    border: "rgba(255,255,255,0.15)",
   },
 ];
 
@@ -55,10 +57,20 @@ export default function ContactSection() {
 
   return (
     <>
-      <section id="contact" className="py-24 relative" style={{ background: "linear-gradient(180deg, #050A18 0%, #070E20 100%)" }}>
+      <section
+        id="contact"
+        className="py-24 relative"
+        style={{
+          background: "linear-gradient(180deg, #050A18 0%, #070E20 100%)",
+        }}
+      >
         {/* Decorative top line */}
-        <div className="absolute top-0 left-0 right-0 h-px"
-          style={{ background: "linear-gradient(90deg, transparent, rgba(0,212,255,0.3), transparent)" }}
+        <div
+          className="absolute top-0 left-0 right-0 h-px"
+          style={{
+            background:
+              "linear-gradient(90deg, transparent, rgba(0,212,255,0.3), transparent)",
+          }}
         />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -70,7 +82,7 @@ export default function ContactSection() {
             transition={{ duration: 0.6 }}
             className="flex items-center gap-4 mb-16"
           >
-            <div className="mono-label">07 / Contact</div>
+            <div className="mono-label">08 / Contact</div>
             <div className="flex-1 section-divider" />
           </motion.div>
 
@@ -88,36 +100,32 @@ export default function ContactSection() {
                 <span className="text-gradient-cyan">Data-Driven</span>
               </h2>
               <p className="font-['DM_Sans'] text-[#8BA8CC] text-lg leading-relaxed mb-8">
-                Whether you're looking for a business analytics expert, a marketing strategist,
-                or someone who can bridge the gap between data and decisions — I'd love to connect.
+                Whether you're looking for a business analytics expert, a
+                marketing strategist, or someone who can bridge the gap between
+                data and decisions — I'd love to connect.
               </p>
 
               {/* Availability badge */}
               <div className="inline-flex items-center gap-3 px-4 py-2 rounded-sm bg-[rgba(0,212,255,0.05)] border border-[rgba(0,212,255,0.2)] mb-8">
                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                <span className="font-['JetBrains_Mono'] text-sm text-[#00D4FF]">Available for opportunities</span>
+                <span className="font-['JetBrains_Mono'] text-sm text-[#00D4FF]">
+                  Available for opportunities
+                </span>
               </div>
 
               {/* Social links */}
-              <div className="flex flex-wrap gap-3 mb-8">
-                {socialLinks.map(({ icon: Icon, label, handle, href, color }) => (
+              <div className="flex gap-3 mb-8">
+                {socialLinks.map(({ icon: Icon, label, href, color, bg, border }) => (
                   <a
                     key={label}
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2.5 px-4 py-2.5 rounded-sm transition-all duration-200 hover:scale-105 group"
-                    style={{
-                      background: `${color}10`,
-                      border: `1px solid ${color}30`,
-                    }}
+                    className="flex items-center gap-2 px-5 py-2.5 rounded-sm font-['DM_Sans'] font-medium text-sm transition-all duration-200 hover:scale-105"
+                    style={{ color, background: bg, border: `1px solid ${border}` }}
                   >
-                    <Icon size={16} style={{ color }} />
-                    <div>
-                      <div className="text-xs font-['JetBrains_Mono'] text-[#5A7A9A]">{label}</div>
-                      <div className="text-sm font-['DM_Sans'] text-[#C8D8F0] group-hover:text-white transition-colors">{handle}</div>
-                    </div>
-                    <ExternalLink size={11} className="ml-1 text-[#5A7A9A] group-hover:text-[#00D4FF] transition-colors" />
+                    <Icon size={15} />
+                    {label}
                   </a>
                 ))}
               </div>
@@ -132,10 +140,17 @@ export default function ContactSection() {
                   <div
                     key={label}
                     className="text-center p-3 rounded-sm"
-                    style={{ background: "rgba(0,212,255,0.04)", border: "1px solid rgba(0,212,255,0.1)" }}
+                    style={{
+                      background: "rgba(0,212,255,0.04)",
+                      border: "1px solid rgba(0,212,255,0.1)",
+                    }}
                   >
-                    <div className="font-['Syne'] font-extrabold text-2xl text-gradient-cyan">{value}</div>
-                    <div className="font-['DM_Sans'] text-xs text-[#5A7A9A] mt-0.5">{label}</div>
+                    <div className="font-['Syne'] font-extrabold text-2xl text-gradient-cyan">
+                      {value}
+                    </div>
+                    <div className="font-['DM_Sans'] text-xs text-[#5A7A9A] mt-0.5">
+                      {label}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -151,7 +166,8 @@ export default function ContactSection() {
               <div
                 className="rounded-lg p-8"
                 style={{
-                  background: "linear-gradient(135deg, rgba(13,31,60,0.8) 0%, rgba(10,22,40,0.9) 100%)",
+                  background:
+                    "linear-gradient(135deg, rgba(13,31,60,0.8) 0%, rgba(10,22,40,0.9) 100%)",
                   border: "1px solid rgba(0,212,255,0.2)",
                   boxShadow: "0 0 40px rgba(0,212,255,0.08)",
                 }}
@@ -172,15 +188,25 @@ export default function ContactSection() {
                     >
                       <div
                         className="w-10 h-10 rounded-sm flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform"
-                        style={{ background: `${color}15`, border: `1px solid ${color}30` }}
+                        style={{
+                          background: `${color}15`,
+                          border: `1px solid ${color}30`,
+                        }}
                       >
                         <Icon size={16} style={{ color }} />
                       </div>
                       <div>
-                        <div className="text-xs font-['JetBrains_Mono'] text-[#5A7A9A] uppercase tracking-wider">{label}</div>
-                        <div className="font-['DM_Sans'] text-[#C8D8F0] text-sm mt-0.5 group-hover:text-white transition-colors">{value}</div>
+                        <div className="text-xs font-['JetBrains_Mono'] text-[#5A7A9A] uppercase tracking-wider">
+                          {label}
+                        </div>
+                        <div className="font-['DM_Sans'] text-[#C8D8F0] text-sm mt-0.5 group-hover:text-white transition-colors">
+                          {value}
+                        </div>
                       </div>
-                      <ExternalLink size={12} className="ml-auto text-[#5A7A9A] group-hover:text-[#00D4FF] transition-colors" />
+                      <ExternalLink
+                        size={12}
+                        className="ml-auto text-[#5A7A9A] group-hover:text-[#00D4FF] transition-colors"
+                      />
                     </a>
                   ))}
                 </div>
@@ -204,7 +230,10 @@ export default function ContactSection() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 border-t border-[rgba(0,212,255,0.1)]" style={{ background: "#050A18" }}>
+      <footer
+        className="py-8 border-t border-[rgba(0,212,255,0.1)]"
+        style={{ background: "#050A18" }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
@@ -216,18 +245,22 @@ export default function ContactSection() {
               </span>
             </div>
             <div className="flex items-center gap-4">
-              {socialLinks.map(({ icon: Icon, label, href, color }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#3A5A7A] hover:text-[#00D4FF] transition-colors"
-                  title={label}
-                >
-                  <Icon size={16} />
-                </a>
-              ))}
+              <a
+                href="https://www.linkedin.com/in/abdullah-aljarallah-a72512b7/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#3A5A7A] hover:text-[#5BA3E0] transition-colors"
+              >
+                <Linkedin size={16} />
+              </a>
+              <a
+                href="https://github.com/rsm-aaljarallah"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#3A5A7A] hover:text-[#C8D8F0] transition-colors"
+              >
+                <Github size={16} />
+              </a>
               <span className="font-['JetBrains_Mono'] text-xs text-[#3A5A7A]">
                 Business Analytics & Strategy
               </span>

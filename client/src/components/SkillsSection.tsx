@@ -80,12 +80,27 @@ const techStack = [
   { name: "English", color: "#00D4FF" },
 ];
 
-function SkillBar({ name, level, color, delay }: { name: string; level: number; color: string; delay: number }) {
+function SkillBar({
+  name,
+  level,
+  color,
+  delay,
+}: {
+  name: string;
+  level: number;
+  color: string;
+  delay: number;
+}) {
   return (
     <div>
       <div className="flex justify-between mb-1.5">
         <span className="text-sm font-['DM_Sans'] text-[#A8C0E0]">{name}</span>
-        <span className="text-xs font-['JetBrains_Mono']" style={{ color }}>{level}%</span>
+        <span
+          className="text-xs font-['JetBrains_Mono']"
+          style={{ color }}
+        >
+          {level}%
+        </span>
       </div>
       <div className="h-1 bg-[rgba(255,255,255,0.06)] rounded-full overflow-hidden">
         <motion.div
@@ -109,10 +124,20 @@ export default function SkillsSection() {
   const headerInView = useInView(headerRef, { once: true });
 
   return (
-    <section id="skills" className="py-24 relative" style={{ background: "linear-gradient(180deg, #070E20 0%, #050A18 100%)" }}>
+    <section
+      id="skills"
+      className="py-24 relative"
+      style={{
+        background: "linear-gradient(180deg, #070E20 0%, #050A18 100%)",
+      }}
+    >
       {/* Background accents */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px"
-        style={{ background: "linear-gradient(90deg, transparent, rgba(0,212,255,0.3), transparent)" }}
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent, rgba(0,212,255,0.3), transparent)",
+        }}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -124,7 +149,7 @@ export default function SkillsSection() {
           transition={{ duration: 0.6 }}
           className="flex items-center gap-4 mb-16"
         >
-          <div className="mono-label">05 / Skills</div>
+          <div className="mono-label">06 / Skills</div>
           <div className="flex-1 section-divider" />
         </motion.div>
 
@@ -136,10 +161,12 @@ export default function SkillsSection() {
           className="mb-16"
         >
           <h2 className="font-['Syne'] font-extrabold text-4xl lg:text-5xl text-white mb-4">
-            Skills & <span className="text-gradient-cyan">Expertise</span>
+            Skills &{" "}
+            <span className="text-gradient-cyan">Expertise</span>
           </h2>
           <p className="font-['DM_Sans'] text-[#8BA8CC] text-lg max-w-2xl">
-            A versatile toolkit spanning data science, marketing analytics, strategic leadership, and bilingual communication.
+            A versatile toolkit spanning data science, marketing analytics,
+            strategic leadership, and bilingual communication.
           </p>
         </motion.div>
 
@@ -190,11 +217,16 @@ export default function SkillsSection() {
               <div className="flex items-center gap-3 mb-6">
                 <div
                   className="w-10 h-10 rounded-sm flex items-center justify-center"
-                  style={{ background: `${cat.color}15`, border: `1px solid ${cat.color}30` }}
+                  style={{
+                    background: `${cat.color}15`,
+                    border: `1px solid ${cat.color}30`,
+                  }}
                 >
                   <cat.icon size={18} style={{ color: cat.color }} />
                 </div>
-                <h3 className="font-['Syne'] font-bold text-white text-lg">{cat.title}</h3>
+                <h3 className="font-['Syne'] font-bold text-white text-lg">
+                  {cat.title}
+                </h3>
               </div>
 
               {/* Skill bars */}
