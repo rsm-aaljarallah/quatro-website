@@ -2,6 +2,7 @@
  * DESIGN: Cyber-Dark Experience Section
  * Vertical timeline with animated cards, achievement bullets
  * Alternating left/right layout on desktop
+ * Includes volunteer experience from Quarto site
  */
 
 import { motion, useInView } from "framer-motion";
@@ -17,7 +18,8 @@ const experiences = [
     type: "Current",
     color: "#00D4FF",
     icon: Briefcase,
-    description: "Leading strategic communications initiatives to position the institution as a center of excellence. Developed and implemented comprehensive digital transformation strategies that revolutionized internal and external communications.",
+    description:
+      "Leading strategic communications initiatives to position the institution as a center of excellence. Developed and implemented comprehensive digital transformation strategies that revolutionized internal and external communications.",
     achievements: [
       "Designed the institution's first comprehensive marketing calendar and content guidelines",
       "Drove email adoption from 0% to 100% through strategic campaigns and engagement initiatives",
@@ -33,7 +35,8 @@ const experiences = [
     type: "3 Years",
     color: "#0066FF",
     icon: TrendingUp,
-    description: "Managed high-value marketing campaigns across Group Retail Banking, Group Corporate Banking, and Private Banking divisions. Strategically allocated budgets and deployed integrated marketing communication tools.",
+    description:
+      "Managed high-value marketing campaigns across Group Retail Banking, Group Corporate Banking, and Private Banking divisions. Strategically allocated budgets and deployed integrated marketing communication tools.",
     achievements: [
       "Managed marketing portfolio worth approximately $30 million USD across multiple banking divisions",
       "Pioneered KFH's first-ever European marketing campaign, delivering astonishing ROI and earning instant promotion",
@@ -49,7 +52,8 @@ const experiences = [
     type: "1.5 Years",
     color: "#4A90D9",
     icon: Award,
-    description: "Drove revenue growth through strategic account management and solution selling of Xerox products, extensions, and smart technological solutions. Collaborated with sales leadership to develop sophisticated account strategies.",
+    description:
+      "Drove revenue growth through strategic account management and solution selling of Xerox products, extensions, and smart technological solutions. Collaborated with sales leadership to develop sophisticated account strategies.",
     achievements: [
       "Generated KD 3 million (~$10M USD) in sales revenue through tender management and smart solutions",
       "Consistently exceeded sales targets by identifying customer needs and delivering tailored proposals",
@@ -65,7 +69,8 @@ const experiences = [
     type: "Ongoing",
     color: "#2A6A9A",
     icon: Briefcase,
-    description: "Teaching students individually or in groups using discussions and demonstrations. Managing business operations, strategic planning, and employee supervision.",
+    description:
+      "Teaching students individually or in groups using discussions and demonstrations. Managing business operations, strategic planning, and employee supervision.",
     achievements: [
       "Certified SCUBA diving instructor with 10+ years of teaching experience",
       "Managing business operations and strategic planning for the diving center",
@@ -79,19 +84,26 @@ const experiences = [
     company: "Kuwait Scientific Center",
     period: "June 2007",
     type: "Volunteer",
-    color: "#1A4A6A",
+    color: "#1A5A7A",
     icon: Heart,
-    description: "Provided educational guidance to visitors through the aquarium's three distinct environmental zones, delivering engaging descriptions of animal, plant, and marine life to enhance visitor experience and learning.",
+    description:
+      "Provided educational guidance to visitors through the aquarium's three distinct environmental zones, delivering engaging descriptions of animal, plant, and marine life to enhance visitor experience and learning.",
     achievements: [
       "Guided visitors through three distinct aquarium environmental zones",
-      "Delivered engaging educational descriptions of marine life and ecosystems",
-      "Enhanced visitor experience and learning outcomes",
+      "Delivered engaging educational descriptions of marine and wildlife",
+      "Enhanced visitor experience and promoted environmental awareness",
     ],
-    tags: ["Education", "Marine Life", "Public Engagement", "Volunteering"],
+    tags: ["Education", "Public Engagement", "Marine Life", "Volunteering"],
   },
 ];
 
-function ExperienceCard({ exp, index }: { exp: typeof experiences[0]; index: number }) {
+function ExperienceCard({
+  exp,
+  index,
+}: {
+  exp: (typeof experiences)[0];
+  index: number;
+}) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
@@ -114,7 +126,11 @@ function ExperienceCard({ exp, index }: { exp: typeof experiences[0]; index: num
       />
 
       {/* Card */}
-      <div className={`lg:w-[calc(50%-2rem)] ${index % 2 === 0 ? "lg:mr-auto lg:pr-8" : "lg:ml-auto lg:pl-8"}`}>
+      <div
+        className={`lg:w-[calc(50%-2rem)] ${
+          index % 2 === 0 ? "lg:mr-auto lg:pr-8" : "lg:ml-auto lg:pl-8"
+        }`}
+      >
         <div
           className="card-cyber rounded-lg p-6 group"
           style={{ borderColor: `${exp.color}20` }}
@@ -124,42 +140,66 @@ function ExperienceCard({ exp, index }: { exp: typeof experiences[0]; index: num
             <div className="flex items-center gap-3">
               <div
                 className="w-10 h-10 rounded-sm flex items-center justify-center flex-shrink-0"
-                style={{ background: `${exp.color}15`, border: `1px solid ${exp.color}30` }}
+                style={{
+                  background: `${exp.color}15`,
+                  border: `1px solid ${exp.color}30`,
+                }}
               >
                 <exp.icon size={18} style={{ color: exp.color }} />
               </div>
               <div>
-                <h3 className="font-['Syne'] font-bold text-white text-lg leading-tight">{exp.role}</h3>
-                <p className="font-['DM_Sans'] text-sm mt-0.5" style={{ color: exp.color }}>{exp.company}</p>
+                <h3 className="font-['Syne'] font-bold text-white text-lg leading-tight">
+                  {exp.role}
+                </h3>
+                <p
+                  className="font-['DM_Sans'] text-sm mt-0.5"
+                  style={{ color: exp.color }}
+                >
+                  {exp.company}
+                </p>
               </div>
             </div>
             <div className="flex flex-col items-end gap-1 flex-shrink-0 ml-4">
               <span
                 className="text-xs font-['JetBrains_Mono'] px-2 py-0.5 rounded-sm"
-                style={{ color: exp.color, background: `${exp.color}15`, border: `1px solid ${exp.color}30` }}
+                style={{
+                  color: exp.color,
+                  background: `${exp.color}15`,
+                  border: `1px solid ${exp.color}30`,
+                }}
               >
                 {exp.type}
               </span>
-              <span className="text-xs font-['DM_Sans'] text-[#5A7A9A]">{exp.period}</span>
+              <span className="text-xs font-['DM_Sans'] text-[#5A7A9A]">
+                {exp.period}
+              </span>
             </div>
           </div>
 
           {/* Description */}
-          <p className="font-['DM_Sans'] text-[#8BA8CC] text-sm leading-relaxed mb-4">{exp.description}</p>
+          <p className="font-['DM_Sans'] text-[#8BA8CC] text-sm leading-relaxed mb-4">
+            {exp.description}
+          </p>
 
           {/* Achievements */}
           <div className="space-y-2 mb-4">
             {exp.achievements.map((ach, i) => (
               <div key={i} className="flex items-start gap-2">
-                <ChevronRight size={14} className="mt-0.5 flex-shrink-0" style={{ color: exp.color }} />
-                <span className="font-['DM_Sans'] text-[#A8C0E0] text-sm">{ach}</span>
+                <ChevronRight
+                  size={14}
+                  className="mt-0.5 flex-shrink-0"
+                  style={{ color: exp.color }}
+                />
+                <span className="font-['DM_Sans'] text-[#A8C0E0] text-sm">
+                  {ach}
+                </span>
               </div>
             ))}
           </div>
 
           {/* Tags */}
           <div className="flex flex-wrap gap-1.5">
-            {exp.tags.map(tag => (
+            {exp.tags.map((tag) => (
               <span
                 key={tag}
                 className="text-xs font-['JetBrains_Mono'] px-2 py-0.5 rounded-sm"
@@ -184,10 +224,20 @@ export default function ExperienceSection() {
   const headerInView = useInView(headerRef, { once: true });
 
   return (
-    <section id="experience" className="py-24 relative" style={{ background: "linear-gradient(180deg, #050A18 0%, #070E20 100%)" }}>
+    <section
+      id="experience"
+      className="py-24 relative"
+      style={{
+        background: "linear-gradient(180deg, #050A18 0%, #070E20 100%)",
+      }}
+    >
       {/* Background accent */}
-      <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full opacity-5 pointer-events-none"
-        style={{ background: "radial-gradient(circle, #0066FF 0%, transparent 70%)", transform: "translate(-30%, 30%)" }}
+      <div
+        className="absolute bottom-0 left-0 w-80 h-80 rounded-full opacity-5 pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, #0066FF 0%, transparent 70%)",
+          transform: "translate(-30%, 30%)",
+        }}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -211,18 +261,24 @@ export default function ExperienceSection() {
           className="text-center mb-16"
         >
           <h2 className="font-['Syne'] font-extrabold text-4xl lg:text-5xl text-white mb-4">
-            Professional <span className="text-gradient-cyan">Journey</span>
+            Professional{" "}
+            <span className="text-gradient-cyan">Journey</span>
           </h2>
           <p className="font-['DM_Sans'] text-[#8BA8CC] text-lg max-w-2xl mx-auto">
-            Over a decade of experience across public relations, banking, enterprise technology, and entrepreneurship.
+            Over a decade of experience across public relations, banking,
+            enterprise technology, and entrepreneurship.
           </p>
         </motion.div>
 
         {/* Timeline */}
         <div className="relative">
           {/* Center line (desktop) */}
-          <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2"
-            style={{ background: "linear-gradient(180deg, transparent, rgba(0,212,255,0.3), rgba(0,102,255,0.3), transparent)" }}
+          <div
+            className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2"
+            style={{
+              background:
+                "linear-gradient(180deg, transparent, rgba(0,212,255,0.3), rgba(0,102,255,0.3), transparent)",
+            }}
           />
 
           <div className="space-y-10">

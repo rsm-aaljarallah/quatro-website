@@ -2,24 +2,21 @@
  * DESIGN: Cyber-Dark Hero Section
  * Full-screen hero with tech background, profile photo, animated text
  * Floating particles, glowing profile ring, typed role text
- * Social links: LinkedIn, GitHub, Email, Phone
+ * LinkedIn + GitHub social links from Quarto site
  */
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Mail, Phone, ChevronDown, Linkedin, Github } from "lucide-react";
+import { MapPin, Mail, Phone, ChevronDown, Github, Linkedin } from "lucide-react";
 
-const PROFILE_PIC =
-  "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/profile_pic_bf3dcadd.webp";
-const HERO_BG =
-  "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/hero_bg-QFyRfnQn3Ak7Ux6DgUzGdx.webp";
+const PROFILE_PIC = "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/profile_pic_bf3dcadd.webp";
+const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/hero_bg-QFyRfnQn3Ak7Ux6DgUzGdx.webp";
 
 const roles = [
   "Business Analytics Professional",
   "Data-Driven Strategist",
   "Marketing Analytics Expert",
   "Digital Transformation Leader",
-  "Machine Learning Enthusiast",
 ];
 
 function useTypingEffect(texts: string[], speed = 60, pause = 2000) {
@@ -33,14 +30,14 @@ function useTypingEffect(texts: string[], speed = 60, pause = 2000) {
     let timeout: ReturnType<typeof setTimeout>;
 
     if (!deleting && charIdx < current.length) {
-      timeout = setTimeout(() => setCharIdx((c) => c + 1), speed);
+      timeout = setTimeout(() => setCharIdx(c => c + 1), speed);
     } else if (!deleting && charIdx === current.length) {
       timeout = setTimeout(() => setDeleting(true), pause);
     } else if (deleting && charIdx > 0) {
-      timeout = setTimeout(() => setCharIdx((c) => c - 1), speed / 2);
+      timeout = setTimeout(() => setCharIdx(c => c - 1), speed / 2);
     } else if (deleting && charIdx === 0) {
       setDeleting(false);
-      setRoleIdx((r) => (r + 1) % texts.length);
+      setRoleIdx(r => (r + 1) % texts.length);
     }
 
     setDisplayed(current.slice(0, charIdx));
@@ -62,13 +59,8 @@ function ParticleCanvas() {
 
     let animId: number;
     const particles: Array<{
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      size: number;
-      alpha: number;
-      color: string;
+      x: number; y: number; vx: number; vy: number;
+      size: number; alpha: number; color: string;
     }> = [];
 
     const resize = () => {
@@ -109,7 +101,7 @@ function ParticleCanvas() {
         }
       }
 
-      particles.forEach((p) => {
+      particles.forEach(p => {
         p.x += p.vx;
         p.y += p.vy;
         if (p.x < 0) p.x = canvas.width;
@@ -119,8 +111,7 @@ function ParticleCanvas() {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle =
-          p.color + Math.round(p.alpha * 255).toString(16).padStart(2, "0");
+        ctx.fillStyle = p.color + Math.round(p.alpha * 255).toString(16).padStart(2, "0");
         ctx.fill();
       });
 
@@ -155,10 +146,7 @@ export default function HeroSection() {
     <section
       id="hero"
       className="relative min-h-screen flex items-center overflow-hidden"
-      style={{
-        background:
-          "linear-gradient(135deg, #050A18 0%, #0A1628 50%, #050A18 100%)",
-      }}
+      style={{ background: "linear-gradient(135deg, #050A18 0%, #0A1628 50%, #050A18 100%)" }}
     >
       {/* Hero background image */}
       <div
@@ -170,17 +158,13 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Particle canvas */}
       <ParticleCanvas />
 
       {/* Radial glow */}
       <div className="absolute inset-0 pointer-events-none">
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-10"
-          style={{
-            background:
-              "radial-gradient(circle, #00D4FF 0%, transparent 70%)",
-          }}
+          style={{ background: "radial-gradient(circle, #00D4FF 0%, transparent 70%)" }}
         />
       </div>
 
@@ -199,6 +183,7 @@ export default function HeroSection() {
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-24">
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-12 lg:gap-20">
+
           {/* Profile Photo */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -206,25 +191,16 @@ export default function HeroSection() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="flex-shrink-0 relative"
           >
-            {/* Outer glow ring */}
-            <div
-              className="absolute -inset-4 rounded-full opacity-30 animate-pulse-glow"
-              style={{
-                background:
-                  "radial-gradient(circle, rgba(0,212,255,0.4) 0%, transparent 70%)",
-              }}
+            <div className="absolute -inset-4 rounded-full opacity-30 animate-pulse-glow"
+              style={{ background: "radial-gradient(circle, rgba(0,212,255,0.4) 0%, transparent 70%)" }}
             />
-            {/* Rotating border */}
-            <div
-              className="absolute -inset-1 rounded-full"
+            <div className="absolute -inset-1 rounded-full"
               style={{
-                background:
-                  "conic-gradient(from 0deg, #00D4FF, #0066FF, transparent, #00D4FF)",
+                background: "conic-gradient(from 0deg, #00D4FF, #0066FF, transparent, #00D4FF)",
                 animation: "spin 4s linear infinite",
               }}
             />
             <style>{`@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
-            {/* Photo */}
             <div className="relative w-48 h-48 lg:w-56 lg:h-56 rounded-full overflow-hidden border-2 border-[rgba(0,212,255,0.3)]">
               <img
                 src={PROFILE_PIC}
@@ -241,9 +217,7 @@ export default function HeroSection() {
               className="absolute -bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0A1628] border border-[rgba(0,212,255,0.3)] whitespace-nowrap"
             >
               <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              <span className="text-xs font-['JetBrains_Mono'] text-[#00D4FF]">
-                Open to Work
-              </span>
+              <span className="text-xs font-['JetBrains_Mono'] text-[#00D4FF]">Open to Work</span>
             </motion.div>
           </motion.div>
 
@@ -294,9 +268,8 @@ export default function HeroSection() {
               className="font-['DM_Sans'] text-[#8BA8CC] text-base lg:text-lg max-w-2xl leading-relaxed mb-8"
             >
               Bridging the gap between data science and business strategy.
-              Currently pursuing MSBA at UC San Diego's Rady School of
-              Management, with a track record of managing $30M+ marketing
-              portfolios and driving digital transformation.
+              Currently pursuing MSBA at UC San Diego's Rady School of Management,
+              with a track record of managing $30M+ marketing portfolios and driving digital transformation.
             </motion.p>
 
             {/* Contact pills */}
@@ -308,16 +281,8 @@ export default function HeroSection() {
             >
               {[
                 { icon: MapPin, text: "Kuwait City, Kuwait" },
-                {
-                  icon: Mail,
-                  text: "mr.a.aljarallah@gmail.com",
-                  href: "mailto:mr.a.aljarallah@gmail.com",
-                },
-                {
-                  icon: Phone,
-                  text: "+965 97733691",
-                  href: "tel:+96597733691",
-                },
+                { icon: Mail, text: "mr.a.aljarallah@gmail.com", href: "mailto:mr.a.aljarallah@gmail.com" },
+                { icon: Phone, text: "+965 97733691", href: "tel:+96597733691" },
               ].map(({ icon: Icon, text, href }) => (
                 <a
                   key={text}
@@ -330,7 +295,7 @@ export default function HeroSection() {
               ))}
             </motion.div>
 
-            {/* Social links row */}
+            {/* Social links */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -341,28 +306,18 @@ export default function HeroSection() {
                 href="https://www.linkedin.com/in/abdullah-aljarallah-a72512b7/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-sm text-sm font-['DM_Sans'] font-medium transition-all duration-200 hover:scale-105"
-                style={{
-                  background: "rgba(10,102,194,0.15)",
-                  border: "1px solid rgba(10,102,194,0.4)",
-                  color: "#5BA3E0",
-                }}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-[rgba(10,102,194,0.1)] border border-[rgba(10,102,194,0.3)] text-[#8BA8CC] text-sm font-['DM_Sans'] hover:border-[rgba(10,102,194,0.6)] hover:text-[#0A66C2] transition-all duration-200"
               >
-                <Linkedin size={14} />
+                <Linkedin size={13} className="text-[#0A66C2]" />
                 LinkedIn
               </a>
               <a
                 href="https://github.com/rsm-aaljarallah"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-sm text-sm font-['DM_Sans'] font-medium transition-all duration-200 hover:scale-105"
-                style={{
-                  background: "rgba(255,255,255,0.05)",
-                  border: "1px solid rgba(255,255,255,0.15)",
-                  color: "#C8D8F0",
-                }}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-[rgba(139,168,204,0.08)] border border-[rgba(139,168,204,0.2)] text-[#8BA8CC] text-sm font-['DM_Sans'] hover:border-[rgba(139,168,204,0.5)] hover:text-white transition-all duration-200"
               >
-                <Github size={14} />
+                <Github size={13} className="text-[#8BA8CC]" />
                 GitHub
               </a>
             </motion.div>
@@ -375,14 +330,10 @@ export default function HeroSection() {
               className="flex flex-wrap justify-center lg:justify-start gap-4"
             >
               <button
-                onClick={() =>
-                  document
-                    .getElementById("projects")
-                    ?.scrollIntoView({ behavior: "smooth" })
-                }
+                onClick={() => document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" })}
                 className="px-6 py-3 rounded-sm bg-gradient-to-r from-[#0066FF] to-[#00D4FF] text-[#050A18] font-['Syne'] font-bold text-sm hover:shadow-[0_0_30px_rgba(0,212,255,0.5)] hover:scale-105 transition-all duration-200"
               >
-                View My Projects
+                View My Work
               </button>
               <a
                 href="mailto:mr.a.aljarallah@gmail.com"
@@ -406,12 +357,8 @@ export default function HeroSection() {
                 { value: "2", label: "Languages" },
               ].map(({ value, label }) => (
                 <div key={label} className="text-center lg:text-left">
-                  <div className="font-['Syne'] font-extrabold text-2xl text-gradient-cyan">
-                    {value}
-                  </div>
-                  <div className="font-['DM_Sans'] text-xs text-[#5A7A9A] uppercase tracking-wider mt-0.5">
-                    {label}
-                  </div>
+                  <div className="font-['Syne'] font-extrabold text-2xl text-gradient-cyan">{value}</div>
+                  <div className="font-['DM_Sans'] text-xs text-[#5A7A9A] uppercase tracking-wider mt-0.5">{label}</div>
                 </div>
               ))}
             </motion.div>
@@ -427,9 +374,7 @@ export default function HeroSection() {
         transition={{ delay: 1.2 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-[#5A7A9A] hover:text-[#00D4FF] transition-colors"
       >
-        <span className="text-xs font-['JetBrains_Mono'] tracking-widest uppercase">
-          Scroll
-        </span>
+        <span className="text-xs font-['JetBrains_Mono'] tracking-widest uppercase">Scroll</span>
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
