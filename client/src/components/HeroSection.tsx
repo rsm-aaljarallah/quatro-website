@@ -280,9 +280,9 @@ export default function HeroSection() {
               className="flex flex-wrap justify-center lg:justify-start gap-3 mb-6"
             >
               {[
-                { icon: MapPin, text: "Kuwait City, Kuwait" },
+                { icon: MapPin, text: "San Diego, CA" },
                 { icon: Mail, text: "mr.a.aljarallah@gmail.com", href: "mailto:mr.a.aljarallah@gmail.com" },
-                { icon: Phone, text: "+965 97733691", href: "tel:+96597733691" },
+                { icon: Phone, text: "+1 619-314-1187", href: "tel:+16193141187" },
               ].map(({ icon: Icon, text, href }) => (
                 <a
                   key={text}

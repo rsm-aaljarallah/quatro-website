@@ -19,14 +19,14 @@ const contactItems = [
   {
     icon: Phone,
     label: "Phone",
-    value: "+965 97733691",
-    href: "tel:+96597733691",
+    value: "+1 619-314-1187",
+    href: "tel:+16193141187",
     color: "#0066FF",
   },
   {
     icon: MapPin,
     label: "Location",
-    value: "Kuwait City, Kuwait",
+    value: "San Diego, CA",
     href: "#",
     color: "#4A90D9",
   },
