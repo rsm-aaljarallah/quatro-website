@@ -36,10 +36,10 @@ function AnimatedSection({ children, delay = 0 }: { children: React.ReactNode; d
 
 export default function AboutSection() {
   return (
-    <section id="about" className="py-24 relative overflow-hidden" style={{ background: "#050A18" }}>
+    <section id="about" className="py-24 relative overflow-hidden" style={{ background: "#0A0E1A" }}>
       {/* Background accent */}
       <div className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-5 pointer-events-none"
-        style={{ background: "radial-gradient(circle, #00D4FF 0%, transparent 70%)", transform: "translate(30%, -30%)" }}
+        style={{ background: "radial-gradient(circle, #B8C8DC 0%, transparent 70%)", transform: "translate(30%, -30%)" }}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -63,7 +63,7 @@ export default function AboutSection() {
             </AnimatedSection>
 
             <AnimatedSection delay={0.2}>
-              <p className="font-['DM_Sans'] text-[#8BA8CC] text-base leading-relaxed mb-6">
+              <p className="font-['DM_Sans'] text-[#7A8FA8] text-base leading-relaxed mb-6">
                 I'm a business analytics professional with a unique blend of marketing expertise, 
                 data science capabilities, and strategic leadership experience. Currently pursuing 
                 my Master of Science in Business Analytics at UC San Diego's Rady School of Management — 
@@ -72,7 +72,7 @@ export default function AboutSection() {
             </AnimatedSection>
 
             <AnimatedSection delay={0.3}>
-              <p className="font-['DM_Sans'] text-[#8BA8CC] text-base leading-relaxed mb-8">
+              <p className="font-['DM_Sans'] text-[#7A8FA8] text-base leading-relaxed mb-8">
                 My career spans public relations, banking marketing, and enterprise technology sales, 
                 giving me a 360° view of how organizations leverage data to drive decisions. 
                 I've managed marketing portfolios worth $30M+, pioneered international campaigns, 
@@ -85,7 +85,7 @@ export default function AboutSection() {
                 {["Python", "R", "SQL", "Tableau", "Power BI", "Machine Learning", "LLMs", "Marketing Analytics"].map(tag => (
                   <span
                     key={tag}
-                    className="px-3 py-1 text-xs font-['JetBrains_Mono'] text-[#00D4FF] bg-[rgba(0,212,255,0.06)] border border-[rgba(0,212,255,0.15)] rounded-sm"
+                    className="px-3 py-1 text-xs font-['JetBrains_Mono'] text-[#B8C8DC] bg-[rgba(184,200,220,0.06)] border border-[rgba(184,200,220,0.15)] rounded-sm"
                   >
                     {tag}
                   </span>
@@ -99,18 +99,18 @@ export default function AboutSection() {
             <AnimatedSection delay={0.2}>
               <div className="card-cyber rounded-lg p-6 mb-6">
                 <h3 className="font-['Syne'] font-bold text-white text-lg mb-6 flex items-center gap-2">
-                  <span className="w-1 h-5 bg-gradient-to-b from-[#00D4FF] to-[#0066FF] rounded-full" />
+                  <span className="w-1 h-5 bg-gradient-to-b from-[#B8C8DC] to-[#7A8FA8] rounded-full" />
                   Personal Information
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
                   {personalInfo.map(({ icon: Icon, label, value }) => (
                     <div key={label} className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-sm bg-[rgba(0,212,255,0.08)] border border-[rgba(0,212,255,0.15)] flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Icon size={14} className="text-[#00D4FF]" />
+                      <div className="w-8 h-8 rounded-sm bg-[rgba(184,200,220,0.08)] border border-[rgba(184,200,220,0.15)] flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Icon size={14} className="text-[#B8C8DC]" />
                       </div>
                       <div>
-                        <div className="text-xs font-['JetBrains_Mono'] text-[#5A7A9A] uppercase tracking-wider">{label}</div>
-                        <div className="text-sm font-['DM_Sans'] text-[#C8D8F0] mt-0.5">{value}</div>
+                        <div className="text-xs font-['JetBrains_Mono'] text-[#4A5A6A] uppercase tracking-wider">{label}</div>
+                        <div className="text-sm font-['DM_Sans'] text-[#D8E4F0] mt-0.5">{value}</div>
                       </div>
                     </div>
                   ))}
@@ -121,7 +121,7 @@ export default function AboutSection() {
             <AnimatedSection delay={0.3}>
               <div className="card-cyber rounded-lg p-6">
                 <h3 className="font-['Syne'] font-bold text-white text-lg mb-4 flex items-center gap-2">
-                  <span className="w-1 h-5 bg-gradient-to-b from-[#00D4FF] to-[#0066FF] rounded-full" />
+                  <span className="w-1 h-5 bg-gradient-to-b from-[#B8C8DC] to-[#7A8FA8] rounded-full" />
                   Current Focus
                 </h3>
                 <div className="space-y-3">
@@ -133,8 +133,8 @@ export default function AboutSection() {
                   ].map(({ label, pct }) => (
                     <div key={label}>
                       <div className="flex justify-between mb-1">
-                        <span className="text-xs font-['DM_Sans'] text-[#8BA8CC]">{label}</span>
-                        <span className="text-xs font-['JetBrains_Mono'] text-[#00D4FF]">{pct}%</span>
+                        <span className="text-xs font-['DM_Sans'] text-[#7A8FA8]">{label}</span>
+                        <span className="text-xs font-['JetBrains_Mono'] text-[#B8C8DC]">{pct}%</span>
                       </div>
                       <div className="skill-bar-track h-1">
                         <motion.div

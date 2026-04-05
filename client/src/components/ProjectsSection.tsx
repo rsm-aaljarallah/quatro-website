@@ -16,7 +16,7 @@ const projects = [
     description:
       "Developed a machine learning model to predict customer churn for a financial services case study, identifying key retention drivers and recommending targeted intervention strategies.",
     icon: Brain,
-    color: "#00D4FF",
+    color: "#B8C8DC",
     categories: ["Machine Learning", "Python", "Customer Analytics"],
     approach: [
       "Cleaned and preprocessed customer data including demographics, transaction history, and engagement metrics",
@@ -36,7 +36,7 @@ const projects = [
     description:
       "Built an interactive Power BI dashboard analyzing multi-channel campaign performance across digital and traditional media, enabling real-time budget reallocation decisions.",
     icon: BarChart2,
-    color: "#0066FF",
+    color: "#7A8FA8",
     categories: ["Data Visualization", "Marketing Analytics", "Power BI"],
     approach: [
       "Aggregated campaign data from digital and traditional media channels using SQL",
@@ -56,7 +56,7 @@ const projects = [
     description:
       "Documented and analyzed an organizational transformation at the Public Institution for Social Security in Kuwait that achieved 100% digital adoption across 3,000+ employees.",
     icon: Zap,
-    color: "#4A90D9",
+    color: "#6A8AA8",
     categories: ["Change Management", "Digital Transformation", "Data Analytics"],
     approach: [
       "Designed training campaigns, social media competitions, and change management strategies",
@@ -80,13 +80,13 @@ export default function ProjectsSection() {
     <section
       id="projects"
       className="py-24 relative"
-      style={{ background: "linear-gradient(180deg, #050A18 0%, #070E20 100%)" }}
+      style={{ background: "linear-gradient(180deg, #0A0E1A 0%, #0D1525 100%)" }}
     >
       {/* Background accent */}
       <div
         className="absolute top-1/2 right-0 w-96 h-96 rounded-full opacity-5 pointer-events-none"
         style={{
-          background: "radial-gradient(circle, #0066FF 0%, transparent 70%)",
+          background: "radial-gradient(circle, #7A8FA8 0%, transparent 70%)",
           transform: "translate(40%, -50%)",
         }}
       />
@@ -114,7 +114,7 @@ export default function ProjectsSection() {
           <h2 className="font-['Syne'] font-extrabold text-4xl lg:text-5xl text-white mb-4">
             Analytics <span className="text-gradient-cyan">Projects</span>
           </h2>
-          <p className="font-['DM_Sans'] text-[#8BA8CC] text-lg max-w-2xl">
+          <p className="font-['DM_Sans'] text-[#7A8FA8] text-lg max-w-2xl">
             Real-world applications of machine learning, data visualization, and strategic analytics — from predictive models to organizational transformation.
           </p>
         </motion.div>
@@ -157,7 +157,7 @@ export default function ProjectsSection() {
               <h3 className="font-['Syne'] font-bold text-white text-lg leading-tight mb-2">
                 {project.title}
               </h3>
-              <p className="font-['DM_Sans'] text-[#8BA8CC] text-sm leading-relaxed mb-4">
+              <p className="font-['DM_Sans'] text-[#7A8FA8] text-sm leading-relaxed mb-4">
                 {project.description}
               </p>
 
@@ -178,7 +178,7 @@ export default function ProjectsSection() {
                     >
                       {metric}
                     </div>
-                    <div className="font-['DM_Sans'] text-[#5A7A9A] text-xs mt-0.5">{label}</div>
+                    <div className="font-['DM_Sans'] text-[#4A5A6A] text-xs mt-0.5">{label}</div>
                   </div>
                 ))}
               </div>
@@ -231,8 +231,8 @@ export default function ProjectsSection() {
             href="https://github.com/rsm-aaljarallah"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-sm font-['Syne'] font-bold text-sm text-[#00D4FF] transition-all duration-200 hover:bg-[rgba(0,212,255,0.08)] hover:scale-105"
-            style={{ border: "1px solid rgba(0,212,255,0.25)" }}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-sm font-['Syne'] font-bold text-sm text-[#B8C8DC] transition-all duration-200 hover:bg-[rgba(184,200,220,0.08)] hover:scale-105"
+            style={{ border: "1px solid rgba(184,200,220,0.25)" }}
           >
             <ExternalLink size={14} />
             View All Projects on GitHub

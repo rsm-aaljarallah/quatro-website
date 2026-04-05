@@ -16,7 +16,7 @@ const experiences = [
     company: "The Public Institution for Social Security",
     period: "December 2020 – Present",
     type: "Current",
-    color: "#00D4FF",
+    color: "#B8C8DC",
     icon: Briefcase,
     description:
       "Leading strategic communications initiatives to position the institution as a center of excellence. Developed and implemented comprehensive digital transformation strategies that revolutionized internal and external communications.",
@@ -33,7 +33,7 @@ const experiences = [
     company: "Kuwait Finance House (KFH)",
     period: "September 2017 – December 2020",
     type: "3 Years",
-    color: "#0066FF",
+    color: "#7A8FA8",
     icon: TrendingUp,
     description:
       "Managed high-value marketing campaigns across Group Retail Banking, Group Corporate Banking, and Private Banking divisions. Strategically allocated budgets and deployed integrated marketing communication tools.",
@@ -50,7 +50,7 @@ const experiences = [
     company: "Xerox – Alghanim Industries",
     period: "June 2016 – September 2017",
     type: "1.5 Years",
-    color: "#4A90D9",
+    color: "#6A8AA8",
     icon: Award,
     description:
       "Drove revenue growth through strategic account management and solution selling of Xerox products, extensions, and smart technological solutions. Collaborated with sales leadership to develop sophisticated account strategies.",
@@ -120,7 +120,7 @@ function ExperienceCard({
         className="absolute left-0 lg:left-1/2 top-8 w-4 h-4 rounded-full border-2 z-10 -translate-x-1/2 hidden lg:block"
         style={{
           borderColor: exp.color,
-          backgroundColor: "#050A18",
+          backgroundColor: "#0A0E1A",
           boxShadow: `0 0 12px ${exp.color}60`,
         }}
       />
@@ -170,14 +170,14 @@ function ExperienceCard({
               >
                 {exp.type}
               </span>
-              <span className="text-xs font-['DM_Sans'] text-[#5A7A9A]">
+              <span className="text-xs font-['DM_Sans'] text-[#4A5A6A]">
                 {exp.period}
               </span>
             </div>
           </div>
 
           {/* Description */}
-          <p className="font-['DM_Sans'] text-[#8BA8CC] text-sm leading-relaxed mb-4">
+          <p className="font-['DM_Sans'] text-[#7A8FA8] text-sm leading-relaxed mb-4">
             {exp.description}
           </p>
 
@@ -190,7 +190,7 @@ function ExperienceCard({
                   className="mt-0.5 flex-shrink-0"
                   style={{ color: exp.color }}
                 />
-                <span className="font-['DM_Sans'] text-[#A8C0E0] text-sm">
+                <span className="font-['DM_Sans'] text-[#94A8C0] text-sm">
                   {ach}
                 </span>
               </div>
@@ -228,14 +228,14 @@ export default function ExperienceSection() {
       id="experience"
       className="py-24 relative"
       style={{
-        background: "linear-gradient(180deg, #050A18 0%, #070E20 100%)",
+        background: "linear-gradient(180deg, #0A0E1A 0%, #0D1525 100%)",
       }}
     >
       {/* Background accent */}
       <div
         className="absolute bottom-0 left-0 w-80 h-80 rounded-full opacity-5 pointer-events-none"
         style={{
-          background: "radial-gradient(circle, #0066FF 0%, transparent 70%)",
+          background: "radial-gradient(circle, #7A8FA8 0%, transparent 70%)",
           transform: "translate(-30%, 30%)",
         }}
       />
@@ -264,7 +264,7 @@ export default function ExperienceSection() {
             Professional{" "}
             <span className="text-gradient-cyan">Journey</span>
           </h2>
-          <p className="font-['DM_Sans'] text-[#8BA8CC] text-lg max-w-2xl mx-auto">
+          <p className="font-['DM_Sans'] text-[#7A8FA8] text-lg max-w-2xl mx-auto">
             Over a decade of experience across public relations, banking,
             enterprise technology, and entrepreneurship.
           </p>
@@ -277,7 +277,7 @@ export default function ExperienceSection() {
             className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2"
             style={{
               background:
-                "linear-gradient(180deg, transparent, rgba(0,212,255,0.3), rgba(0,102,255,0.3), transparent)",
+                "linear-gradient(180deg, transparent, rgba(184,200,220,0.3), rgba(122,143,168,0.3), transparent)",
             }}
           />
 

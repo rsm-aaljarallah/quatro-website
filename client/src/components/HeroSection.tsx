@@ -78,7 +78,7 @@ function ParticleCanvas() {
         vy: (Math.random() - 0.5) * 0.4,
         size: Math.random() * 2 + 0.5,
         alpha: Math.random() * 0.6 + 0.1,
-        color: Math.random() > 0.5 ? "#00D4FF" : "#0066FF",
+        color: Math.random() > 0.5 ? "#B8C8DC" : "#7A8FA8",
       });
     }
 
@@ -92,7 +92,7 @@ function ParticleCanvas() {
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < 120) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(0, 212, 255, ${0.08 * (1 - dist / 120)})`;
+            ctx.strokeStyle = `rgba(184, 200, 220, ${0.08 * (1 - dist / 120)})`;
             ctx.lineWidth = 0.5;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -146,7 +146,7 @@ export default function HeroSection() {
     <section
       id="hero"
       className="relative min-h-screen flex items-center overflow-hidden"
-      style={{ background: "linear-gradient(135deg, #050A18 0%, #0A1628 50%, #050A18 100%)" }}
+      style={{ background: "linear-gradient(135deg, #0A0E1A 0%, #111827 50%, #0A0E1A 100%)" }}
     >
       {/* Hero background image */}
       <div
@@ -163,8 +163,8 @@ export default function HeroSection() {
       {/* Radial glow */}
       <div className="absolute inset-0 pointer-events-none">
         <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-10"
-          style={{ background: "radial-gradient(circle, #00D4FF 0%, transparent 70%)" }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-5"
+          style={{ background: "radial-gradient(circle, #B8C8DC 0%, transparent 70%)" }}
         />
       </div>
 
@@ -173,8 +173,8 @@ export default function HeroSection() {
         className="absolute inset-0 opacity-[0.03]"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(0,212,255,1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0,212,255,1) 1px, transparent 1px)
+            linear-gradient(rgba(184,200,220,1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(184,200,220,1) 1px, transparent 1px)
           `,
           backgroundSize: "60px 60px",
         }}
@@ -191,33 +191,33 @@ export default function HeroSection() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="flex-shrink-0 relative"
           >
-            <div className="absolute -inset-4 rounded-full opacity-30 animate-pulse-glow"
-              style={{ background: "radial-gradient(circle, rgba(0,212,255,0.4) 0%, transparent 70%)" }}
+            <div className="absolute -inset-4 rounded-full opacity-15"
+              style={{ background: "radial-gradient(circle, rgba(184,200,220,0.2) 0%, transparent 70%)" }}
             />
             <div className="absolute -inset-1 rounded-full"
               style={{
-                background: "conic-gradient(from 0deg, #00D4FF, #0066FF, transparent, #00D4FF)",
+                background: "conic-gradient(from 0deg, #B8C8DC, #7A8FA8, transparent, #B8C8DC)",
                 animation: "spin 4s linear infinite",
               }}
             />
             <style>{`@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
-            <div className="relative w-48 h-48 lg:w-56 lg:h-56 rounded-full overflow-hidden border-2 border-[rgba(0,212,255,0.3)]">
+            <div className="relative w-48 h-48 lg:w-56 lg:h-56 rounded-full overflow-hidden border-2 border-[rgba(184,200,220,0.3)]">
               <img
                 src={PROFILE_PIC}
                 alt="Abdullah Aljarallah"
                 className="w-full h-full object-cover object-top"
               />
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[rgba(0,102,255,0.1)]" />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[rgba(122,143,168,0.1)]" />
             </div>
             {/* Status badge */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
-              className="absolute -bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0A1628] border border-[rgba(0,212,255,0.3)] whitespace-nowrap"
+              className="absolute -bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#111827] border border-[rgba(184,200,220,0.3)] whitespace-nowrap"
             >
               <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              <span className="text-xs font-['JetBrains_Mono'] text-[#00D4FF]">Open to Work</span>
+              <span className="text-xs font-['JetBrains_Mono'] text-[#B8C8DC]">Open to Work</span>
             </motion.div>
           </motion.div>
 
@@ -230,9 +230,9 @@ export default function HeroSection() {
               transition={{ delay: 0.2 }}
               className="mono-label mb-4 inline-flex items-center gap-2"
             >
-              <span className="w-8 h-px bg-[#00D4FF]" />
+              <span className="w-8 h-px bg-[#B8C8DC]" />
               MSBA Candidate @ UC San Diego
-              <span className="w-8 h-px bg-[#00D4FF]" />
+              <span className="w-8 h-px bg-[#B8C8DC]" />
             </motion.div>
 
             {/* Name */}
@@ -254,9 +254,9 @@ export default function HeroSection() {
               transition={{ delay: 0.5 }}
               className="h-8 mb-6"
             >
-              <span className="font-['DM_Sans'] text-xl text-[#8BA8CC]">
+              <span className="font-['DM_Sans'] text-xl text-[#7A8FA8]">
                 {typedRole}
-                <span className="animate-blink text-[#00D4FF]">|</span>
+                <span className="animate-blink text-[#B8C8DC]">|</span>
               </span>
             </motion.div>
 
@@ -265,7 +265,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="font-['DM_Sans'] text-[#8BA8CC] text-base lg:text-lg max-w-2xl leading-relaxed mb-8"
+              className="font-['DM_Sans'] text-[#7A8FA8] text-base lg:text-lg max-w-2xl leading-relaxed mb-8"
             >
               Bridging the gap between data science and business strategy.
               Currently pursuing MSBA at UC San Diego's Rady School of Management,
@@ -287,9 +287,9 @@ export default function HeroSection() {
                 <a
                   key={text}
                   href={href || "#"}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-[rgba(0,212,255,0.05)] border border-[rgba(0,212,255,0.15)] text-[#8BA8CC] text-sm font-['DM_Sans'] hover:border-[rgba(0,212,255,0.4)] hover:text-[#00D4FF] transition-all duration-200"
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-[rgba(184,200,220,0.05)] border border-[rgba(184,200,220,0.15)] text-[#7A8FA8] text-sm font-['DM_Sans'] hover:border-[rgba(184,200,220,0.4)] hover:text-[#B8C8DC] transition-all duration-200"
                 >
-                  <Icon size={13} className="text-[#00D4FF]" />
+                  <Icon size={13} className="text-[#B8C8DC]" />
                   {text}
                 </a>
               ))}
@@ -306,7 +306,7 @@ export default function HeroSection() {
                 href="https://www.linkedin.com/in/abdullah-aljarallah-a72512b7/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-[rgba(10,102,194,0.1)] border border-[rgba(10,102,194,0.3)] text-[#8BA8CC] text-sm font-['DM_Sans'] hover:border-[rgba(10,102,194,0.6)] hover:text-[#0A66C2] transition-all duration-200"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-[rgba(90,138,176,0.1)] border border-[rgba(90,138,176,0.25)] text-[#7A8FA8] text-sm font-['DM_Sans'] hover:border-[rgba(10,102,194,0.6)] hover:text-[#0A66C2] transition-all duration-200"
               >
                 <Linkedin size={13} className="text-[#0A66C2]" />
                 LinkedIn
@@ -315,9 +315,9 @@ export default function HeroSection() {
                 href="https://github.com/rsm-aaljarallah"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-[rgba(139,168,204,0.08)] border border-[rgba(139,168,204,0.2)] text-[#8BA8CC] text-sm font-['DM_Sans'] hover:border-[rgba(139,168,204,0.5)] hover:text-white transition-all duration-200"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-[rgba(139,168,204,0.08)] border border-[rgba(139,168,204,0.2)] text-[#7A8FA8] text-sm font-['DM_Sans'] hover:border-[rgba(139,168,204,0.5)] hover:text-white transition-all duration-200"
               >
-                <Github size={13} className="text-[#8BA8CC]" />
+                <Github size={13} className="text-[#7A8FA8]" />
                 GitHub
               </a>
             </motion.div>
@@ -331,13 +331,13 @@ export default function HeroSection() {
             >
               <button
                 onClick={() => document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" })}
-                className="px-6 py-3 rounded-sm bg-gradient-to-r from-[#0066FF] to-[#00D4FF] text-[#050A18] font-['Syne'] font-bold text-sm hover:shadow-[0_0_30px_rgba(0,212,255,0.5)] hover:scale-105 transition-all duration-200"
+                className="px-6 py-3 rounded-sm bg-gradient-to-r from-[#7A8FA8] to-[#B8C8DC] text-[#0A0E1A] font-['Syne'] font-bold text-sm hover:shadow-[0_0_30px_rgba(184,200,220,0.5)] hover:scale-105 transition-all duration-200"
               >
                 View My Work
               </button>
               <a
                 href="mailto:mr.a.aljarallah@gmail.com"
-                className="px-6 py-3 rounded-sm border border-[rgba(0,212,255,0.3)] text-[#00D4FF] font-['Syne'] font-bold text-sm hover:bg-[rgba(0,212,255,0.08)] hover:border-[rgba(0,212,255,0.6)] transition-all duration-200"
+                className="px-6 py-3 rounded-sm border border-[rgba(184,200,220,0.3)] text-[#B8C8DC] font-['Syne'] font-bold text-sm hover:bg-[rgba(184,200,220,0.08)] hover:border-[rgba(184,200,220,0.6)] transition-all duration-200"
               >
                 Get In Touch
               </a>
@@ -358,7 +358,7 @@ export default function HeroSection() {
               ].map(({ value, label }) => (
                 <div key={label} className="text-center lg:text-left">
                   <div className="font-['Syne'] font-extrabold text-2xl text-gradient-cyan">{value}</div>
-                  <div className="font-['DM_Sans'] text-xs text-[#5A7A9A] uppercase tracking-wider mt-0.5">{label}</div>
+                  <div className="font-['DM_Sans'] text-xs text-[#4A5A6A] uppercase tracking-wider mt-0.5">{label}</div>
                 </div>
               ))}
             </motion.div>
@@ -372,7 +372,7 @@ export default function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-[#5A7A9A] hover:text-[#00D4FF] transition-colors"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-[#4A5A6A] hover:text-[#B8C8DC] transition-colors"
       >
         <span className="text-xs font-['JetBrains_Mono'] tracking-widest uppercase">Scroll</span>
         <motion.div

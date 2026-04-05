@@ -13,7 +13,7 @@ const skillCategories = [
     id: "technical",
     title: "Technical Skills",
     icon: Code2,
-    color: "#00D4FF",
+    color: "#B8C8DC",
     skills: [
       { name: "Python", level: 85 },
       { name: "R Programming", level: 80 },
@@ -27,7 +27,7 @@ const skillCategories = [
     id: "visualization",
     title: "Data & Visualization",
     icon: BarChart3,
-    color: "#0066FF",
+    color: "#7A8FA8",
     skills: [
       { name: "Tableau", level: 88 },
       { name: "Power BI", level: 85 },
@@ -41,7 +41,7 @@ const skillCategories = [
     id: "marketing",
     title: "Marketing & Comms",
     icon: Megaphone,
-    color: "#4A90D9",
+    color: "#6A8AA8",
     skills: [
       { name: "Campaign Management", level: 95 },
       { name: "Digital Analytics", level: 88 },
@@ -70,14 +70,14 @@ const skillCategories = [
 const techStack = [
   { name: "Python", color: "#3776AB" },
   { name: "R", color: "#276DC3" },
-  { name: "SQL", color: "#00D4FF" },
+  { name: "SQL", color: "#B8C8DC" },
   { name: "Tableau", color: "#E97627" },
   { name: "Power BI", color: "#F2C811" },
-  { name: "ML/AI", color: "#00D4FF" },
-  { name: "LLMs", color: "#0066FF" },
+  { name: "ML/AI", color: "#B8C8DC" },
+  { name: "LLMs", color: "#7A8FA8" },
   { name: "Excel", color: "#217346" },
-  { name: "Arabic", color: "#4A90D9" },
-  { name: "English", color: "#00D4FF" },
+  { name: "Arabic", color: "#6A8AA8" },
+  { name: "English", color: "#B8C8DC" },
 ];
 
 function SkillBar({
@@ -94,7 +94,7 @@ function SkillBar({
   return (
     <div>
       <div className="flex justify-between mb-1.5">
-        <span className="text-sm font-['DM_Sans'] text-[#A8C0E0]">{name}</span>
+        <span className="text-sm font-['DM_Sans'] text-[#94A8C0]">{name}</span>
         <span
           className="text-xs font-['JetBrains_Mono']"
           style={{ color }}
@@ -128,7 +128,7 @@ export default function SkillsSection() {
       id="skills"
       className="py-24 relative"
       style={{
-        background: "linear-gradient(180deg, #070E20 0%, #050A18 100%)",
+        background: "linear-gradient(180deg, #0D1525 0%, #0A0E1A 100%)",
       }}
     >
       {/* Background accents */}
@@ -136,7 +136,7 @@ export default function SkillsSection() {
         className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px"
         style={{
           background:
-            "linear-gradient(90deg, transparent, rgba(0,212,255,0.3), transparent)",
+            "linear-gradient(90deg, transparent, rgba(184,200,220,0.3), transparent)",
         }}
       />
 
@@ -164,7 +164,7 @@ export default function SkillsSection() {
             Skills &{" "}
             <span className="text-gradient-cyan">Expertise</span>
           </h2>
-          <p className="font-['DM_Sans'] text-[#8BA8CC] text-lg max-w-2xl">
+          <p className="font-['DM_Sans'] text-[#7A8FA8] text-lg max-w-2xl">
             A versatile toolkit spanning data science, marketing analytics,
             strategic leadership, and bilingual communication.
           </p>

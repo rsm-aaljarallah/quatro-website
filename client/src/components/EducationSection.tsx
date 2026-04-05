@@ -19,7 +19,7 @@ const education = [
     gpa: null,
     status: "In Progress",
     highlight: true,
-    color: "#00D4FF",
+    color: "#B8C8DC",
     icon: GraduationCap,
     description: "STEM-designated program focused on 'Driving Innovation with Analytics'. Coursework integrates AI-assisted curriculum with Large Language Models (LLMs) across the full business analytics process — from problem definition to data cleaning, coding, analysis, and presentation.",
     highlights: [
@@ -39,7 +39,7 @@ const education = [
     gpa: "3.5",
     status: "Graduated with Honors",
     highlight: false,
-    color: "#0066FF",
+    color: "#7A8FA8",
     icon: Star,
     description: "Graduated with honors in Marketing major. Developed a strong foundation in business strategy, consumer behavior, and marketing analytics.",
     highlights: [
@@ -58,7 +58,7 @@ const education = [
     gpa: null,
     status: "Completed",
     highlight: false,
-    color: "#4A90D9",
+    color: "#6A8AA8",
     icon: BookOpen,
     description: "Diploma in Business Administration with emphasis in marketing, providing foundational business and marketing knowledge.",
     highlights: [
@@ -74,10 +74,10 @@ export default function EducationSection() {
   const headerInView = useInView(headerRef, { once: true });
 
   return (
-    <section id="education" className="py-24 relative" style={{ background: "#050A18" }}>
+    <section id="education" className="py-24 relative" style={{ background: "#0A0E1A" }}>
       {/* Background accent */}
       <div className="absolute top-1/2 right-0 w-96 h-96 rounded-full opacity-5 pointer-events-none"
-        style={{ background: "radial-gradient(circle, #00D4FF 0%, transparent 70%)", transform: "translate(40%, -50%)" }}
+        style={{ background: "radial-gradient(circle, #B8C8DC 0%, transparent 70%)", transform: "translate(40%, -50%)" }}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -103,7 +103,7 @@ export default function EducationSection() {
           <h2 className="font-['Syne'] font-extrabold text-4xl lg:text-5xl text-white mb-4">
             Academic <span className="text-gradient-cyan">Foundation</span>
           </h2>
-          <p className="font-['DM_Sans'] text-[#8BA8CC] text-lg max-w-2xl">
+          <p className="font-['DM_Sans'] text-[#7A8FA8] text-lg max-w-2xl">
             A progressive academic journey from Kuwait to the United States, culminating in a cutting-edge STEM analytics program.
           </p>
         </motion.div>
@@ -123,8 +123,8 @@ export default function EducationSection() {
                 <div
                   className="absolute -top-3 left-6 px-3 py-1 text-xs font-['JetBrains_Mono'] font-bold rounded-sm z-10"
                   style={{
-                    background: "linear-gradient(90deg, #00D4FF, #0066FF)",
-                    color: "#050A18",
+                    background: "linear-gradient(90deg, #B8C8DC, #7A8FA8)",
+                    color: "#0A0E1A",
                   }}
                 >
                   CURRENT ENROLLMENT
@@ -161,19 +161,19 @@ export default function EducationSection() {
                 {/* Degree */}
                 <h3 className="font-['Syne'] font-bold text-white text-lg leading-tight mb-1">{edu.degree}</h3>
                 <p className="font-['DM_Sans'] text-sm mb-0.5" style={{ color: edu.color }}>{edu.school}</p>
-                <p className="font-['DM_Sans'] text-xs text-[#5A7A9A] mb-1">{edu.program}</p>
+                <p className="font-['DM_Sans'] text-xs text-[#4A5A6A] mb-1">{edu.program}</p>
 
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="text-xs font-['JetBrains_Mono'] text-[#5A7A9A]">{edu.period}</span>
+                  <span className="text-xs font-['JetBrains_Mono'] text-[#4A5A6A]">{edu.period}</span>
                   {edu.gpa && (
                     <>
-                      <span className="w-1 h-1 rounded-full bg-[#5A7A9A]" />
+                      <span className="w-1 h-1 rounded-full bg-[#4A5A6A]" />
                       <span className="text-xs font-['JetBrains_Mono']" style={{ color: edu.color }}>GPA: {edu.gpa}</span>
                     </>
                   )}
                 </div>
 
-                <p className="font-['DM_Sans'] text-[#8BA8CC] text-sm leading-relaxed mb-4 flex-1">{edu.description}</p>
+                <p className="font-['DM_Sans'] text-[#7A8FA8] text-sm leading-relaxed mb-4 flex-1">{edu.description}</p>
 
                 {/* Highlights */}
                 <div className="space-y-1.5 mt-auto">
@@ -183,7 +183,7 @@ export default function EducationSection() {
                         className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0"
                         style={{ background: edu.color }}
                       />
-                      <span className="font-['DM_Sans'] text-[#8BA8CC] text-xs">{h}</span>
+                      <span className="font-['DM_Sans'] text-[#7A8FA8] text-xs">{h}</span>
                     </div>
                   ))}
                 </div>

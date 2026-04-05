@@ -56,7 +56,7 @@ export default function Navbar() {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#050A18]/90 backdrop-blur-xl border-b border-[rgba(0,212,255,0.15)] shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
+          ? "bg-[#0A0E1A]/90 backdrop-blur-xl border-b border-[rgba(184,200,220,0.15)] shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
           : "bg-transparent"
       }`}
     >
@@ -64,7 +64,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo / Name */}
           <motion.div className="flex items-center gap-3" whileHover={{ scale: 1.02 }}>
-            <div className="w-8 h-8 rounded-sm bg-gradient-to-br from-[#00D4FF] to-[#0066FF] flex items-center justify-center text-[#050A18] font-bold text-sm font-mono">
+            <div className="w-8 h-8 rounded-sm bg-gradient-to-br from-[#B8C8DC] to-[#7A8FA8] flex items-center justify-center text-[#0A0E1A] font-bold text-sm font-mono">
               AA
             </div>
             <span className="font-['Syne'] font-bold text-white text-sm tracking-wide hidden sm:block">
@@ -80,14 +80,14 @@ export default function Navbar() {
                 onClick={() => handleNavClick(link.href)}
                 className={`relative px-3 py-1.5 text-sm font-['DM_Sans'] font-medium transition-all duration-200 rounded-sm ${
                   activeSection === link.href.replace("#", "")
-                    ? "text-[#00D4FF]"
-                    : "text-[#8BA8CC] hover:text-white"
+                    ? "text-[#B8C8DC]"
+                    : "text-[#7A8FA8] hover:text-white"
                 }`}
               >
                 {activeSection === link.href.replace("#", "") && (
                   <motion.span
                     layoutId="nav-indicator"
-                    className="absolute inset-0 bg-[rgba(0,212,255,0.08)] rounded-sm border border-[rgba(0,212,255,0.2)]"
+                    className="absolute inset-0 bg-[rgba(184,200,220,0.08)] rounded-sm border border-[rgba(184,200,220,0.2)]"
                     transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
                   />
                 )}
@@ -100,14 +100,14 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             <a
               href="mailto:mr.a.aljarallah@gmail.com"
-              className="hidden sm:flex items-center gap-2 px-4 py-1.5 rounded-sm bg-gradient-to-r from-[#0066FF] to-[#00D4FF] text-[#050A18] text-sm font-['Syne'] font-bold transition-all duration-200 hover:shadow-[0_0_20px_rgba(0,212,255,0.4)] hover:scale-105"
+              className="hidden sm:flex items-center gap-2 px-4 py-1.5 rounded-sm bg-gradient-to-r from-[#7A8FA8] to-[#B8C8DC] text-[#0A0E1A] text-sm font-['Syne'] font-bold transition-all duration-200 hover:shadow-[0_0_20px_rgba(184,200,220,0.4)] hover:scale-105"
             >
               <Mail size={13} />
               Hire Me
             </a>
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden p-2 text-[#8BA8CC] hover:text-[#00D4FF] transition-colors"
+              className="lg:hidden p-2 text-[#7A8FA8] hover:text-[#B8C8DC] transition-colors"
             >
               {mobileOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -123,21 +123,21 @@ export default function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-[#050A18]/95 backdrop-blur-xl border-b border-[rgba(0,212,255,0.15)]"
+            className="lg:hidden bg-[#0A0E1A]/95 backdrop-blur-xl border-b border-[rgba(184,200,220,0.15)]"
           >
             <div className="px-4 py-4 space-y-1">
               {navLinks.map((link) => (
                 <button
                   key={link.href}
                   onClick={() => handleNavClick(link.href)}
-                  className="w-full text-left px-4 py-3 text-sm font-['DM_Sans'] text-[#8BA8CC] hover:text-[#00D4FF] hover:bg-[rgba(0,212,255,0.05)] rounded-sm transition-all duration-200"
+                  className="w-full text-left px-4 py-3 text-sm font-['DM_Sans'] text-[#7A8FA8] hover:text-[#B8C8DC] hover:bg-[rgba(184,200,220,0.05)] rounded-sm transition-all duration-200"
                 >
                   {link.label}
                 </button>
               ))}
               <a
                 href="mailto:mr.a.aljarallah@gmail.com"
-                className="flex items-center gap-2 px-4 py-3 mt-2 rounded-sm bg-gradient-to-r from-[#0066FF] to-[#00D4FF] text-[#050A18] text-sm font-['Syne'] font-bold"
+                className="flex items-center gap-2 px-4 py-3 mt-2 rounded-sm bg-gradient-to-r from-[#7A8FA8] to-[#B8C8DC] text-[#0A0E1A] text-sm font-['Syne'] font-bold"
               >
                 <Mail size={14} />
                 Hire Me

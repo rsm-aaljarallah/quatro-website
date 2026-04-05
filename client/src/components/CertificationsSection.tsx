@@ -13,7 +13,7 @@ const certGroups = [
     id: "ai",
     title: "Data Science & AI",
     icon: Brain,
-    color: "#00D4FF",
+    color: "#B8C8DC",
     certs: [
       { name: "Fine Tuning Language Models for Business Tasks", issuer: "Advanced AI" },
       { name: "Generative AI", issuer: "AI Certification" },
@@ -27,7 +27,7 @@ const certGroups = [
     id: "marketing",
     title: "Business & Marketing",
     icon: TrendingUp,
-    color: "#0066FF",
+    color: "#7A8FA8",
     certs: [
       { name: "Strategic Marketing Planning", issuer: "Professional Certification" },
       { name: "Digital Marketing", issuer: "Digital Marketing Cert" },
@@ -45,13 +45,13 @@ export default function CertificationsSection() {
     <section
       id="certifications"
       className="py-24 relative"
-      style={{ background: "#050A18" }}
+      style={{ background: "#0A0E1A" }}
     >
       {/* Background accent */}
       <div
         className="absolute top-1/2 left-0 w-80 h-80 rounded-full opacity-5 pointer-events-none"
         style={{
-          background: "radial-gradient(circle, #00D4FF 0%, transparent 70%)",
+          background: "radial-gradient(circle, #B8C8DC 0%, transparent 70%)",
           transform: "translate(-40%, -50%)",
         }}
       />
@@ -80,7 +80,7 @@ export default function CertificationsSection() {
             Courses &{" "}
             <span className="text-gradient-cyan">Certifications</span>
           </h2>
-          <p className="font-['DM_Sans'] text-[#8BA8CC] text-lg max-w-2xl">
+          <p className="font-['DM_Sans'] text-[#7A8FA8] text-lg max-w-2xl">
             Continuous learning across AI, data science, and business strategy
             — staying at the cutting edge of the field.
           </p>
@@ -140,7 +140,7 @@ export default function CertificationsSection() {
                       <Award size={14} style={{ color: group.color }} />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="font-['DM_Sans'] text-[#C8D8F0] text-sm font-medium leading-tight">
+                      <div className="font-['DM_Sans'] text-[#D8E4F0] text-sm font-medium leading-tight">
                         {cert.name}
                       </div>
                       <div
@@ -171,14 +171,14 @@ export default function CertificationsSection() {
           className="mt-12 p-6 rounded-lg text-center"
           style={{
             background:
-              "linear-gradient(135deg, rgba(0,212,255,0.05) 0%, rgba(0,102,255,0.05) 100%)",
-            border: "1px solid rgba(0,212,255,0.2)",
+              "linear-gradient(135deg, rgba(184,200,220,0.05) 0%, rgba(122,143,168,0.05) 100%)",
+            border: "1px solid rgba(184,200,220,0.2)",
           }}
         >
           <div className="mono-label mb-3 justify-center flex">
             DataCamp Certified
           </div>
-          <p className="font-['DM_Sans'] text-[#8BA8CC] text-sm max-w-lg mx-auto">
+          <p className="font-['DM_Sans'] text-[#7A8FA8] text-sm max-w-lg mx-auto">
             Completed multiple DataCamp certifications in Machine Learning,
             Python, Statistical Analysis, and Data Science for Business —
             demonstrating hands-on technical proficiency.
@@ -188,7 +188,7 @@ export default function CertificationsSection() {
               (tag) => (
                 <span
                   key={tag}
-                  className="text-xs font-['JetBrains_Mono'] px-3 py-1 rounded-sm text-[#00D4FF] bg-[rgba(0,212,255,0.08)] border border-[rgba(0,212,255,0.2)]"
+                  className="text-xs font-['JetBrains_Mono'] px-3 py-1 rounded-sm text-[#B8C8DC] bg-[rgba(184,200,220,0.08)] border border-[rgba(184,200,220,0.2)]"
                 >
                   {tag}
                 </span>

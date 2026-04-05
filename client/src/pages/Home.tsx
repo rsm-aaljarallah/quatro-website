@@ -1,7 +1,7 @@
 /*
  * DESIGN: Cyber-Dark Resume Website — Main Page
  * Assembles all sections in order with smooth scroll
- * Dark theme: #050A18 bg, #00D4FF/#0066FF accents
+ * Dark theme: #0A0E1A bg, #B8C8DC/#7A8FA8 accents (Deep Navy & Crisp White)
  * Fonts: Syne (display) + DM Sans (body) + JetBrains Mono (labels)
  */
 
@@ -17,7 +17,7 @@ import ContactSection from "@/components/ContactSection";
 
 export default function Home() {
   return (
-    <div className="min-h-screen" style={{ background: "#050A18" }}>
+    <div className="min-h-screen" style={{ background: "#0A0E1A" }}>
       <Navbar />
       <HeroSection />
       <AboutSection />
