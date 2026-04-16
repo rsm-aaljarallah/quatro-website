@@ -6,13 +6,13 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Mail } from "lucide-react";
+import { Menu, X, Mail, FolderOpen } from "lucide-react";
+import { Link, useLocation } from "wouter";
 
 const navLinks = [
   { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
   { label: "Education", href: "#education" },
-  { label: "Projects", href: "#projects" },
   { label: "Skills", href: "#skills" },
   { label: "Certifications", href: "#certifications" },
   { label: "Contact", href: "#contact" },
@@ -22,6 +22,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("about");
+  const [location] = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -79,12 +80,12 @@ export default function Navbar() {
                 key={link.href}
                 onClick={() => handleNavClick(link.href)}
                 className={`relative px-3 py-1.5 text-sm font-['Lato'] font-medium transition-all duration-200 rounded-sm ${
-                  activeSection === link.href.replace("#", "")
+                  activeSection === link.href.replace("#", "") && location === "/"
                     ? "text-[#B8C8DC]"
                     : "text-[#7A8FA8] hover:text-white"
                 }`}
               >
-                {activeSection === link.href.replace("#", "") && (
+                {activeSection === link.href.replace("#", "") && location === "/" && (
                   <motion.span
                     layoutId="nav-indicator"
                     className="absolute inset-0 bg-[rgba(184,200,220,0.08)] rounded-sm border border-[rgba(184,200,220,0.2)]"
@@ -94,6 +95,26 @@ export default function Navbar() {
                 <span className="relative z-10">{link.label}</span>
               </button>
             ))}
+            {/* Projects page link */}
+            <Link href="/projects">
+              <button
+                className={`relative flex items-center gap-1.5 px-3 py-1.5 text-sm font-['Lato'] font-medium transition-all duration-200 rounded-sm ${
+                  location.startsWith("/projects")
+                    ? "text-[#B8C8DC]"
+                    : "text-[#7A8FA8] hover:text-white"
+                }`}
+              >
+                {location.startsWith("/projects") && (
+                  <motion.span
+                    layoutId="nav-indicator"
+                    className="absolute inset-0 bg-[rgba(184,200,220,0.08)] rounded-sm border border-[rgba(184,200,220,0.2)]"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
+                  />
+                )}
+                <FolderOpen size={13} className="relative z-10" />
+                <span className="relative z-10">Projects</span>
+              </button>
+            </Link>
           </div>
 
           {/* CTA + Mobile Toggle */}
@@ -135,6 +156,15 @@ export default function Navbar() {
                   {link.label}
                 </button>
               ))}
+              <Link href="/projects">
+                <button
+                  onClick={() => setMobileOpen(false)}
+                  className="w-full text-left flex items-center gap-2 px-4 py-3 text-sm font-['Lato'] text-[#B8C8DC] hover:bg-[rgba(184,200,220,0.05)] rounded-sm transition-all duration-200"
+                >
+                  <FolderOpen size={14} />
+                  Projects
+                </button>
+              </Link>
               <a
                 href="mailto:mr.a.aljarallah@gmail.com"
                 className="flex items-center gap-2 px-4 py-3 mt-2 rounded-sm bg-gradient-to-r from-[#7A8FA8] to-[#B8C8DC] text-[#0A0E1A] text-sm font-['Playfair_Display'] font-bold"
