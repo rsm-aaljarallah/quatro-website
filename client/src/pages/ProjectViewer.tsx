@@ -1,15 +1,16 @@
 /*
- * DESIGN: Project Viewer — Full-screen iframe for project HTML files
- * Deep Navy & Crisp White theme header, iframe fills remaining height
- * Fonts: Playfair Display (headings) + Lato (body)
+ * DESIGN: Project Viewer — Full-screen iframe with site Navbar
+ * Deep Navy & Crisp White theme — Playfair Display + Lato
+ * Site navbar stays at top so visitors remain in context
  */
 
 import { useState } from "react";
 import { Link, useParams } from "wouter";
 import { motion } from "framer-motion";
-import { ArrowLeft, ExternalLink, Maximize2, Minimize2 } from "lucide-react";
+import { ArrowLeft, ExternalLink, Maximize2, Minimize2, Download } from "lucide-react";
+import Navbar from "@/components/Navbar";
 
-const projectData: Record<string, { title: string; url: string; subtitle: string }> = {
+const projectData: Record<string, { title: string; url: string; subtitle: string; downloadUrl?: string }> = {
   "ab-testing": {
     title: "A/B Testing a Call to Action",
     subtitle: "Simulating Key Ideas from Classical Frequentist Statistics",
@@ -55,31 +56,36 @@ export default function ProjectViewer() {
       className="flex flex-col"
       style={{ height: "100vh", background: "#0A0E1A", overflow: "hidden" }}
     >
-      {/* Top bar */}
+      {/* Site Navbar — always visible unless fullscreen */}
+      {!fullscreen && <Navbar />}
+
+      {/* Project sub-bar — sits below the site navbar */}
       {!fullscreen && (
-        <motion.nav
-          initial={{ opacity: 0, y: -10 }}
+        <motion.div
+          initial={{ opacity: 0, y: -6 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex-shrink-0 flex items-center justify-between px-5 py-3 border-b"
+          transition={{ delay: 0.3 }}
+          className="flex-shrink-0 flex items-center justify-between px-5 py-2.5 border-b"
           style={{
-            background: "rgba(10,14,26,0.98)",
+            marginTop: "64px", /* height of the site navbar */
+            background: "rgba(17,24,39,0.95)",
             borderColor: "rgba(232,237,245,0.08)",
             backdropFilter: "blur(12px)",
           }}
         >
-          {/* Left: back */}
+          {/* Left: back to projects */}
           <Link href="/projects">
             <motion.button
               whileHover={{ x: -3 }}
               className="flex items-center gap-2 text-sm"
               style={{ color: "#7A8FA8", fontFamily: "'Lato', sans-serif" }}
             >
-              <ArrowLeft size={15} />
-              Projects
+              <ArrowLeft size={14} />
+              <span>All Projects</span>
             </motion.button>
           </Link>
 
-          {/* Center: title */}
+          {/* Center: project title */}
           <div className="hidden md:block text-center">
             <div
               className="text-sm font-bold leading-tight"
@@ -121,11 +127,11 @@ export default function ProjectViewer() {
                 }}
               >
                 <ExternalLink size={12} />
-                <span className="hidden sm:inline">Open Original</span>
+                <span className="hidden sm:inline">Open in Tab</span>
               </motion.button>
             </a>
           </div>
-        </motion.nav>
+        </motion.div>
       )}
 
       {/* Fullscreen exit bar */}
@@ -153,8 +159,15 @@ export default function ProjectViewer() {
         </motion.div>
       )}
 
-      {/* iframe */}
-      <div className="flex-1 relative" style={{ overflow: "hidden" }}>
+      {/* iframe — fills remaining height */}
+      <div
+        className="flex-1 relative"
+        style={{
+          overflow: "hidden",
+          /* When not fullscreen, navbar (64px) + sub-bar (~48px) = 112px total offset */
+          marginTop: fullscreen ? 0 : undefined,
+        }}
+      >
         <iframe
           src={project.url}
           title={project.title}

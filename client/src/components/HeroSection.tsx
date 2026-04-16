@@ -7,7 +7,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Mail, Phone, ChevronDown, Github, Linkedin } from "lucide-react";
+import { MapPin, Mail, Phone, ChevronDown, Github, Linkedin, Download } from "lucide-react";
 
 const PROFILE_PIC = "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/profile_pic_bf3dcadd.webp";
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/hero_bg-QFyRfnQn3Ak7Ux6DgUzGdx.webp";
@@ -340,6 +340,14 @@ export default function HeroSection() {
                 className="px-6 py-3 rounded-sm border border-[rgba(184,200,220,0.3)] text-[#B8C8DC] font-['Playfair_Display'] font-bold text-sm hover:bg-[rgba(184,200,220,0.08)] hover:border-[rgba(184,200,220,0.6)] transition-all duration-200"
               >
                 Get In Touch
+              </a>
+              <a
+                href="/resume.pdf"
+                download="Abdullah_Aljarallah_Resume.pdf"
+                className="flex items-center gap-2 px-6 py-3 rounded-sm border border-[rgba(184,200,220,0.2)] text-[#7A8FA8] font-['Playfair_Display'] font-bold text-sm hover:bg-[rgba(184,200,220,0.06)] hover:border-[rgba(184,200,220,0.4)] hover:text-[#B8C8DC] transition-all duration-200"
+              >
+                <Download size={14} />
+                Download CV
               </a>
             </motion.div>
 
