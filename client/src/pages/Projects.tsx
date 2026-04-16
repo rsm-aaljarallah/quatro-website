@@ -27,7 +27,7 @@ const projects = [
       "Illustrated the 'peeking problem' in sequential testing",
     ],
     icon: BarChart2,
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/hw1_solution_4_d3552c46.html",
+    url: "/projects/ab-testing.html",
     type: "Academic",
   },
 ];

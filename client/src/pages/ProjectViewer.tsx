@@ -13,7 +13,7 @@ const projectData: Record<string, { title: string; url: string; subtitle: string
   "ab-testing": {
     title: "A/B Testing a Call to Action",
     subtitle: "Simulating Key Ideas from Classical Frequentist Statistics",
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/hw1_solution_4_d3552c46.html",
+    url: "/projects/ab-testing.html",
   },
 };
 
