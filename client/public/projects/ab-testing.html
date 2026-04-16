@@ -73,7 +73,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="hw1_solution_4_files/libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="hw1_solution_4_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="hw1_solution_4_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="hw1_solution_4_files/libs/bootstrap/bootstrap-138a6193a3bd40baf1e627da441a4734.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="hw1_solution_4_files/libs/bootstrap/bootstrap-138a6193a3bd40baf1e627da441a4734.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
@@ -109,52 +109,201 @@ window.Quarto = {
 </script>
 
 
-<style>
-/* Force light theme — override any inherited dark site styles */
+<style id="site-dark-override">
+/* ============================================================
+   SITE DARK NAVY THEME — matches abdullah.manus.space palette
+   Background: #0A0E1A | Surface: #111827 | Text: #E8EDF5
+   Accent: #B8C8DC | Muted: #7A8FA8 | Border: rgba(232,237,245,0.1)
+   ============================================================ */
+
+:root {
+  --bs-body-bg: #0A0E1A !important;
+  --bs-body-color: #E8EDF5 !important;
+  --bs-heading-color: #F8FAFC !important;
+  --bs-link-color: #B8C8DC !important;
+  --bs-link-hover-color: #E8EDF5 !important;
+  --bs-code-bg: #111827 !important;
+  --bs-code-color: #94A8C0 !important;
+  --bs-border-color: rgba(232,237,245,0.1) !important;
+  --bs-table-bg: transparent !important;
+  --bs-table-striped-bg: rgba(232,237,245,0.03) !important;
+  --bs-table-hover-bg: rgba(232,237,245,0.05) !important;
+}
+
 html, body {
-  background-color: #ffffff !important;
-  color: #1a1a1a !important;
-  font-family: Georgia, 'Times New Roman', serif !important;
+  background-color: #0A0E1A !important;
+  color: #E8EDF5 !important;
+  font-family: 'Lato', Georgia, serif !important;
 }
-body.quarto-light {
-  background-color: #ffffff !important;
-  color: #1a1a1a !important;
+
+/* Main content area */
+#quarto-content, .page-columns, main, .content,
+#quarto-document-content, .quarto-title-block {
+  background-color: #0A0E1A !important;
+  color: #E8EDF5 !important;
 }
-#quarto-content, .content, main, .page-columns {
-  background-color: #ffffff !important;
-  color: #1a1a1a !important;
+
+/* Headings */
+h1, h2, h3, h4, h5, h6,
+.quarto-title h1.title {
+  color: #F8FAFC !important;
+  font-family: 'Playfair Display', Georgia, serif !important;
+  border-bottom-color: rgba(232,237,245,0.1) !important;
 }
-h1, h2, h3, h4, h5, h6 {
-  color: #111111 !important;
+
+/* Body text */
+p, li, td, th, blockquote, figcaption, label {
+  color: #E8EDF5 !important;
 }
-p, li, td, th, span, div {
-  color: inherit !important;
+
+/* Muted / meta text */
+.quarto-title-meta-heading,
+.quarto-title-meta-contents,
+.date, .author,
+small, .text-muted {
+  color: #7A8FA8 !important;
 }
-a {
-  color: #1a5276 !important;
+
+/* Links */
+a, a:visited {
+  color: #B8C8DC !important;
+  text-decoration: underline;
+  text-decoration-color: rgba(184,200,220,0.3) !important;
 }
-pre, code {
-  background-color: #f5f5f5 !important;
-  color: #333333 !important;
+a:hover {
+  color: #E8EDF5 !important;
 }
-.sourceCode, pre.sourceCode {
-  background-color: #f8f8f8 !important;
+
+/* Table of contents */
+#TOC, .toc, nav#TOC {
+  background-color: #111827 !important;
+  border: 1px solid rgba(232,237,245,0.08) !important;
+  border-radius: 4px !important;
+  padding: 1rem !important;
 }
-.quarto-title-meta-heading {
-  color: #555555 !important;
+#TOC a, nav#TOC a {
+  color: #94A8C0 !important;
 }
+#TOC a:hover, nav#TOC a:hover {
+  color: #E8EDF5 !important;
+}
+#TOC .active, nav#TOC .active {
+  color: #B8C8DC !important;
+}
+
+/* Code blocks */
+pre, pre.sourceCode, .sourceCode,
+div.sourceCode, .code-with-copy {
+  background-color: #111827 !important;
+  border: 1px solid rgba(232,237,245,0.08) !important;
+  border-radius: 4px !important;
+  color: #94A8C0 !important;
+}
+code {
+  background-color: rgba(232,237,245,0.06) !important;
+  color: #B8C8DC !important;
+  padding: 0.1em 0.3em !important;
+  border-radius: 3px !important;
+}
+pre code {
+  background-color: transparent !important;
+  color: #94A8C0 !important;
+  padding: 0 !important;
+}
+
+/* Syntax highlighting — keep readable on dark bg */
+.sourceCode .co { color: #6A7A8A !important; } /* comments */
+.sourceCode .st { color: #7FADA8 !important; } /* strings */
+.sourceCode .kw { color: #B8C8DC !important; } /* keywords */
+.sourceCode .dv, .sourceCode .fl { color: #A8C8B8 !important; } /* numbers */
+.sourceCode .fu { color: #C8B8DC !important; } /* functions */
+.sourceCode .op { color: #7A8FA8 !important; } /* operators */
+.sourceCode .im { color: #B8C8DC !important; } /* imports */
+
+/* Tables */
 table {
-  background-color: #ffffff !important;
-  color: #1a1a1a !important;
+  background-color: transparent !important;
+  color: #E8EDF5 !important;
+  border-color: rgba(232,237,245,0.1) !important;
 }
-th {
-  background-color: #f0f0f0 !important;
-  color: #111111 !important;
+thead th {
+  background-color: rgba(232,237,245,0.06) !important;
+  color: #F8FAFC !important;
+  border-bottom: 1px solid rgba(232,237,245,0.15) !important;
+}
+tbody tr:nth-child(odd) {
+  background-color: rgba(232,237,245,0.02) !important;
+}
+tbody tr:hover {
+  background-color: rgba(232,237,245,0.05) !important;
+}
+td, th {
+  border-color: rgba(232,237,245,0.07) !important;
+  color: #E8EDF5 !important;
+}
+
+/* Math / KaTeX */
+.math, .katex {
+  color: #E8EDF5 !important;
+}
+
+/* Figures and captions */
+figcaption, .quarto-float-caption {
+  color: #7A8FA8 !important;
+  font-style: italic !important;
+}
+figure img {
+  border-radius: 4px !important;
+  border: 1px solid rgba(232,237,245,0.08) !important;
+}
+
+/* Callouts / alerts */
+.callout {
+  background-color: #111827 !important;
+  border-left-color: #B8C8DC !important;
+}
+
+/* Horizontal rules */
+hr {
+  border-color: rgba(232,237,245,0.1) !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #0A0E1A; }
+::-webkit-scrollbar-thumb { background: #2A3A4A; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #3A4A5A; }
+
+/* Copy button */
+.code-copy-button {
+  background: rgba(232,237,245,0.05) !important;
+  border: 1px solid rgba(232,237,245,0.1) !important;
+  color: #7A8FA8 !important;
+}
+.code-copy-button:hover {
+  background: rgba(232,237,245,0.1) !important;
+  color: #E8EDF5 !important;
+}
+
+/* Details/summary (code fold) */
+details summary {
+  color: #7A8FA8 !important;
+  cursor: pointer;
+}
+details summary:hover {
+  color: #B8C8DC !important;
+}
+
+/* Bootstrap overrides for dark mode */
+.table { --bs-table-color: #E8EDF5; }
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  --bs-table-accent-bg: rgba(232,237,245,0.03);
+  color: #E8EDF5 !important;
 }
 </style>
 </head>
 
-<body class="quarto-light">
+<body class="quarto-dark">
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
