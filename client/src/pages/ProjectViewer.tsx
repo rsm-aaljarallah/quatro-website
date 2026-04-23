@@ -16,6 +16,11 @@ const projectData: Record<string, { title: string; url: string; subtitle: string
     subtitle: "Simulating Key Ideas from Classical Frequentist Statistics",
     url: "/projects/ab-testing.html",
   },
+  "card-krueger": {
+    title: "Replication of Card & Krueger (1994)",
+    subtitle: "Minimum Wages and Employment: A Case Study of the Fast-Food Industry in NJ and PA",
+    url: "/projects/hw2.html",
+  },
 };
 
 export default function ProjectViewer() {

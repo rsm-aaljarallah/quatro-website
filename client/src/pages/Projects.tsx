@@ -7,7 +7,7 @@
 
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { ArrowLeft, ExternalLink, Calendar, Tag, BookOpen, BarChart2, Brain } from "lucide-react";
+import { ArrowLeft, ExternalLink, Calendar, Tag, BookOpen, BarChart2, Brain, TrendingUp } from "lucide-react";
 
 const projects = [
   {
@@ -28,6 +28,27 @@ const projects = [
     ],
     icon: BarChart2,
     url: "/projects/ab-testing.html",
+    type: "Academic",
+  },
+  {
+    id: "card-krueger",
+    slug: "card-krueger",
+    title: "Replication of Card & Krueger (1994)",
+    subtitle: "Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania",
+    date: "April 2026",
+    course: "Causal Inference · UCSD Rady",
+    tags: ["Causal Inference", "Difference-in-Differences", "Python", "Labor Economics", "OLS Regression", "Placebo Testing"],
+    description:
+      "A full replication of Card and Krueger's landmark 1994 paper — the study that challenged the textbook prediction that minimum wage increases reduce employment. Using the original dataset of ~410 fast-food restaurants across New Jersey and Pennsylvania, this project reconstructs all key tables, adds simulation-based DiD intuition, a pre/post employment visualization, and a placebo test to validate the research design.",
+    highlights: [
+      "Replicated Table 2 (summary statistics) and Table 3 (DiD estimate of +2.75 FTE) from the original paper",
+      "Simulated parallel trends to show when DiD recovers causal effects vs. fails",
+      "Built a visualization of the NJ vs. PA employment shift the paper only reported in tables",
+      "Conducted a placebo test confirming the design produces no spurious effects",
+      "Examined the Neumark–Wascher critique and its methodological implications",
+    ],
+    icon: TrendingUp,
+    url: "/projects/hw2.html",
     type: "Academic",
   },
 ];
