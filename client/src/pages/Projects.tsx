@@ -35,7 +35,7 @@ const projects = [
     slug: "card-krueger",
     title: "Replication of Card & Krueger (1994)",
     subtitle: "Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania",
-    date: "April 2026",
+    date: "April 28, 2026",
     course: "Causal Inference · UCSD Rady",
     tags: ["Causal Inference", "Difference-in-Differences", "Python", "Labor Economics", "OLS Regression", "Placebo Testing"],
     description:
