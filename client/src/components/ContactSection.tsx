@@ -12,8 +12,8 @@ const contactItems = [
   {
     icon: Mail,
     label: "Email",
-    value: "mr.a.aljarallah@gmail.com",
-    href: "mailto:mr.a.aljarallah@gmail.com",
+    value: "abdullah.aljarallah@rady.ucsd.edu",
+    href: "mailto:abdullah.aljarallah@rady.ucsd.edu",
     color: "#B8C8DC",
   },
   {
@@ -213,7 +213,7 @@ export default function ContactSection() {
 
                 {/* CTA Button */}
                 <a
-                  href="mailto:mr.a.aljarallah@gmail.com"
+                  href="mailto:abdullah.aljarallah@rady.ucsd.edu"
                   className="w-full flex items-center justify-center gap-2 py-3 rounded-sm font-['Playfair_Display'] font-bold text-sm transition-all duration-200 hover:shadow-[0_0_30px_rgba(184,200,220,0.4)] hover:scale-[1.02]"
                   style={{
                     background: "linear-gradient(90deg, #7A8FA8, #B8C8DC)",

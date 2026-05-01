@@ -13,9 +13,9 @@ const PROFILE_PIC = "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqV
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/hero_bg-QFyRfnQn3Ak7Ux6DgUzGdx.webp";
 
 const roles = [
-  "Business Analytics Professional",
-  "Data-Driven Strategist",
-  "Marketing Analytics Expert",
+  "Marketing Science Specialist",
+  "Bayesian MMM Practitioner",
+  "Applied AI & Agent Builder",
   "Digital Transformation Leader",
 ];
 
@@ -267,9 +267,7 @@ export default function HeroSection() {
               transition={{ delay: 0.6 }}
               className="font-['Lato'] text-[#7A8FA8] text-base lg:text-lg max-w-2xl leading-relaxed mb-8"
             >
-              Bridging the gap between data science and business strategy.
-              Currently pursuing MSBA at UC San Diego's Rady School of Management,
-              with a track record of managing $30M+ marketing portfolios and driving digital transformation.
+              Marketing operator turned measurement specialist. Ten years running $30M+ portfolios across banking, government, and enterprise tech in the GCC — now finishing my MSBA at UC San Diego with a capstone in Bayesian MMM. I build the campaigns and the agent systems that measure them.
             </motion.p>
 
             {/* Contact pills */}
@@ -281,7 +279,7 @@ export default function HeroSection() {
             >
               {[
                 { icon: MapPin, text: "San Diego, CA" },
-                { icon: Mail, text: "mr.a.aljarallah@gmail.com", href: "mailto:mr.a.aljarallah@gmail.com" },
+                { icon: Mail, text: "abdullah.aljarallah@rady.ucsd.edu", href: "mailto:abdullah.aljarallah@rady.ucsd.edu" },
                 { icon: Phone, text: "+1 619-314-1187", href: "tel:+16193141187" },
               ].map(({ icon: Icon, text, href }) => (
                 <a
@@ -336,14 +334,14 @@ export default function HeroSection() {
                 View My Work
               </button>
               <a
-                href="mailto:mr.a.aljarallah@gmail.com"
+                href="mailto:abdullah.aljarallah@rady.ucsd.edu"
                 className="px-6 py-3 rounded-sm border border-[rgba(184,200,220,0.3)] text-[#B8C8DC] font-['Playfair_Display'] font-bold text-sm hover:bg-[rgba(184,200,220,0.08)] hover:border-[rgba(184,200,220,0.6)] transition-all duration-200"
               >
                 Get In Touch
               </a>
               <a
-                href="/resume.pdf"
-                download="Abdullah_Aljarallah_Resume.pdf"
+                href="/AJ_AlJarallah_CV.pdf"
+                download="AJ_AlJarallah_CV.pdf"
                 className="flex items-center gap-2 px-6 py-3 rounded-sm border border-[rgba(184,200,220,0.2)] text-[#7A8FA8] font-['Playfair_Display'] font-bold text-sm hover:bg-[rgba(184,200,220,0.06)] hover:border-[rgba(184,200,220,0.4)] hover:text-[#B8C8DC] transition-all duration-200"
               >
                 <Download size={14} />
@@ -361,8 +359,8 @@ export default function HeroSection() {
               {[
                 { value: "$30M+", label: "Portfolio Managed" },
                 { value: "10+", label: "Years Experience" },
-                { value: "3", label: "Industries" },
-                { value: "2", label: "Languages" },
+                { value: "3", label: "Ventures Founded" },
+                { value: "MMM", label: "Capstone Focus" },
               ].map(({ value, label }) => (
                 <div key={label} className="text-center lg:text-left">
                   <div className="font-['Playfair_Display'] font-extrabold text-2xl text-gradient-cyan">{value}</div>

@@ -13,19 +13,19 @@ const experiences = [
   {
     id: 1,
     role: "Public Relations Specialist",
-    company: "The Public Institution for Social Security",
+    company: "Public Institution for Social Security (PIFSS)",
     period: "December 2020 – Present",
     type: "Current",
     color: "#B8C8DC",
     icon: Briefcase,
     description:
-      "Leading strategic communications initiatives to position the institution as a center of excellence. Developed and implemented comprehensive digital transformation strategies that revolutionized internal and external communications.",
+      "Led digital transformation and strategic communications for Kuwait's social security institution.",
     achievements: [
-      "Designed the institution's first comprehensive marketing calendar and content guidelines",
-      "Drove email adoption from 0% to 100% through strategic campaigns and engagement initiatives",
-      "Created and launched an internal high-performance recognition program boosting employee engagement",
+      "Designed and led the digital transformation strategy that drove email adoption from 0% to 100% across 3,000+ employees in three months, tracked across 20+ departments",
+      "Built the institution's first comprehensive marketing calendar, content guidelines, and measurement framework for internal and external communications",
+      "Created and launched an internal high-performance recognition program with HR, increasing measurable employee engagement",
     ],
-    tags: ["PR Strategy", "Digital Transformation", "Content Marketing", "Change Management"],
+    tags: ["Power BI", "Tableau", "Change Management", "Content Operations"],
   },
   {
     id: 2,
@@ -36,50 +36,32 @@ const experiences = [
     color: "#7A8FA8",
     icon: TrendingUp,
     description:
-      "Managed high-value marketing campaigns across Group Retail Banking, Group Corporate Banking, and Private Banking divisions. Strategically allocated budgets and deployed integrated marketing communication tools.",
+      "Managed a $30M+ annual marketing portfolio across Group Retail Banking, Group Corporate Banking, and Private Banking divisions.",
     achievements: [
-      "Managed marketing portfolio worth approximately $30 million USD across multiple banking divisions",
-      "Pioneered KFH's first-ever European marketing campaign, delivering astonishing ROI and earning instant promotion",
-      "Developed data-driven strategies that significantly increased product adoption and customer engagement",
+      "Pioneered KFH's first-ever European marketing campaign — delivered measurable ROI lift and earned an early promotion",
+      "Allocated budgets across digital, OOH, print, sponsorships, and events using campaign performance data and post-buy analysis — the operational foundation for my later move into Marketing Mix Modeling",
+      "Developed segmentation-driven strategies that increased product adoption and customer engagement across multiple banking products",
     ],
-    tags: ["$30M Portfolio", "Banking Marketing", "Campaign Management", "Data Analytics"],
+    tags: ["$30M Portfolio", "Campaign Analytics", "Adobe Analytics", "Agency Management"],
   },
   {
     id: 3,
     role: "Account Manager",
-    company: "Xerox – Alghanim Industries",
+    company: "Xerox — Alghanim Industries",
     period: "June 2016 – September 2017",
     type: "1.5 Years",
     color: "#6A8AA8",
     icon: Award,
     description:
-      "Drove revenue growth through strategic account management and solution selling of Xerox products, extensions, and smart technological solutions. Collaborated with sales leadership to develop sophisticated account strategies.",
+      "Generated KD 3M (~$10M USD) in revenue through tender management, smart workflow solutions, and B2B account expansion.",
     achievements: [
-      "Generated KD 3 million (~$10M USD) in sales revenue through tender management and smart solutions",
       "Consistently exceeded sales targets by identifying customer needs and delivering tailored proposals",
-      "Built strong client relationships resulting in repeat business and long-term partnerships",
+      "Built C-suite relationships across Kuwaiti corporates, ministries, and family offices",
     ],
-    tags: ["Solution Selling", "Account Management", "B2B Sales", "Smart Technology"],
+    tags: ["B2B Sales", "Tender Management", "Account Management", "Smart Workflows"],
   },
   {
     id: 4,
-    role: "Diving Instructor & Partner",
-    company: "Dive 36 – Diving Center",
-    period: "May 2013 – Present",
-    type: "Ongoing",
-    color: "#2A6A9A",
-    icon: Briefcase,
-    description:
-      "Teaching students individually or in groups using discussions and demonstrations. Managing business operations, strategic planning, and employee supervision.",
-    achievements: [
-      "Certified SCUBA diving instructor with 10+ years of teaching experience",
-      "Managing business operations and strategic planning for the diving center",
-      "Developing confident divers by overcoming obstacles novice divers face",
-    ],
-    tags: ["Instruction", "Business Operations", "Leadership", "Safety Management"],
-  },
-  {
-    id: 5,
     role: "Volunteer Guide",
     company: "Kuwait Scientific Center",
     period: "June 2007",
@@ -87,13 +69,12 @@ const experiences = [
     color: "#1A5A7A",
     icon: Heart,
     description:
-      "Provided educational guidance to visitors through the aquarium's three distinct environmental zones, delivering engaging descriptions of animal, plant, and marine life to enhance visitor experience and learning.",
+      "Provided educational guidance to visitors through the aquarium's three distinct environmental zones.",
     achievements: [
       "Guided visitors through three distinct aquarium environmental zones",
       "Delivered engaging educational descriptions of marine and wildlife",
-      "Enhanced visitor experience and promoted environmental awareness",
     ],
-    tags: ["Education", "Public Engagement", "Marine Life", "Volunteering"],
+    tags: ["Education", "Public Engagement", "Marine Life"],
   },
 ];
 

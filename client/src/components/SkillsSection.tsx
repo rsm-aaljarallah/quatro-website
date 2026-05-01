@@ -10,74 +10,76 @@ import { Code2, BarChart3, Megaphone, Users } from "lucide-react";
 
 const skillCategories = [
   {
-    id: "technical",
-    title: "Technical Skills",
-    icon: Code2,
+    id: "marketing-science",
+    title: "Marketing Science & Measurement",
+    icon: BarChart3,
     color: "#B8C8DC",
     skills: [
-      { name: "Python", level: 85 },
-      { name: "R Programming", level: 80 },
-      { name: "SQL", level: 88 },
-      { name: "Machine Learning", level: 82 },
-      { name: "Statistical Analysis", level: 87 },
-      { name: "Data Manipulation", level: 90 },
+      { name: "Bayesian MMM", level: 90 },
+      { name: "Incrementality Testing", level: 85 },
+      { name: "A/B Testing", level: 92 },
+      { name: "Multi-touch Attribution", level: 85 },
+      { name: "Geo-experiments", level: 80 },
+      { name: "Brand & Conversion Lift", level: 83 },
     ],
   },
   {
-    id: "visualization",
-    title: "Data & Visualization",
-    icon: BarChart3,
+    id: "programming",
+    title: "Programming & Data",
+    icon: Code2,
     color: "#7A8FA8",
     skills: [
-      { name: "Tableau", level: 88 },
-      { name: "Power BI", level: 85 },
-      { name: "Data Storytelling", level: 92 },
-      { name: "Predictive Modeling", level: 80 },
-      { name: "Microsoft Office Suite", level: 95 },
-      { name: "Marketing Automation", level: 85 },
+      { name: "Python (pandas, NumPy, scikit-learn, PyMC)", level: 88 },
+      { name: "R", level: 80 },
+      { name: "SQL", level: 87 },
+      { name: "Tableau / Power BI", level: 90 },
+      { name: "Streamlit", level: 82 },
+      { name: "Quarto / git", level: 85 },
     ],
   },
   {
-    id: "marketing",
-    title: "Marketing & Comms",
-    icon: Megaphone,
+    id: "applied-ai",
+    title: "Applied AI & Agents",
+    icon: Users,
     color: "#6A8AA8",
     skills: [
-      { name: "Campaign Management", level: 95 },
-      { name: "Digital Analytics", level: 88 },
-      { name: "Social Media Strategy", level: 90 },
-      { name: "Content Development", level: 87 },
-      { name: "Public Speaking", level: 92 },
-      { name: "Strategic Communication", level: 90 },
+      { name: "Claude & MCP", level: 90 },
+      { name: "Agent Design", level: 87 },
+      { name: "Prompt Engineering", level: 92 },
+      { name: "Fine-tuning & Retrieval", level: 80 },
+      { name: "LLM-augmented Workflows", level: 88 },
+      { name: "Obsidian + Claude Integration", level: 85 },
     ],
   },
   {
-    id: "leadership",
-    title: "Leadership & Strategy",
-    icon: Users,
+    id: "marketing-ops",
+    title: "Marketing Operations",
+    icon: Megaphone,
     color: "#2A6A9A",
     skills: [
-      { name: "Strategic Planning", level: 92 },
-      { name: "Budget Management ($30M+)", level: 90 },
-      { name: "Cross-functional Leadership", level: 88 },
-      { name: "Change Management", level: 85 },
-      { name: "Digital Transformation", level: 87 },
-      { name: "Problem Solving", level: 93 },
+      { name: "Campaign Management ($30M+)", level: 95 },
+      { name: "Digital Analytics", level: 90 },
+      { name: "Performance Marketing", level: 88 },
+      { name: "Agency Management", level: 92 },
+      { name: "Social Media Strategy", level: 87 },
+      { name: "Content Operations", level: 85 },
     ],
   },
 ];
 
 const techStack = [
   { name: "Python", color: "#3776AB" },
-  { name: "R", color: "#276DC3" },
+  { name: "PyMC", color: "#276DC3" },
+  { name: "R", color: "#6A8AA8" },
   { name: "SQL", color: "#B8C8DC" },
   { name: "Tableau", color: "#E97627" },
   { name: "Power BI", color: "#F2C811" },
-  { name: "ML/AI", color: "#B8C8DC" },
-  { name: "LLMs", color: "#7A8FA8" },
-  { name: "Excel", color: "#217346" },
+  { name: "Streamlit", color: "#FF4B4B" },
+  { name: "Claude", color: "#B8C8DC" },
+  { name: "MCP", color: "#7A8FA8" },
+  { name: "Quarto", color: "#4A9A8A" },
+  { name: "Bayesian MMM", color: "#B8C8DC" },
   { name: "Arabic", color: "#6A8AA8" },
-  { name: "English", color: "#B8C8DC" },
 ];
 
 function SkillBar({
@@ -149,7 +151,7 @@ export default function SkillsSection() {
           transition={{ duration: 0.6 }}
           className="flex items-center gap-4 mb-16"
         >
-          <div className="mono-label">06 / Skills</div>
+          <div className="mono-label">05 / Skills</div>
           <div className="flex-1 section-divider" />
         </motion.div>
 

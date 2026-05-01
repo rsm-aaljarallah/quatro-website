@@ -10,29 +10,46 @@ import { Award, Brain, TrendingUp, Sparkles } from "lucide-react";
 
 const certGroups = [
   {
-    id: "ai",
-    title: "Data Science & AI",
+    id: "datacamp",
+    title: "DataCamp",
     icon: Brain,
     color: "#B8C8DC",
     certs: [
-      { name: "Fine Tuning Language Models for Business Tasks", issuer: "Advanced AI" },
-      { name: "Generative AI", issuer: "AI Certification" },
       { name: "Machine Learning Fundamentals", issuer: "DataCamp" },
       { name: "Data Manipulation with Python", issuer: "DataCamp" },
-      { name: "Statistical Analysis and Modeling", issuer: "DataCamp" },
+      { name: "Statistical Analysis & Modeling", issuer: "DataCamp" },
       { name: "Data Science for Business", issuer: "DataCamp" },
     ],
   },
   {
-    id: "marketing",
-    title: "Business & Marketing",
-    icon: TrendingUp,
+    id: "applied-ai",
+    title: "Applied AI",
+    icon: Sparkles,
     color: "#7A8FA8",
     certs: [
+      { name: "Fine-Tuning Language Models for Business Tasks", issuer: "Applied AI" },
+      { name: "Generative AI for Business", issuer: "Applied AI" },
+    ],
+  },
+  {
+    id: "marketing",
+    title: "Marketing",
+    icon: TrendingUp,
+    color: "#6A8AA8",
+    certs: [
       { name: "Strategic Marketing Planning", issuer: "Professional Certification" },
-      { name: "Digital Marketing", issuer: "Digital Marketing Cert" },
-      { name: "Social Media Marketing", issuer: "Social Media Cert" },
-      { name: "Innovative Thinking", issuer: "Innovation Cert" },
+      { name: "Digital Marketing", issuer: "Professional Certification" },
+      { name: "Social Media Marketing", issuer: "Professional Certification" },
+      { name: "Innovative Thinking", issuer: "Professional Certification" },
+    ],
+  },
+  {
+    id: "other",
+    title: "Other",
+    icon: Award,
+    color: "#2A6A9A",
+    certs: [
+      { name: "PADI Master Instructor", issuer: "PADI" },
     ],
   },
 ];

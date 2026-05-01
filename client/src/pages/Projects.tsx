@@ -11,6 +11,44 @@ import { ArrowLeft, ExternalLink, Calendar, Tag, BookOpen, BarChart2, Brain, Tre
 
 const projects = [
   {
+    id: "bayesian-mmm-capstone",
+    slug: "bayesian-mmm-capstone",
+    title: "Bayesian Marketing Mix Modeling Capstone",
+    subtitle: "AI Research & Agent Lead — Direct Avenue (US Performance Media Agency)",
+    date: "March 2026 – June 2026",
+    course: "MSBA Capstone · UCSD Rady",
+    tags: ["Bayesian MMM", "PyMC", "Streamlit", "scikit-learn", "Claude", "MCP", "Quarto"],
+    description:
+      "Owning industry research, prompt and reasoning design, and the agent / AI research repository for a US performance media agency. Built a Bayesian MMM decision-support dashboard in Streamlit and Python, replacing a planned multi-agent system after a scope review with the client and faculty advisors. Delivered a reproducible MMM pipeline, ML model evaluation, and prompt-design protocols now feeding live client decisions on media allocation.",
+    highlights: [
+      "Built a Bayesian MMM decision-support dashboard in Streamlit and Python for live client use",
+      "Designed prompt and reasoning protocols for LLM-augmented media allocation decisions",
+      "Delivered reproducible MMM pipeline and ML model evaluation to faculty and client",
+    ],
+    icon: Brain,
+    url: null,
+    type: "Capstone",
+  },
+  {
+    id: "neural-vault",
+    slug: "neural-vault",
+    title: "Neural Vault — Personal AI Knowledge System",
+    subtitle: "Two-layer memory architecture combining Claude and Obsidian",
+    date: "2024 – Present",
+    course: "Independent · Presented at UCSD MGTA 454",
+    tags: ["Claude", "MCP", "Obsidian", "Python", "git", "Agent Design", "Quarto"],
+    description:
+      "Built a two-layer memory architecture combining Claude's native memory with a structured Obsidian wiki, including a Context Injection Protocol, COMMIT flag, auto-save git daemon, and MCP integrations for Obsidian, Notion, Gmail, and Google Calendar. Documented in a Quarto / HTML guide and presented to UC San Diego faculty (Prof. Vincent Nijs, MGTA 454, GenAI for Business). Core components shipped independently before similar approaches were published elsewhere.",
+    highlights: [
+      "Designed Context Injection Protocol and COMMIT flag for persistent AI memory management",
+      "Integrated MCP servers for Obsidian, Notion, Gmail, and Google Calendar",
+      "Presented to Prof. Vincent Nijs (MGTA 454 — GenAI for Business) at UC San Diego",
+    ],
+    icon: Brain,
+    url: null,
+    type: "Personal Project",
+  },
+  {
     id: "ab-testing",
     slug: "ab-testing",
     title: "A/B Testing a Call to Action",
@@ -242,36 +280,52 @@ export default function Projects() {
 
                   {/* CTA buttons */}
                   <div className="flex flex-wrap gap-3">
-                    <Link href={`/projects/${project.slug}`}>
-                      <motion.button
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="flex items-center gap-2 px-5 py-2.5 rounded-sm text-sm font-bold"
+                    {project.url && (
+                      <Link href={`/projects/${project.slug}`}>
+                        <motion.button
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="flex items-center gap-2 px-5 py-2.5 rounded-sm text-sm font-bold"
+                          style={{
+                            background: "linear-gradient(135deg, #4A6A8A, #B8C8DC)",
+                            color: "#0A0E1A",
+                            fontFamily: "'Lato', sans-serif",
+                          }}
+                        >
+                          <BookOpen size={14} />
+                          View Full Report
+                        </motion.button>
+                      </Link>
+                    )}
+                    {project.url && (
+                      <a href={project.url} target="_blank" rel="noopener noreferrer">
+                        <motion.button
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="flex items-center gap-2 px-5 py-2.5 rounded-sm text-sm font-bold"
+                          style={{
+                            border: "1px solid rgba(232,237,245,0.15)",
+                            color: "#B8C8DC",
+                            fontFamily: "'Lato', sans-serif",
+                          }}
+                        >
+                          <ExternalLink size={14} />
+                          Open in New Tab
+                        </motion.button>
+                      </a>
+                    )}
+                    {!project.url && (
+                      <span
+                        className="flex items-center gap-2 px-5 py-2.5 rounded-sm text-sm"
                         style={{
-                          background: "linear-gradient(135deg, #4A6A8A, #B8C8DC)",
-                          color: "#0A0E1A",
+                          border: "1px dashed rgba(232,237,245,0.1)",
+                          color: "#4A5A6A",
                           fontFamily: "'Lato', sans-serif",
                         }}
                       >
-                        <BookOpen size={14} />
-                        View Full Report
-                      </motion.button>
-                    </Link>
-                    <a href={project.url} target="_blank" rel="noopener noreferrer">
-                      <motion.button
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="flex items-center gap-2 px-5 py-2.5 rounded-sm text-sm font-bold"
-                        style={{
-                          border: "1px solid rgba(232,237,245,0.15)",
-                          color: "#B8C8DC",
-                          fontFamily: "'Lato', sans-serif",
-                        }}
-                      >
-                        <ExternalLink size={14} />
-                        Open in New Tab
-                      </motion.button>
-                    </a>
+                        Report coming soon
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>

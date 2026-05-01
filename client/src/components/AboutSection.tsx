@@ -56,33 +56,27 @@ export default function AboutSection() {
           <div>
             <AnimatedSection delay={0.1}>
               <h2 className="font-['Playfair_Display'] font-extrabold text-4xl lg:text-5xl text-white mb-6 leading-tight">
-                Where Data Meets
+                Marketing Operator
                 <br />
-                <span className="text-gradient-cyan">Business Strategy</span>
+                <span className="text-gradient-cyan">Turned Measurement Specialist</span>
               </h2>
             </AnimatedSection>
 
             <AnimatedSection delay={0.2}>
               <p className="font-['Lato'] text-[#7A8FA8] text-base leading-relaxed mb-6">
-                I'm a business analytics professional with a unique blend of marketing expertise, 
-                data science capabilities, and strategic leadership experience. Currently pursuing 
-                my Master of Science in Business Analytics at UC San Diego's Rady School of Management — 
-                a STEM-designated program that sits at the intersection of technology and business.
+                Over ten years running $30M+ marketing portfolios across banking, government, and enterprise tech in the GCC. Now finishing my MSBA at UC San Diego's Rady School of Management — STEM-designated — with a capstone in Bayesian Marketing Mix Modeling at Direct Avenue, a US performance media agency.
               </p>
             </AnimatedSection>
 
             <AnimatedSection delay={0.3}>
               <p className="font-['Lato'] text-[#7A8FA8] text-base leading-relaxed mb-8">
-                My career spans public relations, banking marketing, and enterprise technology sales, 
-                giving me a 360° view of how organizations leverage data to drive decisions. 
-                I've managed marketing portfolios worth $30M+, pioneered international campaigns, 
-                and led digital transformation initiatives that reshaped organizational culture.
+                I led Kuwait Finance House's first European campaign, drove 100% digital adoption across 3,000+ employees at Kuwait's social security institution, and run three side ventures in tourism, diving, and growth consulting. I build the campaigns and the agent systems that measure them — my Neural Vault project integrates Claude, Obsidian, and MCP to manage knowledge work end-to-end. Targeting Marketing Science, Measurement, and Applied AI roles across MENA.
               </p>
             </AnimatedSection>
 
             <AnimatedSection delay={0.4}>
               <div className="flex flex-wrap gap-2">
-                {["Python", "R", "SQL", "Tableau", "Power BI", "Machine Learning", "LLMs", "Marketing Analytics"].map(tag => (
+                {["Python", "PyMC", "SQL", "Tableau", "Power BI", "Bayesian MMM", "Claude / MCP", "Marketing Science", "Streamlit", "Quarto"].map(tag => (
                   <span
                     key={tag}
                     className="px-3 py-1 text-xs font-['JetBrains_Mono'] text-[#B8C8DC] bg-[rgba(184,200,220,0.06)] border border-[rgba(184,200,220,0.15)] rounded-sm"
@@ -126,10 +120,10 @@ export default function AboutSection() {
                 </h3>
                 <div className="space-y-3">
                   {[
-                    { label: "AI & Machine Learning", pct: 90 },
-                    { label: "Business Analytics", pct: 95 },
-                    { label: "Marketing Strategy", pct: 88 },
-                    { label: "Data Visualization", pct: 85 },
+                    { label: "Bayesian MMM & Measurement", pct: 92 },
+                    { label: "Marketing Science & Strategy", pct: 95 },
+                    { label: "Applied AI & Agent Design", pct: 88 },
+                    { label: "Python / Data Engineering", pct: 85 },
                   ].map(({ label, pct }) => (
                     <div key={label}>
                       <div className="flex justify-between mb-1">
