@@ -1,8 +1,8 @@
 /*
  * DESIGN: Projects Page — Deep Navy & Crisp White
  * Clean editorial layout inspired by minimal portfolio sites
- * Featured project (Macy's) spans full width at top
- * Remaining projects in a clean list with hover reveal animations
+ * Featured project (Macy's) spans full width at top with cover image
+ * Remaining projects in a clean grid with cover images and hover animations
  * Fonts: Playfair Display (headings) + Lato (body) + JetBrains Mono (labels)
  */
 
@@ -12,10 +12,6 @@ import {
   ArrowLeft,
   ExternalLink,
   BookOpen,
-  Brain,
-  BarChart2,
-  TrendingUp,
-  Cpu,
   ArrowUpRight,
   Users,
   Zap,
@@ -31,6 +27,7 @@ const featuredProject = {
   team: "Abdullah AlJarallah · Merna Saad · Shankar D.",
   liveUrl: "https://macys-marketing-gui.vercel.app",
   githubUrl: "https://github.com/rsm-msaad/macys-marketing-gui",
+  coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_macys-XUvHvVefKa9V52SLxy4k3C.webp",
   description:
     "A production-deployed AI coworker for Macy's marketing team, built with Next.js (Vercel) and FastAPI (Render). The system combines 6 deterministic automations and 3 LLM-powered skills to handle the full campaign lifecycle — from audience segmentation and asset discovery to compliance checking, approval briefs, and activation scheduling.",
   stats: [
@@ -53,62 +50,62 @@ const projects = [
   {
     id: "bayesian-mmm-capstone",
     slug: null,
-    title: "Bayesian Marketing Mix Modeling Capstone",
-    subtitle: "AI Research & Agent Lead — Direct Avenue",
+    title: "Bayesian MMM Capstone",
+    subtitle: "Marketing Mix Modeling for Direct Avenue",
     date: "Mar – Jun 2026",
     course: "MSBA Capstone · UCSD Rady",
-    tags: ["Bayesian MMM", "PyMC", "Streamlit", "scikit-learn", "Claude", "MCP"],
+    tags: ["Bayesian MMM", "PyMC", "Streamlit", "scikit-learn", "Claude"],
     description:
-      "Built a Bayesian MMM decision-support dashboard in Streamlit and Python for a US performance media agency, replacing a planned multi-agent system after a scope review. Delivered a reproducible MMM pipeline, ML model evaluation, and prompt-design protocols now feeding live client decisions on media allocation.",
-    icon: Brain,
+      "Built a Bayesian MMM decision-support dashboard in Streamlit and Python for a US performance media agency. Delivered a reproducible MMM pipeline, ML model evaluation, and prompt-design protocols now feeding live client decisions on media allocation.",
     url: null,
     type: "Capstone",
     number: "01",
+    coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_bayesian_mmm-5Qj5zpnWXrGZbjBdHqoNCo.webp",
   },
   {
     id: "neural-vault",
     slug: null,
-    title: "Neural Vault — Personal AI Knowledge System",
-    subtitle: "Two-layer memory architecture: Claude + Obsidian",
+    title: "Neural Vault",
+    subtitle: "AI Knowledge System with Semantic Search",
     date: "2024 – Present",
     course: "Independent · Presented at UCSD MGTA 454",
     tags: ["Claude", "MCP", "Obsidian", "Python", "Agent Design"],
     description:
-      "Built a two-layer memory architecture combining Claude's native memory with a structured Obsidian wiki. Includes a Context Injection Protocol, COMMIT flag, auto-save git daemon, and MCP integrations for Obsidian, Notion, Gmail, and Google Calendar.",
-    icon: Cpu,
+      "A two-layer memory architecture combining Claude's native memory with a structured Obsidian wiki. Includes a Context Injection Protocol, COMMIT flag, auto-save git daemon, and MCP integrations for Obsidian, Notion, Gmail, and Google Calendar.",
     url: null,
     type: "Personal",
     number: "02",
+    coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_neural_vault-a4u6bUM5vEsSpPSAVuLvQc.webp",
   },
   {
     id: "ab-testing",
     slug: "ab-testing",
     title: "A/B Testing a Call to Action",
-    subtitle: "Simulating Key Ideas from Classical Frequentist Statistics",
+    subtitle: "Simulating Classical Frequentist Statistics",
     date: "April 2026",
     course: "Business Analytics · UCSD Rady",
-    tags: ["A/B Testing", "Statistics", "Python", "Hypothesis Testing", "OLS Regression"],
+    tags: ["A/B Testing", "Statistics", "Python", "Hypothesis Testing", "OLS"],
     description:
-      "End-to-end statistical analysis of a newsletter sign-up A/B test. Covers Bernoulli modeling, the Law of Large Numbers, bootstrap standard errors, the CLT, hypothesis testing, and the equivalence of the t-test and OLS regression — with simulation-based visualizations throughout.",
-    icon: BarChart2,
+      "End-to-end statistical analysis of a newsletter sign-up A/B test. Covers the Law of Large Numbers, bootstrap standard errors, the CLT, hypothesis testing, and the equivalence of the t-test and OLS regression — with simulation-based visualizations throughout.",
     url: "/projects/ab-testing.html",
     type: "Academic",
     number: "03",
+    coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_ab_testing-AURR6hfzxGFanEWnQdYP4f.webp",
   },
   {
     id: "card-krueger",
     slug: "card-krueger",
-    title: "Replication of Card & Krueger (1994)",
-    subtitle: "Minimum Wages and Employment — NJ & PA Fast-Food Industry",
+    title: "Card & Krueger (1994) Replication",
+    subtitle: "Minimum Wages & Employment — NJ & PA Fast-Food",
     date: "April 2026",
     course: "Causal Inference · UCSD Rady",
     tags: ["Causal Inference", "DiD", "Python", "Labor Economics", "Placebo Testing"],
     description:
-      "Full replication of Card and Krueger's landmark 1994 paper using the original dataset of ~410 fast-food restaurants. Reconstructs all key tables, adds simulation-based DiD intuition, a pre/post employment visualization, and a placebo test to validate the research design.",
-    icon: TrendingUp,
+      "Full replication of Card and Krueger's landmark 1994 paper using the original dataset of ~410 fast-food restaurants. Reconstructs all key tables, adds simulation-based DiD intuition, a pre/post employment visualization, and a placebo test.",
     url: "/projects/hw2.html",
     type: "Academic",
     number: "04",
+    coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_card_krueger-UKDDShZyG8AakBSPANPGU5.webp",
   },
 ];
 
@@ -161,16 +158,16 @@ export default function Projects() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="pt-16 pb-12"
+          className="pt-20 pb-14"
         >
           <p
-            className="text-xs tracking-widest uppercase mb-4"
+            className="text-xs tracking-widest uppercase mb-5"
             style={{ color: "#3A4A5A", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.2em" }}
           >
             Selected Work
           </p>
           <h1
-            className="text-5xl md:text-6xl font-bold mb-5"
+            className="text-5xl md:text-6xl font-bold mb-6"
             style={{ color: "#F0F4F8", fontFamily: "'Playfair Display', serif", lineHeight: 1.1 }}
           >
             Projects
@@ -184,179 +181,161 @@ export default function Projects() {
         </motion.div>
 
         {/* Thin rule */}
-        <div style={{ height: "1px", background: "rgba(232,237,245,0.06)", marginBottom: "3rem" }} />
+        <div style={{ height: "1px", background: "rgba(232,237,245,0.06)", marginBottom: "4rem" }} />
 
         {/* ── FEATURED PROJECT ── */}
         <motion.div
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="mb-16"
+          className="mb-20"
         >
           <p
-            className="text-xs tracking-widest uppercase mb-6"
+            className="text-xs tracking-widest uppercase mb-8"
             style={{ color: "#3A4A5A", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.2em" }}
           >
             Featured
           </p>
 
           <motion.div
-            whileHover={{ y: -3 }}
+            whileHover={{ y: -4 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="relative overflow-hidden rounded-sm"
+            className="relative overflow-hidden"
             style={{
-              background: "linear-gradient(135deg, rgba(30,45,70,0.6) 0%, rgba(15,22,40,0.9) 100%)",
-              border: "1px solid rgba(184,200,220,0.12)",
+              background: "linear-gradient(135deg, rgba(30,45,70,0.5) 0%, rgba(15,22,40,0.9) 100%)",
+              border: "1px solid rgba(184,200,220,0.10)",
             }}
           >
             {/* Top accent line */}
-            <div
-              style={{
-                height: "2px",
-                background: "linear-gradient(90deg, #4A6A8A, #B8C8DC, transparent)",
-              }}
-            />
+            <div style={{ height: "2px", background: "linear-gradient(90deg, #4A6A8A, #B8C8DC, transparent)" }} />
 
-            <div className="p-8 md:p-10">
-              {/* Header row */}
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-8">
-                <div className="flex-1">
-                  <div className="flex flex-wrap items-center gap-3 mb-4">
-                    <span
-                      className="text-xs tracking-widest uppercase px-2.5 py-1"
-                      style={{
-                        color: "#B8C8DC",
-                        background: "rgba(184,200,220,0.08)",
-                        border: "1px solid rgba(184,200,220,0.15)",
-                        fontFamily: "'JetBrains Mono', monospace",
-                        letterSpacing: "0.15em",
-                      }}
-                    >
-                      Team Project
-                    </span>
-                    <span className="text-xs" style={{ color: "#3A4A5A" }}>
-                      {featuredProject.date}
-                    </span>
-                    <span className="text-xs" style={{ color: "#3A4A5A" }}>
-                      {featuredProject.course}
-                    </span>
-                  </div>
+            <div className="flex flex-col md:flex-row">
+              {/* Cover image */}
+              <div
+                className="md:w-72 flex-shrink-0 overflow-hidden"
+                style={{ minHeight: "240px" }}
+              >
+                <img
+                  src={featuredProject.coverImage}
+                  alt={featuredProject.title}
+                  className="w-full h-full object-cover"
+                  style={{ minHeight: "240px" }}
+                />
+              </div>
 
-                  <h2
-                    className="text-3xl md:text-4xl font-bold mb-2"
-                    style={{ color: "#F0F4F8", fontFamily: "'Playfair Display', serif", lineHeight: 1.15 }}
+              {/* Content */}
+              <div className="flex-1 p-8 md:p-10">
+                <div className="flex flex-wrap items-center gap-3 mb-5">
+                  <span
+                    className="text-xs tracking-widest uppercase px-2.5 py-1"
+                    style={{
+                      color: "#B8C8DC",
+                      background: "rgba(184,200,220,0.08)",
+                      border: "1px solid rgba(184,200,220,0.15)",
+                      fontFamily: "'JetBrains Mono', monospace",
+                      letterSpacing: "0.15em",
+                    }}
                   >
-                    {featuredProject.title}
-                  </h2>
-                  <p
-                    className="text-base italic mb-1"
-                    style={{ color: "#7A8FA8", fontFamily: "'Playfair Display', serif" }}
-                  >
-                    {featuredProject.subtitle}
-                  </p>
-                  <p className="text-sm flex items-center gap-1.5 mt-2" style={{ color: "#3A4A5A" }}>
-                    <Users size={12} />
-                    {featuredProject.team}
-                  </p>
+                    Team Project
+                  </span>
+                  <span className="text-xs" style={{ color: "#3A4A5A" }}>{featuredProject.date}</span>
+                  <span className="text-xs" style={{ color: "#3A4A5A" }}>{featuredProject.course}</span>
                 </div>
 
-                {/* Stats grid */}
-                <div className="grid grid-cols-2 gap-3 md:w-56 flex-shrink-0">
+                <h2
+                  className="text-2xl md:text-3xl font-bold mb-2"
+                  style={{ color: "#F0F4F8", fontFamily: "'Playfair Display', serif", lineHeight: 1.2 }}
+                >
+                  {featuredProject.title}
+                </h2>
+                <p
+                  className="text-sm italic mb-2"
+                  style={{ color: "#7A8FA8", fontFamily: "'Playfair Display', serif" }}
+                >
+                  {featuredProject.subtitle}
+                </p>
+                <p className="text-xs flex items-center gap-1.5 mb-5" style={{ color: "#3A4A5A" }}>
+                  <Users size={11} />
+                  {featuredProject.team}
+                </p>
+
+                {/* Stats */}
+                <div className="grid grid-cols-4 gap-3 mb-5">
                   {featuredProject.stats.map((stat) => (
                     <div
                       key={stat.label}
-                      className="text-center p-3 rounded-sm"
-                      style={{
-                        background: "rgba(232,237,245,0.04)",
-                        border: "1px solid rgba(232,237,245,0.07)",
-                      }}
+                      className="text-center p-3"
+                      style={{ background: "rgba(232,237,245,0.04)", border: "1px solid rgba(232,237,245,0.07)" }}
                     >
-                      <div
-                        className="text-2xl font-bold mb-0.5"
-                        style={{ color: "#B8C8DC", fontFamily: "'Playfair Display', serif" }}
-                      >
+                      <div className="text-xl font-bold mb-0.5" style={{ color: "#B8C8DC", fontFamily: "'Playfair Display', serif" }}>
                         {stat.value}
                       </div>
-                      <div
-                        className="text-xs"
-                        style={{ color: "#4A5A6A", fontFamily: "'JetBrains Mono', monospace" }}
-                      >
+                      <div className="text-xs" style={{ color: "#4A5A6A", fontFamily: "'JetBrains Mono', monospace" }}>
                         {stat.label}
                       </div>
                     </div>
                   ))}
                 </div>
-              </div>
 
-              {/* Description */}
-              <p className="text-sm leading-relaxed mb-6" style={{ color: "#94A8C0" }}>
-                {featuredProject.description}
-              </p>
+                <p className="text-sm leading-relaxed mb-5" style={{ color: "#7A8FA8" }}>
+                  {featuredProject.description}
+                </p>
 
-              {/* Highlights */}
-              <div className="grid md:grid-cols-2 gap-2 mb-7">
-                {featuredProject.highlights.map((h) => (
-                  <div key={h} className="flex items-start gap-2.5 text-sm" style={{ color: "#7A8FA8" }}>
-                    <Zap size={12} className="mt-0.5 flex-shrink-0" style={{ color: "#B8C8DC" }} />
-                    {h}
-                  </div>
-                ))}
-              </div>
+                {/* Highlights */}
+                <div className="space-y-1.5 mb-6">
+                  {featuredProject.highlights.map((h) => (
+                    <div key={h} className="flex items-start gap-2.5 text-xs" style={{ color: "#5A7A9A" }}>
+                      <Zap size={11} className="mt-0.5 flex-shrink-0" style={{ color: "#B8C8DC" }} />
+                      {h}
+                    </div>
+                  ))}
+                </div>
 
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2 mb-7">
-                {featuredProject.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs px-2.5 py-1"
-                    style={{
-                      color: "#5A7A9A",
-                      background: "rgba(232,237,245,0.03)",
-                      border: "1px solid rgba(232,237,245,0.07)",
-                    }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
+                {/* Tags */}
+                <div className="flex flex-wrap gap-1.5 mb-6">
+                  {featuredProject.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-xs px-2 py-0.5"
+                      style={{ color: "#4A5A6A", background: "rgba(232,237,245,0.03)", border: "1px solid rgba(232,237,245,0.06)" }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
 
-              {/* CTAs */}
-              <div className="flex flex-wrap gap-3">
-                <a href={featuredProject.liveUrl} target="_blank" rel="noopener noreferrer">
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="flex items-center gap-2 px-5 py-2.5 text-sm font-bold"
-                    style={{
-                      background: "linear-gradient(135deg, #4A6A8A, #B8C8DC)",
-                      color: "#080C18",
-                    }}
-                  >
-                    <ExternalLink size={13} />
-                    Live Demo
-                  </motion.button>
-                </a>
-                <a href={featuredProject.githubUrl} target="_blank" rel="noopener noreferrer">
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="flex items-center gap-2 px-5 py-2.5 text-sm"
-                    style={{
-                      border: "1px solid rgba(232,237,245,0.12)",
-                      color: "#7A8FA8",
-                    }}
-                  >
-                    <ArrowUpRight size={13} />
-                    GitHub Repo
-                  </motion.button>
-                </a>
+                {/* CTAs */}
+                <div className="flex flex-wrap gap-3">
+                  <a href={featuredProject.liveUrl} target="_blank" rel="noopener noreferrer">
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="flex items-center gap-2 px-5 py-2.5 text-sm font-bold"
+                      style={{ background: "linear-gradient(135deg, #4A6A8A, #B8C8DC)", color: "#080C18" }}
+                    >
+                      <ExternalLink size={13} />
+                      Live Demo
+                    </motion.button>
+                  </a>
+                  <a href={featuredProject.githubUrl} target="_blank" rel="noopener noreferrer">
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="flex items-center gap-2 px-5 py-2.5 text-sm"
+                      style={{ border: "1px solid rgba(232,237,245,0.12)", color: "#7A8FA8" }}
+                    >
+                      <ArrowUpRight size={13} />
+                      GitHub Repo
+                    </motion.button>
+                  </a>
+                </div>
               </div>
             </div>
           </motion.div>
         </motion.div>
 
-        {/* ── PROJECT LIST ── */}
-        <div className="mb-6">
+        {/* ── PROJECT GRID ── */}
+        <div className="mb-10">
           <p
             className="text-xs tracking-widest uppercase"
             style={{ color: "#3A4A5A", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.2em" }}
@@ -365,165 +344,118 @@ export default function Projects() {
           </p>
         </div>
 
-        <div className="space-y-0 mb-24">
-          {projects.map((project, i) => {
-            const Icon = project.icon;
-            return (
+        <div className="grid md:grid-cols-2 gap-6 mb-28">
+          {projects.map((project, i) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 + i * 0.1, duration: 0.5 }}
+            >
               <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15 + i * 0.08, duration: 0.5 }}
+                whileHover={{ y: -5, boxShadow: "0 16px 40px rgba(0,0,0,0.4)" }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                className="group h-full flex flex-col overflow-hidden"
+                style={{
+                  background: "rgba(15,22,40,0.7)",
+                  border: "1px solid rgba(232,237,245,0.07)",
+                }}
               >
-                {/* Top border */}
-                <div style={{ height: "1px", background: "rgba(232,237,245,0.06)" }} />
+                {/* Cover image */}
+                <div className="overflow-hidden" style={{ height: "200px" }}>
+                  <motion.img
+                    src={project.coverImage}
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                    whileHover={{ scale: 1.04 }}
+                    transition={{ duration: 0.5 }}
+                  />
+                </div>
 
-                <motion.div
-                  whileHover={{ backgroundColor: "rgba(232,237,245,0.025)" }}
-                  transition={{ duration: 0.2 }}
-                  className="group py-7 px-2 -mx-2"
-                  style={{ cursor: project.url ? "pointer" : "default" }}
-                >
-                  <div className="flex items-start gap-6">
-                    {/* Number */}
-                    <div
-                      className="flex-shrink-0 text-xs pt-1 w-8 text-right"
-                      style={{ color: "#2A3A4A", fontFamily: "'JetBrains Mono', monospace" }}
+                {/* Content */}
+                <div className="flex flex-col flex-1 p-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span
+                      className="text-xs tracking-wider uppercase"
+                      style={{ color: "#3A4A5A", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.12em" }}
                     >
-                      {project.number}
-                    </div>
-
-                    {/* Icon */}
-                    <div
-                      className="flex-shrink-0 w-9 h-9 flex items-center justify-center mt-0.5"
-                      style={{
-                        background: "rgba(232,237,245,0.04)",
-                        border: "1px solid rgba(232,237,245,0.07)",
-                      }}
-                    >
-                      <Icon size={16} style={{ color: "#5A7A9A" }} />
-                    </div>
-
-                    {/* Content */}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2 mb-2">
-                        <div>
-                          <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                            <span
-                              className="text-xs tracking-wider uppercase"
-                              style={{
-                                color: "#3A4A5A",
-                                fontFamily: "'JetBrains Mono', monospace",
-                                letterSpacing: "0.12em",
-                              }}
-                            >
-                              {project.type}
-                            </span>
-                            <span className="text-xs" style={{ color: "#2A3A4A" }}>·</span>
-                            <span className="text-xs" style={{ color: "#2A3A4A" }}>{project.date}</span>
-                          </div>
-                          <h3
-                            className="text-xl font-bold mb-0.5"
-                            style={{ color: "#E8EDF5", fontFamily: "'Playfair Display', serif" }}
-                          >
-                            {project.title}
-                          </h3>
-                          <p
-                            className="text-sm italic"
-                            style={{ color: "#5A7A9A", fontFamily: "'Playfair Display', serif" }}
-                          >
-                            {project.subtitle}
-                          </p>
-                        </div>
-
-                        {/* Arrow — visible on hover */}
-                        <div
-                          className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 mt-1"
-                        >
-                          {project.url ? (
-                            <Link href={`/projects/${project.slug}`}>
-                              <motion.div
-                                whileHover={{ x: 3, y: -3 }}
-                                className="flex items-center gap-1.5 text-xs"
-                                style={{ color: "#B8C8DC" }}
-                              >
-                                View Report
-                                <ArrowUpRight size={13} />
-                              </motion.div>
-                            </Link>
-                          ) : (
-                            <span className="text-xs" style={{ color: "#3A4A5A" }}>Coming soon</span>
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Description — collapsed, expands on hover */}
-                      <p
-                        className="text-sm leading-relaxed mb-4 mt-3"
-                        style={{ color: "#5A7A9A" }}
-                      >
-                        {project.description}
-                      </p>
-
-                      {/* Tags */}
-                      <div className="flex flex-wrap gap-1.5">
-                        {project.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="text-xs px-2 py-0.5"
-                            style={{
-                              color: "#3A4A5A",
-                              background: "rgba(232,237,245,0.03)",
-                              border: "1px solid rgba(232,237,245,0.06)",
-                            }}
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* CTA row for projects with reports */}
-                      {project.url && (
-                        <div className="flex gap-3 mt-4">
-                          <Link href={`/projects/${project.slug}`}>
-                            <motion.button
-                              whileHover={{ scale: 1.02 }}
-                              whileTap={{ scale: 0.98 }}
-                              className="flex items-center gap-1.5 px-4 py-2 text-xs font-bold"
-                              style={{
-                                background: "linear-gradient(135deg, #4A6A8A, #B8C8DC)",
-                                color: "#080C18",
-                              }}
-                            >
-                              <BookOpen size={11} />
-                              View Full Report
-                            </motion.button>
-                          </Link>
-                          <a href={project.url} target="_blank" rel="noopener noreferrer">
-                            <motion.button
-                              whileHover={{ scale: 1.02 }}
-                              whileTap={{ scale: 0.98 }}
-                              className="flex items-center gap-1.5 px-4 py-2 text-xs"
-                              style={{
-                                border: "1px solid rgba(232,237,245,0.1)",
-                                color: "#5A7A9A",
-                              }}
-                            >
-                              <ExternalLink size={11} />
-                              Open in New Tab
-                            </motion.button>
-                          </a>
-                        </div>
-                      )}
-                    </div>
+                      {project.type}
+                    </span>
+                    <span className="text-xs" style={{ color: "#2A3A4A" }}>·</span>
+                    <span className="text-xs" style={{ color: "#2A3A4A" }}>{project.date}</span>
                   </div>
-                </motion.div>
-              </motion.div>
-            );
-          })}
 
-          {/* Bottom border */}
-          <div style={{ height: "1px", background: "rgba(232,237,245,0.06)" }} />
+                  <h3
+                    className="text-lg font-bold mb-1"
+                    style={{ color: "#E8EDF5", fontFamily: "'Playfair Display', serif", lineHeight: 1.25 }}
+                  >
+                    {project.title}
+                  </h3>
+                  <p
+                    className="text-sm italic mb-3"
+                    style={{ color: "#5A7A9A", fontFamily: "'Playfair Display', serif" }}
+                  >
+                    {project.subtitle}
+                  </p>
+
+                  <p className="text-xs leading-relaxed mb-4 flex-1" style={{ color: "#4A6A8A" }}>
+                    {project.description}
+                  </p>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-1.5 mb-4">
+                    {project.tags.slice(0, 4).map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-xs px-2 py-0.5"
+                        style={{ color: "#3A4A5A", background: "rgba(232,237,245,0.03)", border: "1px solid rgba(232,237,245,0.06)" }}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* CTA */}
+                  {project.url ? (
+                    <div className="flex gap-2 mt-auto">
+                      <Link href={`/projects/${project.slug}`}>
+                        <motion.button
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="flex items-center gap-1.5 px-4 py-2 text-xs font-bold"
+                          style={{ background: "linear-gradient(135deg, #4A6A8A, #B8C8DC)", color: "#080C18" }}
+                        >
+                          <BookOpen size={11} />
+                          View Report
+                        </motion.button>
+                      </Link>
+                      <a href={project.url} target="_blank" rel="noopener noreferrer">
+                        <motion.button
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="flex items-center gap-1.5 px-4 py-2 text-xs"
+                          style={{ border: "1px solid rgba(232,237,245,0.1)", color: "#5A7A9A" }}
+                        >
+                          <ExternalLink size={11} />
+                          New Tab
+                        </motion.button>
+                      </a>
+                    </div>
+                  ) : (
+                    <div className="mt-auto">
+                      <span
+                        className="text-xs flex items-center gap-1.5"
+                        style={{ color: "#2A3A4A", fontFamily: "'JetBrains Mono', monospace" }}
+                      >
+                        <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#2A3A4A", display: "inline-block" }} />
+                        Report coming soon
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            </motion.div>
+          ))}
         </div>
 
         {/* Footer note */}
