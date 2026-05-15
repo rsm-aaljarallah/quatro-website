@@ -120,7 +120,7 @@ const projects = [
     url: "/projects/hw3-mle.html",
     type: "Academic",
     number: "05",
-    coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_poisson_gemini_ccbf1218.webp",
+    coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_poisson_mle_themed-TXwTh4uFv8vjdn64XEY6sb.webp",
   },
   {
     id: "roi-dashboard-churn",
