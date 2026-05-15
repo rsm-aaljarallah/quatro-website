@@ -279,7 +279,7 @@ export default function HeroSection() {
             >
               {[
                 { icon: MapPin, text: "San Diego, CA" },
-                { icon: Mail, text: "abdullah.aljarallah@rady.ucsd.edu", href: "mailto:abdullah.aljarallah@rady.ucsd.edu" },
+                { icon: Mail, text: "mr.a.aljarallah@gmail.com", href: "mailto:mr.a.aljarallah@gmail.com" },
                 { icon: Phone, text: "+1 619-314-1187", href: "tel:+16193141187" },
               ].map(({ icon: Icon, text, href }) => (
                 <a
@@ -334,7 +334,7 @@ export default function HeroSection() {
                 View My Work
               </button>
               <a
-                href="mailto:abdullah.aljarallah@rady.ucsd.edu"
+                href="mailto:mr.a.aljarallah@gmail.com"
                 className="px-6 py-3 rounded-sm border border-[rgba(184,200,220,0.3)] text-[#B8C8DC] font-['Playfair_Display'] font-bold text-sm hover:bg-[rgba(184,200,220,0.08)] hover:border-[rgba(184,200,220,0.6)] transition-all duration-200"
               >
                 Get In Touch
