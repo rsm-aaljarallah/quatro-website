@@ -267,7 +267,7 @@ export default function HeroSection() {
               transition={{ delay: 0.6 }}
               className="font-['Lato'] text-[#7A8FA8] text-base lg:text-lg max-w-2xl leading-relaxed mb-8"
             >
-              Marketing operator turned measurement specialist. Ten years running $30M+ portfolios across banking, government, and enterprise tech in the GCC — now finishing my MSBA at UC San Diego with a capstone in Bayesian MMM. I build the campaigns and the agent systems that measure them.
+              Marketing operator turned measurement specialist. Over ten years across the GCC, including a $30M+ marketing portfolio at Kuwait Finance House and roles across banking, government, and enterprise tech. Now finishing my MSBA at UC San Diego with a capstone in Bayesian MMM. I build the campaigns and the agent systems that measure them.
             </motion.p>
 
             {/* Contact pills */}
@@ -340,7 +340,7 @@ export default function HeroSection() {
                 Get In Touch
               </a>
               <a
-                href="/AJ_AlJarallah_CV.pdf"
+                href="/Abdullah_Aljarallah_Resume.pdf"
                 download="AJ_AlJarallah_CV.pdf"
                 className="flex items-center gap-2 px-6 py-3 rounded-sm border border-[rgba(184,200,220,0.2)] text-[#7A8FA8] font-['Playfair_Display'] font-bold text-sm hover:bg-[rgba(184,200,220,0.06)] hover:border-[rgba(184,200,220,0.4)] hover:text-[#B8C8DC] transition-all duration-200"
               >

@@ -56,7 +56,7 @@ const projects = [
     course: "MSBA Capstone · UCSD Rady",
     tags: ["Bayesian MMM", "PyMC", "Streamlit", "scikit-learn", "Claude"],
     description:
-      "Built a Bayesian MMM decision-support dashboard in Streamlit and Python for a US performance media agency. Delivered a reproducible MMM pipeline, ML model evaluation, and prompt-design protocols now feeding live client decisions on media allocation.",
+      "Owning the advertiser learning agenda — industry research, prompt and reasoning design, and the agent/AI research repository — for a US performance media agency. Shipping a Bayesian MMM decision-support dashboard in Streamlit and Python, a privacy-first reproducible MMM pipeline, model evaluation harness, and prompt-design protocols that now feed live client decisions on media allocation.",
     url: null,
     type: "Capstone",
     number: "01",
@@ -121,6 +121,21 @@ const projects = [
     type: "Academic",
     number: "05",
     coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_ab_testing_dark-aVeFLTSn9xgTBaEjfKywrK.webp",
+  },
+  {
+    id: "roi-dashboard-churn",
+    slug: null,
+    title: "Marketing Campaign ROI Dashboard + Churn Model",
+    subtitle: "Multi-channel Performance & Customer Retention",
+    date: "2025",
+    course: "UCSD Rady",
+    tags: ["Power BI", "SQL", "Python", "scikit-learn", "Tableau"],
+    description:
+      "Power BI dashboard with ~23% modeled ROI lift across multi-channel performance; churn prediction model with 87% accuracy and ~15% projected churn reduction across financial services case data.",
+    url: null,
+    type: "Academic",
+    number: "06",
+    coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_card_krueger_dark-EasqFTyftE8hLKBDYy6gKm.webp",
   },
 ];
 

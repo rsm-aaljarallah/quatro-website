@@ -64,13 +64,13 @@ export default function AboutSection() {
 
             <AnimatedSection delay={0.2}>
               <p className="font-['Lato'] text-[#7A8FA8] text-base leading-relaxed mb-6">
-                Over ten years running $30M+ marketing portfolios across banking, government, and enterprise tech in the GCC. Now finishing my MSBA at UC San Diego's Rady School of Management — STEM-designated — with a capstone in Bayesian Marketing Mix Modeling at Direct Avenue, a US performance media agency.
+                Marketing operator turned measurement specialist. Over ten years across the GCC, including a $30M+ marketing portfolio at Kuwait Finance House and roles across banking, government, and enterprise tech. Now finishing my MSBA at UC San Diego's Rady School of Management — STEM-designated — with a capstone in Bayesian Marketing Mix Modeling at Direct Avenue, a US performance media agency.
               </p>
             </AnimatedSection>
 
             <AnimatedSection delay={0.3}>
               <p className="font-['Lato'] text-[#7A8FA8] text-base leading-relaxed mb-8">
-                I led Kuwait Finance House's first European campaign, drove 100% digital adoption across 3,000+ employees at Kuwait's social security institution, and run three side ventures in tourism, diving, and growth consulting. I build the campaigns and the agent systems that measure them — my Neural Vault project integrates Claude, Obsidian, and MCP to manage knowledge work end-to-end. Targeting Marketing Science, Measurement, and Applied AI roles across MENA.
+                I led Kuwait Finance House's first European campaign, drove email adoption from 0% to 100% across 3,000+ employees at Kuwait's social security institution, and run three side ventures in tourism, diving, and growth consulting. I am comfortable both running campaigns and building the agent systems that measure them — my Neural Vault project integrates Claude, Obsidian, and MCP to manage knowledge work end-to-end. Targeting Marketing Science, Measurement, and Applied AI roles across MENA.
               </p>
             </AnimatedSection>
 

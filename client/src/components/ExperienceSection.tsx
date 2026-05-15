@@ -19,7 +19,7 @@ const experiences = [
     color: "#B8C8DC",
     icon: Briefcase,
     description:
-      "Led digital transformation and strategic communications for Kuwait's social security institution.",
+      "Designed and led digital transformation and strategic communications for Kuwait's social security institution.",
     achievements: [
       "Designed and led the digital transformation strategy that drove email adoption from 0% to 100% across 3,000+ employees in three months, tracked across 20+ departments",
       "Built the institution's first comprehensive marketing calendar, content guidelines, and measurement framework for internal and external communications",
@@ -39,10 +39,9 @@ const experiences = [
       "Managed a $30M+ annual marketing portfolio across Group Retail Banking, Group Corporate Banking, and Private Banking divisions.",
     achievements: [
       "Pioneered KFH's first-ever European marketing campaign — delivered measurable ROI lift and earned an early promotion",
-      "Allocated budgets across digital, OOH, print, sponsorships, and events using campaign performance data and post-buy analysis — the operational foundation for my later move into Marketing Mix Modeling",
-      "Developed segmentation-driven strategies that increased product adoption and customer engagement across multiple banking products",
+     "Allocated budgets across digital, OOH, print, sponsorships, and events using campaign performance data and post-buy analysis \u2014 the operational foundation for the later move into Marketing Mix Modeling",   "Developed segmentation-driven strategies that increased product adoption and customer engagement across multiple banking products",
     ],
-    tags: ["$30M Portfolio", "Campaign Analytics", "Adobe Analytics", "Agency Management"],
+    tags: ["Excel", "Agency Reporting", "Campaign Analytics", "Adobe Analytics"],
   },
   {
     id: 3,
