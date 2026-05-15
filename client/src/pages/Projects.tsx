@@ -135,7 +135,7 @@ const projects = [
     url: null,
     type: "Academic",
     number: "06",
-    coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_card_krueger_dark-EasqFTyftE8hLKBDYy6gKm.webp",
+    coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_roi_dashboard_dark-GTepwQzYoptmvXE7Cd63Jc.webp",
   },
 ];
 
