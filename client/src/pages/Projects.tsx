@@ -107,6 +107,21 @@ const projects = [
     number: "04",
     coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_card_krueger_dark-EasqFTyftE8hLKBDYy6gKm.webp",
   },
+  {
+    id: "poisson-mle",
+    slug: "poisson-mle",
+    title: "Poisson Regression & Maximum Likelihood",
+    subtitle: "A Case Study of Blueprinty's Software and Patent Awards",
+    date: "May 2026",
+    course: "Business Analytics · UCSD Rady",
+    tags: ["MLE", "Poisson Regression", "Python", "Plotly", "Counterfactual Analysis"],
+    description:
+      "Full MLE pipeline from scratch: hand-coded log-likelihood, BFGS optimization, Hessian-based standard errors, and animated counterfactual analysis. Interactive Plotly charts with a Poisson Explorer widget. Verified against statsmodels GLM to machine precision.",
+    url: "/projects/hw3-mle.html",
+    type: "Academic",
+    number: "05",
+    coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_ab_testing_dark-aVeFLTSn9xgTBaEjfKywrK.webp",
+  },
 ];
 
 export default function Projects() {
