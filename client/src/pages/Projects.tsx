@@ -27,7 +27,7 @@ const featuredProject = {
   team: "Abdullah AlJarallah · Merna Saad · Shankar D.",
   liveUrl: "https://macys-marketing-gui.vercel.app",
   githubUrl: "https://github.com/rsm-msaad/macys-marketing-gui",
-  coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_macys-XUvHvVefKa9V52SLxy4k3C.webp",
+  coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_macys_dark-YCoRpRaiXXvckqiTxdGxXu.webp",
   description:
     "A production-deployed AI coworker for Macy's marketing team, built with Next.js (Vercel) and FastAPI (Render). The system combines 6 deterministic automations and 3 LLM-powered skills to handle the full campaign lifecycle — from audience segmentation and asset discovery to compliance checking, approval briefs, and activation scheduling.",
   stats: [
@@ -60,7 +60,7 @@ const projects = [
     url: null,
     type: "Capstone",
     number: "01",
-    coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_bayesian_mmm-5Qj5zpnWXrGZbjBdHqoNCo.webp",
+    coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_bayesian_mmm_dark-8h6Z9jLEykDH87WB3DNfaJ.webp",
   },
   {
     id: "neural-vault",
@@ -75,7 +75,7 @@ const projects = [
     url: null,
     type: "Personal",
     number: "02",
-    coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_neural_vault-a4u6bUM5vEsSpPSAVuLvQc.webp",
+    coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_neural_vault_dark-2mhf8LzFiG7ZVxkooSr2up.webp",
   },
   {
     id: "ab-testing",
@@ -90,7 +90,7 @@ const projects = [
     url: "/projects/ab-testing.html",
     type: "Academic",
     number: "03",
-    coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_ab_testing-AURR6hfzxGFanEWnQdYP4f.webp",
+    coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_ab_testing_dark-aVeFLTSn9xgTBaEjfKywrK.webp",
   },
   {
     id: "card-krueger",
@@ -105,7 +105,7 @@ const projects = [
     url: "/projects/hw2.html",
     type: "Academic",
     number: "04",
-    coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_card_krueger-UKDDShZyG8AakBSPANPGU5.webp",
+    coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_card_krueger_dark-EasqFTyftE8hLKBDYy6gKm.webp",
   },
 ];
 
