@@ -15,6 +15,7 @@ import {
   ArrowUpRight,
   Users,
   Zap,
+  Github,
 } from "lucide-react";
 
 const featuredProject = {
@@ -73,6 +74,7 @@ const projects = [
     description:
       "A two-layer memory architecture combining Claude's native memory with a structured Obsidian wiki. Includes a Context Injection Protocol, COMMIT flag, auto-save git daemon, and MCP integrations for Obsidian, Notion, Gmail, and Google Calendar.",
     url: null,
+    githubUrl: "https://github.com/rsm-aaljarallah/neural-vault",
     type: "Personal",
     number: "02",
     coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_neural_vault_dark-2mhf8LzFiG7ZVxkooSr2up.webp",
@@ -88,6 +90,7 @@ const projects = [
     description:
       "End-to-end statistical analysis of a newsletter sign-up A/B test. Covers the Law of Large Numbers, bootstrap standard errors, the CLT, hypothesis testing, and the equivalence of the t-test and OLS regression — with simulation-based visualizations throughout.",
     url: "/projects/ab-testing.html",
+    githubUrl: "https://github.com/rsm-aaljarallah/quarto_site/tree/main/projects/ab_testing_cta",
     type: "Academic",
     number: "03",
     coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_ab_testing_dark-aVeFLTSn9xgTBaEjfKywrK.webp",
@@ -103,6 +106,7 @@ const projects = [
     description:
       "Full replication of Card and Krueger's landmark 1994 paper using the original dataset of ~410 fast-food restaurants. Reconstructs all key tables, adds simulation-based DiD intuition, a pre/post employment visualization, and a placebo test.",
     url: "/projects/hw2.html",
+    githubUrl: "https://github.com/rsm-aaljarallah/quarto_site/tree/main/projects/HW2",
     type: "Academic",
     number: "04",
     coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_card_krueger_dark-EasqFTyftE8hLKBDYy6gKm.webp",
@@ -446,30 +450,47 @@ export default function Projects() {
                   </div>
 
                   {/* CTA */}
-                  {project.url ? (
-                    <div className="flex gap-2 mt-auto">
-                      <Link href={`/projects/${project.slug}`}>
-                        <motion.button
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          className="flex items-center gap-1.5 px-4 py-2 text-xs font-bold"
-                          style={{ background: "linear-gradient(135deg, #4A6A8A, #B8C8DC)", color: "#080C18" }}
-                        >
-                          <BookOpen size={11} />
-                          View Report
-                        </motion.button>
-                      </Link>
-                      <a href={project.url} target="_blank" rel="noopener noreferrer">
-                        <motion.button
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          className="flex items-center gap-1.5 px-4 py-2 text-xs"
-                          style={{ border: "1px solid rgba(232,237,245,0.1)", color: "#5A7A9A" }}
-                        >
-                          <ExternalLink size={11} />
-                          New Tab
-                        </motion.button>
-                      </a>
+                  {project.url || project.githubUrl ? (
+                    <div className="flex flex-wrap gap-2 mt-auto">
+                      {project.url && project.slug && (
+                        <Link href={`/projects/${project.slug}`}>
+                          <motion.button
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="flex items-center gap-1.5 px-4 py-2 text-xs font-bold"
+                            style={{ background: "linear-gradient(135deg, #4A6A8A, #B8C8DC)", color: "#080C18" }}
+                          >
+                            <BookOpen size={11} />
+                            View Report
+                          </motion.button>
+                        </Link>
+                      )}
+                      {project.url && (
+                        <a href={project.url} target="_blank" rel="noopener noreferrer">
+                          <motion.button
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="flex items-center gap-1.5 px-4 py-2 text-xs"
+                            style={{ border: "1px solid rgba(232,237,245,0.1)", color: "#5A7A9A" }}
+                          >
+                            <ExternalLink size={11} />
+                            New Tab
+                          </motion.button>
+                        </a>
+                      )}
+                      {project.githubUrl && (
+                        <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                          <motion.button
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="flex items-center gap-1.5 px-4 py-2 text-xs"
+                            style={{ border: "1px solid rgba(232,237,245,0.1)", color: "#5A7A9A" }}
+                          >
+                            <Github size={11} />
+                            GitHub
+                          </motion.button>
+                        </a>
+                      )}
                     </div>
                   ) : (
                     <div className="mt-auto">
