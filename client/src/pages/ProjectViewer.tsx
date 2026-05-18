@@ -24,7 +24,7 @@ const projectData: Record<string, { title: string; url: string; subtitle: string
   "poisson-mle": {
     title: "Poisson Regression & Maximum Likelihood",
     subtitle: "A Case Study of Blueprinty's Software and Patent Awards",
-    url: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/hw3-mle_03084eb1.html",
+    url: "/projects/hw3-mle.html",
   },
 };
 
@@ -183,7 +183,6 @@ export default function ProjectViewer() {
           title={project.title}
           className="w-full h-full border-0"
           style={{ display: "block" }}
-          sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-top-navigation-by-user-activation"
         />
       </div>
     </div>
