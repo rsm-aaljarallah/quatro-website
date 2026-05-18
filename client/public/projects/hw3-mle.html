@@ -3568,55 +3568,19 @@ text-align: center;
 margin-top: 0.4em;
 }
 </style>
+
+
+
+
+
+
 </head>
 
 <body>
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#exploring-the-data" id="toc-exploring-the-data" class="nav-link" data-scroll-target="#exploring-the-data">Exploring the Data</a>
-  <ul class="collapse">
-  <li><a href="#patent-counts-by-customer-status" id="toc-patent-counts-by-customer-status" class="nav-link" data-scroll-target="#patent-counts-by-customer-status">Patent Counts by Customer Status</a></li>
-  <li><a href="#confounders-region-and-age" id="toc-confounders-region-and-age" class="nav-link" data-scroll-target="#confounders-region-and-age">Confounders: Region and Age</a></li>
-  </ul></li>
-  <li><a href="#a-simple-poisson-model-via-mle" id="toc-a-simple-poisson-model-via-mle" class="nav-link" data-scroll-target="#a-simple-poisson-model-via-mle">A Simple Poisson Model via MLE</a>
-  <ul class="collapse">
-  <li><a href="#likelihood-and-log-likelihood" id="toc-likelihood-and-log-likelihood" class="nav-link" data-scroll-target="#likelihood-and-log-likelihood">Likelihood and Log-Likelihood</a></li>
-  <li><a href="#log-likelihood-function" id="toc-log-likelihood-function" class="nav-link" data-scroll-target="#log-likelihood-function">Log-Likelihood Function</a></li>
-  <li><a href="#interactive-poisson-explorer" id="toc-interactive-poisson-explorer" class="nav-link" data-scroll-target="#interactive-poisson-explorer">Interactive Poisson Explorer</a></li>
-  <li><a href="#analytical-mle" id="toc-analytical-mle" class="nav-link" data-scroll-target="#analytical-mle">Analytical MLE</a></li>
-  <li><a href="#visualising-concavity" id="toc-visualising-concavity" class="nav-link" data-scroll-target="#visualising-concavity">Visualising Concavity</a></li>
-  <li><a href="#numerical-mle-via-sp.optimize" id="toc-numerical-mle-via-sp.optimize" class="nav-link" data-scroll-target="#numerical-mle-via-sp.optimize">Numerical Verification</a></li>
-  <li><a href="#checking-the-equidispersion-assumption" id="toc-checking-the-equidispersion-assumption" class="nav-link" data-scroll-target="#checking-the-equidispersion-assumption">Checking the Equidispersion Assumption</a></li>
-  </ul></li>
-  <li><a href="#poisson-regression" id="toc-poisson-regression" class="nav-link" data-scroll-target="#poisson-regression">Poisson Regression</a>
-  <ul class="collapse">
-  <li><a href="#updated-log-likelihood" id="toc-updated-log-likelihood" class="nav-link" data-scroll-target="#updated-log-likelihood">Updated Log-Likelihood</a></li>
-  <li><a href="#design-matrix" id="toc-design-matrix" class="nav-link" data-scroll-target="#design-matrix">Design Matrix</a></li>
-  <li><a href="#score-function-and-first-order-condition" id="toc-score-function-and-first-order-condition" class="nav-link" data-scroll-target="#score-function-and-first-order-condition">Score Function and First-Order Condition</a></li>
-  <li><a href="#optimization-via-sp.optimize" id="toc-optimization-via-sp.optimize" class="nav-link" data-scroll-target="#optimization-via-sp.optimize">Optimization via <code>sp.optimize</code></a></li>
-  <li><a href="#hessian-and-standard-errors" id="toc-hessian-and-standard-errors" class="nav-link" data-scroll-target="#hessian-and-standard-errors">Hessian and Standard Errors</a></li>
-  <li><a href="#verification-against-statsmodels-glm" id="toc-verification-against-statsmodels-glm" class="nav-link" data-scroll-target="#verification-against-statsmodels-glm">Verification Against <code>statsmodels GLM</code></a></li>
-  <li><a href="#results-table" id="toc-results-table" class="nav-link" data-scroll-target="#results-table">Results Table</a></li>
-  <li><a href="#equidispersion-check-regression-model" id="toc-equidispersion-check-regression-model" class="nav-link" data-scroll-target="#equidispersion-check-regression-model">Equidispersion Check — Regression Model</a></li>
-  <li><a href="#age-curve-visualizer" id="toc-age-curve-visualizer" class="nav-link" data-scroll-target="#age-curve-visualizer">Age Curve</a></li>
-  <li><a href="#coefficient-interpretation" id="toc-coefficient-interpretation" class="nav-link" data-scroll-target="#coefficient-interpretation">Coefficient Interpretation</a></li>
-  </ul></li>
-  <li><a href="#the-effect-of-blueprintys-software" id="toc-the-effect-of-blueprintys-software" class="nav-link" data-scroll-target="#the-effect-of-blueprintys-software">The Effect of Blueprinty’s Software</a>
-  <ul class="collapse">
-  <li><a href="#counterfactual-distribution-animated" id="toc-counterfactual-distribution-animated" class="nav-link" data-scroll-target="#counterfactual-distribution-animated">Counterfactual Distribution</a></li>
-  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a></li>
-  </ul></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
-  </ul>
-</nav>
-</div>
-<main class="content" id="quarto-document-content">
+<div id="quarto-content" class="page-layout-article" style="display:block;max-width:880px;margin:0 auto;padding:2.5rem 2rem;">
+
+<main class="content" style="max-width:100%;width:100%;margin:0;padding:0;" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -9257,5 +9221,116 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
+
+
+
+
+
+
+
+
+<style id="layout-override">
+/* Hide any dynamically-created TOC sidebar */
+nav[role="doc-toc"],
+nav.toc-active,
+.sidebar.margin-sidebar,
+#quarto-margin-sidebar,
+#quarto-sidebar,
+#quarto-sidebar-toc-left,
+[id*="quarto-margin"],
+[id*="quarto-sidebar"] {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  left: -9999px !important;
+}
+
+/* Force single-column layout */
+#quarto-content {
+  display: block !important;
+  max-width: 880px !important;
+  margin: 0 auto !important;
+  padding: 2.5rem 2rem !important;
+  grid-template-columns: none !important;
+}
+
+main.content {
+  display: block !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  grid-column: unset !important;
+}
+
+/* All content blocks full width */
+main.content section,
+main.content p,
+main.content ul,
+main.content ol,
+main.content figure,
+main.content .cell,
+main.content .cell-output,
+main.content .cell-output-display,
+main.content pre,
+main.content .sourceCode,
+main.content .callout,
+main.content .widget-container,
+main.content .stat-row,
+main.content .summary-grid,
+main.content .guide-box,
+main.content .key-result,
+main.content blockquote,
+main.content hr,
+main.content table {
+  max-width: 100% !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  grid-column: unset !important;
+}
+</style>
+
+<script id="layout-fix-js">
+(function() {
+  function killTOC() {
+    // Remove any TOC nav elements
+    document.querySelectorAll('nav[role="doc-toc"], nav.toc-active, #quarto-margin-sidebar, #quarto-sidebar').forEach(function(el) {
+      el.remove();
+    });
+    // Fix the content container
+    var qc = document.getElementById('quarto-content');
+    if (qc) {
+      qc.style.display = 'block';
+      qc.style.maxWidth = '880px';
+      qc.style.margin = '0 auto';
+      qc.style.padding = '2.5rem 2rem';
+    }
+  }
+
+  // Run immediately
+  killTOC();
+
+  // Run after DOM is ready
+  document.addEventListener('DOMContentLoaded', function() {
+    killTOC();
+    // Also watch for dynamically added elements
+    var observer = new MutationObserver(function(mutations) {
+      killTOC();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    // Stop observing after 5 seconds to avoid performance issues
+    setTimeout(function() { observer.disconnect(); }, 5000);
+  });
+
+  // Also run with delays
+  setTimeout(killTOC, 100);
+  setTimeout(killTOC, 500);
+  setTimeout(killTOC, 1000);
+  setTimeout(killTOC, 2000);
+})();
+</script>
 
 </body></html>
