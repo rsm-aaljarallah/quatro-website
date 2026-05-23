@@ -6,7 +6,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Mail, Phone, MapPin, Send, Linkedin, Github, ExternalLink } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Linkedin, Github, ExternalLink, MessageCircle } from "lucide-react";
 
 const contactItems = [
   {
@@ -30,6 +30,13 @@ const contactItems = [
     href: "#",
     color: "#6A8AA8",
   },
+  {
+    icon: MessageCircle,
+    label: "WhatsApp",
+    value: "+1 619-314-1187",
+    href: "https://wa.me/16193141187",
+    color: "#25D366",
+  },
 ];
 
 const socialLinks = [
@@ -48,6 +55,14 @@ const socialLinks = [
     color: "#D8E4F0",
     bg: "rgba(255,255,255,0.06)",
     border: "rgba(255,255,255,0.15)",
+  },
+  {
+    icon: MessageCircle,
+    label: "WhatsApp",
+    href: "https://wa.me/16193141187",
+    color: "#25D366",
+    bg: "rgba(37,211,102,0.08)",
+    border: "rgba(37,211,102,0.3)",
   },
 ];
 
@@ -82,7 +97,7 @@ export default function ContactSection() {
             transition={{ duration: 0.6 }}
             className="flex items-center gap-4 mb-16"
           >
-            <div className="mono-label">08 / Contact</div>
+            <div className="mono-label">09 / Contact</div>
             <div className="flex-1 section-divider" />
           </motion.div>
 

@@ -1,47 +1,49 @@
 /*
  * DESIGN: Cyber-Dark Projects Section
- * Three real analytics projects from the Quarto site
- * Card grid with hover glow, tech tags, key results highlighted
+ * Three real analytics projects — STAR narrative structure
+ * Situation → Task → Action → Result flow per card
  */
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Brain, BarChart2, Zap, ExternalLink, ChevronRight } from "lucide-react";
+import { Brain, BarChart2, Zap, ExternalLink } from "lucide-react";
 
 const projects = [
   {
     id: 1,
     title: "Customer Churn Prediction Model",
     date: "Sep 2025",
-    description:
-      "Developed a machine learning model to predict customer churn for a financial services case study, identifying key retention drivers and recommending targeted intervention strategies.",
     icon: Brain,
     color: "#B8C8DC",
     categories: ["Machine Learning", "Python", "Customer Analytics"],
-    approach: [
-      "Cleaned and preprocessed customer data including demographics, transaction history, and engagement metrics",
-      "Trained and compared Logistic Regression, Random Forest, and Gradient Boosting models",
-      "Visualized key findings and retention drivers in Tableau",
+    situation:
+      "A financial services firm was losing customers with no early-warning system in place — retention decisions were reactive and based on gut feel rather than data.",
+    task: "Build a predictive model to flag at-risk customers before they churn, and surface the key behavioral drivers so the retention team could act early.",
+    action: [
+      "Cleaned and engineered features from demographics, transaction history, and engagement data",
+      "Trained and benchmarked Logistic Regression, Random Forest, and Gradient Boosting models",
+      "Visualized driver importance and segment breakdowns in Tableau for the retention team",
     ],
     results: [
       { metric: "87%", label: "Prediction Accuracy" },
       { metric: "15%", label: "Projected Churn Reduction" },
     ],
-    tools: ["Python", "Pandas", "NumPy", "Scikit-learn", "Tableau"],
+    tools: ["Python", "Pandas", "Scikit-learn", "Tableau"],
   },
   {
     id: 2,
     title: "Marketing Campaign ROI Dashboard",
     date: "Jun 2025",
-    description:
-      "Built an interactive Power BI dashboard analyzing multi-channel campaign performance across digital and traditional media, enabling real-time budget reallocation decisions.",
     icon: BarChart2,
     color: "#7A8FA8",
     categories: ["Data Visualization", "Marketing Analytics", "Power BI"],
-    approach: [
-      "Aggregated campaign data from digital and traditional media channels using SQL",
-      "Designed interactive Power BI dashboard with drill-down by channel, region, and time",
-      "Automated data refresh pipelines using Python for near real-time reporting",
+    situation:
+      "A marketing team managing $30M+ in spend across digital and traditional channels had no unified view of performance — budget decisions were delayed by slow, manual reporting.",
+    task: "Design a real-time dashboard that consolidates all channel data and enables the team to reallocate budget on the fly based on live ROI signals.",
+    action: [
+      "Aggregated multi-channel campaign data using SQL and automated refresh pipelines in Python",
+      "Built interactive Power BI dashboard with drill-down by channel, region, and time period",
+      "Embedded statistical significance flags so the team could distinguish real lifts from noise",
     ],
     results: [
       { metric: "23%", label: "ROI Improvement" },
@@ -51,20 +53,21 @@ const projects = [
   },
   {
     id: 3,
-    title: "Digital Transformation Case Study",
+    title: "Digital Transformation — PIFSS",
     date: "Mar 2025",
-    description:
-      "Documented and analyzed an organizational transformation at the Public Institution for Social Security in Kuwait that achieved 100% digital adoption across 3,000+ employees.",
     icon: Zap,
     color: "#6A8AA8",
     categories: ["Change Management", "Digital Transformation", "Data Analytics"],
-    approach: [
-      "Designed training campaigns, social media competitions, and change management strategies",
-      "Tracked adoption metrics across 20+ departments using data tracking systems",
-      "Created a high-performance employee recognition program with HR to incentivize engagement",
+    situation:
+      "Kuwait's Public Institution for Social Security (3,000+ employees, 20+ departments) had near-zero adoption of its new digital systems three months after launch — the rollout was stalling.",
+    task: "Design and lead a change management campaign to drive full digital adoption across all departments within a tight three-month window.",
+    action: [
+      "Launched targeted training campaigns and social media competitions to build internal momentum",
+      "Tracked adoption rates by department using custom data dashboards and weekly reporting",
+      "Partnered with HR to build a recognition program that incentivized early adopters",
     ],
     results: [
-      { metric: "100%", label: "Digital Adoption" },
+      { metric: "0→100%", label: "Digital Adoption" },
       { metric: "3 months", label: "Full Rollout" },
       { metric: "3,000+", label: "Employees" },
     ],
@@ -153,50 +156,90 @@ export default function ProjectsSection() {
                 </span>
               </div>
 
-              {/* Title & description */}
-              <h3 className="font-['Playfair_Display'] font-bold text-white text-lg leading-tight mb-2">
+              {/* Title */}
+              <h3 className="font-['Playfair_Display'] font-bold text-white text-lg leading-tight mb-4">
                 {project.title}
               </h3>
-              <p className="font-['Lato'] text-[#7A8FA8] text-sm leading-relaxed mb-4">
-                {project.description}
-              </p>
 
-              {/* Key results */}
-              <div className="flex flex-wrap gap-3 mb-4">
-                {project.results.map(({ metric, label }) => (
-                  <div
-                    key={label}
-                    className="flex-1 min-w-[80px] text-center py-2 px-3 rounded-sm"
-                    style={{
-                      background: `${project.color}08`,
-                      border: `1px solid ${project.color}20`,
-                    }}
+              {/* STAR narrative */}
+              <div className="space-y-3 mb-4 flex-1">
+                {/* Situation */}
+                <div>
+                  <span
+                    className="text-[10px] font-['JetBrains_Mono'] uppercase tracking-widest"
+                    style={{ color: `${project.color}99` }}
                   >
-                    <div
-                      className="font-['Playfair_Display'] font-extrabold text-lg"
-                      style={{ color: project.color }}
-                    >
-                      {metric}
-                    </div>
-                    <div className="font-['Lato'] text-[#4A5A6A] text-xs mt-0.5">{label}</div>
-                  </div>
-                ))}
+                    Situation
+                  </span>
+                  <p className="font-['Lato'] text-[#7A8FA8] text-xs leading-relaxed mt-0.5">
+                    {project.situation}
+                  </p>
+                </div>
+
+                {/* Task */}
+                <div>
+                  <span
+                    className="text-[10px] font-['JetBrains_Mono'] uppercase tracking-widest"
+                    style={{ color: `${project.color}99` }}
+                  >
+                    Task
+                  </span>
+                  <p className="font-['Lato'] text-[#7A8FA8] text-xs leading-relaxed mt-0.5">
+                    {project.task}
+                  </p>
+                </div>
+
+                {/* Action */}
+                <div>
+                  <span
+                    className="text-[10px] font-['JetBrains_Mono'] uppercase tracking-widest"
+                    style={{ color: `${project.color}99` }}
+                  >
+                    Action
+                  </span>
+                  <ul className="mt-0.5 space-y-1">
+                    {project.action.map((step, i) => (
+                      <li key={i} className="flex items-start gap-1.5">
+                        <span
+                          className="mt-1.5 w-1 h-1 rounded-full flex-shrink-0"
+                          style={{ background: project.color }}
+                        />
+                        <span className="font-['Lato'] text-[#7A98B8] text-xs leading-relaxed">
+                          {step}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
 
-              {/* Approach bullets */}
-              <div className="space-y-1.5 mb-4 flex-1">
-                {project.approach.map((step, i) => (
-                  <div key={i} className="flex items-start gap-2">
-                    <ChevronRight
-                      size={12}
-                      className="mt-1 flex-shrink-0"
-                      style={{ color: project.color }}
-                    />
-                    <span className="font-['Lato'] text-[#7A98B8] text-xs leading-relaxed">
-                      {step}
-                    </span>
-                  </div>
-                ))}
+              {/* Result metrics */}
+              <div
+                className="rounded-sm p-3 mb-4"
+                style={{
+                  background: `${project.color}06`,
+                  border: `1px solid ${project.color}18`,
+                }}
+              >
+                <span
+                  className="text-[10px] font-['JetBrains_Mono'] uppercase tracking-widest block mb-2"
+                  style={{ color: `${project.color}99` }}
+                >
+                  Result
+                </span>
+                <div className="flex flex-wrap gap-3">
+                  {project.results.map(({ metric, label }) => (
+                    <div key={label} className="text-center">
+                      <div
+                        className="font-['Playfair_Display'] font-extrabold text-xl"
+                        style={{ color: project.color }}
+                      >
+                        {metric}
+                      </div>
+                      <div className="font-['Lato'] text-[#4A5A6A] text-[10px] mt-0.5">{label}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               {/* Tool tags */}
