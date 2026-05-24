@@ -276,9 +276,12 @@ export default function ContactSection() {
               >
                 <Github size={16} />
               </a>
-              <span className="font-['JetBrains_Mono'] text-xs text-[#2A3A4A]">
-                Business Analytics & Strategy
-              </span>
+              <a
+                href="https://ajq8.com"
+                className="font-['JetBrains_Mono'] text-xs text-[#2A3A4A] hover:text-[#B8C8DC] transition-colors"
+              >
+                ajq8.com
+              </a>
             </div>
           </div>
         </div>
