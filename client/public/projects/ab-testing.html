@@ -301,6 +301,36 @@ details summary:hover {
   color: #E8EDF5 !important;
 }
 </style>
+
+<style>
+/* ── Portfolio Dark Theme Override ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;800&family=Lato:wght@300;400;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+html, body { background: #080C18 !important; color: #C8D8E8 !important; font-family: 'Lato', sans-serif !important; }
+#quarto-content, .quarto-container, main, .content, #content { background: #080C18 !important; color: #C8D8E8 !important; }
+h1, h2, h3, h4, h5, h6 { color: #F0F4F8 !important; font-family: 'Playfair Display', serif !important; }
+h1.title { color: #F0F4F8 !important; font-size: 2.2rem !important; font-weight: 800 !important; }
+#quarto-sidebar, .sidebar, nav.quarto-page-navigation { background: #0D1525 !important; border-color: rgba(184,200,220,0.1) !important; }
+#quarto-sidebar a, .sidebar a { color: #7A8FA8 !important; }
+#quarto-sidebar a:hover, .sidebar a:hover { color: #B8C8DC !important; }
+p, li, td, th, span, div { color: #C8D8E8 !important; }
+a { color: #5A9AB8 !important; } a:hover { color: #B8C8DC !important; }
+pre, code, .sourceCode { background: #0D1525 !important; border: 1px solid rgba(184,200,220,0.1) !important; color: #A8C8E8 !important; font-family: 'JetBrains Mono', monospace !important; }
+pre.sourceCode { border-radius: 4px !important; }
+code:not(.sourceCode) { background: rgba(184,200,220,0.08) !important; color: #7ABCDC !important; padding: 0.1em 0.3em !important; border: none !important; }
+table { background: #0D1525 !important; border-color: rgba(184,200,220,0.1) !important; }
+th { background: rgba(184,200,220,0.08) !important; color: #B8C8DC !important; border-color: rgba(184,200,220,0.1) !important; }
+td { border-color: rgba(184,200,220,0.08) !important; }
+tr:nth-child(even) { background: rgba(184,200,220,0.03) !important; }
+.callout, .alert { background: rgba(13,21,37,0.8) !important; border-color: rgba(184,200,220,0.15) !important; }
+.active > a, #TOC .active > a { color: #B8C8DC !important; font-weight: bold !important; }
+.header-section-number { color: #4A6A8A !important; }
+#quarto-header, header { background: rgba(8,12,24,0.97) !important; border-bottom: 1px solid rgba(184,200,220,0.08) !important; }
+details > summary { background: rgba(184,200,220,0.06) !important; color: #7A8FA8 !important; border: 1px solid rgba(184,200,220,0.1) !important; padding: 4px 8px !important; border-radius: 3px !important; cursor: pointer !important; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #080C18; }
+::-webkit-scrollbar-thumb { background: rgba(184,200,220,0.2); border-radius: 3px; }
+</style>
 </head>
 
 <body class="quarto-dark">
@@ -1344,4 +1374,43 @@ Table&nbsp;5: False Positive Rate: Single Test vs. Peeking (under H₀, 10,000 s
 
 
 
+
+<style>
+img[role="img"], .cell-output img, .quarto-figure img {
+  opacity: 0;
+  transform: translateY(40px) scale(0.96);
+  transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);
+  border-radius: 4px;
+  border: 1px solid rgba(184,200,220,0.08) !important;
+  box-shadow: 0 0 40px rgba(0,0,0,0.4) !important;
+}
+img[role="img"].chart-visible, .cell-output img.chart-visible, .quarto-figure img.chart-visible { opacity: 1; transform: translateY(0) scale(1); }
+.section, section, h2, h3 { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.section.section-visible, section.section-visible, h2.section-visible, h3.section-visible { opacity: 1; transform: translateY(0); }
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const charts = document.querySelectorAll('img[role="img"], .cell-output img, .quarto-figure img');
+  const sections = document.querySelectorAll('.section, section, h2, h3');
+  const opts = { threshold: 0.1, rootMargin: "0px 0px -40px 0px" };
+  let chartIndex = 0;
+  const chartObs = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const delay = (chartIndex % 3) * 120;
+        chartIndex++;
+        setTimeout(() => entry.target.classList.add("chart-visible"), delay);
+        chartObs.unobserve(entry.target);
+      }
+    });
+  }, opts);
+  const secObs = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) { entry.target.classList.add("section-visible"); secObs.unobserve(entry.target); }
+    });
+  }, opts);
+  charts.forEach(el => chartObs.observe(el));
+  sections.forEach(el => secObs.observe(el));
+});
+</script>
 </body></html>
