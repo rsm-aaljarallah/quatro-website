@@ -127,6 +127,22 @@ const projects = [
     coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_poisson_mle_themed-TXwTh4uFv8vjdn64XEY6sb.webp",
   },
   {
+    id: "maxdiff",
+    slug: "maxdiff",
+    title: "MaxDiff Analysis of MSBA Class Preferences",
+    subtitle: "Counts, MLE & Bayesian Estimation of the Multinomial Logit Model",
+    date: "May 2026",
+    course: "Marketing Analytics · UCSD Rady",
+    tags: ["MaxDiff", "Bayesian", "MNL", "Python", "Discrete Choice"],
+    description:
+      "Estimated student preferences for MSBA core courses three ways: descriptive counts, multinomial logit via maximum likelihood, and a Bayesian MNL fit with a random-walk Metropolis-Hastings sampler. Compares classical standard errors against full posterior uncertainty quantification.",
+    url: "/projects/hw4-maxdiff.html",
+    githubUrl: null,
+    type: "Academic",
+    number: "07",
+    coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_poisson_mle_themed-TXwTh4uFv8vjdn64XEY6sb.webp",
+  },
+  {
     id: "roi-dashboard-churn",
     slug: null,
     title: "Marketing Campaign ROI Dashboard + Churn Model",

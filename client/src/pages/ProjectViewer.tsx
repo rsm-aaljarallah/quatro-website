@@ -26,6 +26,11 @@ const projectData: Record<string, { title: string; url: string; subtitle: string
     subtitle: "A Case Study of Blueprinty's Software and Patent Awards",
     url: "/projects/hw3-mle.html",
   },
+  "maxdiff": {
+    title: "MaxDiff Analysis of MSBA Class Preferences",
+    subtitle: "Counts, MLE & Bayesian Estimation of the Multinomial Logit Model",
+    url: "/projects/hw4-maxdiff.html",
+  },
 };
 
 export default function ProjectViewer() {
