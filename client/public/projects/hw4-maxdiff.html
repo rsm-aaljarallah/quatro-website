@@ -5402,8 +5402,8 @@ Figure 5: Class preferences under three methods. The same class is colored the 
 /* Chart animation styles */
 img[role="img"], .cell-output img {
   opacity: 0;
-  transform: translateY(24px) scale(0.98);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateY(40px) scale(0.96);
+  transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);
   border-radius: 4px;
   border: 1px solid rgba(184,200,220,0.08) !important;
   box-shadow: 0 0 40px rgba(0,0,0,0.4) !important;
@@ -5433,12 +5433,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -40px 0px" };
 
+  let chartIndex = 0;
   const chartObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
+        const delay = (chartIndex % 3) * 120;
+        chartIndex++;
         setTimeout(() => {
           entry.target.classList.add("chart-visible");
-        }, i * 80);
+        }, delay);
         chartObserver.unobserve(entry.target);
       }
     });
