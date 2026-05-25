@@ -15,6 +15,7 @@ import SkillsSection from "@/components/SkillsSection";
 import VenturesSection from "@/components/VenturesSection";
 import CertificationsSection from "@/components/CertificationsSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
+import BeyondSection from "@/components/BeyondSection";
 import ContactSection from "@/components/ContactSection";
 
 export default function Home() {
@@ -30,6 +31,7 @@ export default function Home() {
       <VenturesSection />
       <CertificationsSection />
       <TestimonialsSection />
+      <BeyondSection />
       <ContactSection />
     </div>
   );

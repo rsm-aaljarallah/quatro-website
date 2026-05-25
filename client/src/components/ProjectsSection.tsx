@@ -130,8 +130,15 @@ export default function ProjectsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.15 }}
-              className="card-cyber rounded-lg p-6 flex flex-col group"
-              style={{ borderColor: `${project.color}20` }}
+              className="rounded-lg p-6 flex flex-col group"
+              style={{
+                background: "linear-gradient(135deg, rgba(19,29,46,0.6) 0%, rgba(13,21,37,0.8) 100%)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                border: `1px solid ${project.color}20`,
+                boxShadow: `0 0 30px ${project.color}06`,
+                transition: "all 0.3s ease",
+              }}
             >
               {/* Header */}
               <div className="flex items-start justify-between mb-4">

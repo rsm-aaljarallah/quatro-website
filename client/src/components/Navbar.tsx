@@ -17,6 +17,7 @@ const navLinks = [
   { label: "Ventures", href: "#ventures" },
   { label: "Certifications", href: "#certifications" },
   { label: "Testimonials", href: "#testimonials" },
+  { label: "Beyond", href: "#beyond" },
   { label: "Contact", href: "#contact" },
 ];
 
