@@ -398,27 +398,29 @@ export default function Projects() {
           {projects.map((project, i) => (
             <motion.div
               key={project.id}
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15 + i * 0.1, duration: 0.5 }}
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ delay: i * 0.12, duration: 0.6, ease: "easeOut" }}
+              whileHover={{ y: -8, boxShadow: "0 24px 60px rgba(0,0,0,0.5)" }}
+              className="group h-full flex flex-col overflow-hidden"
+              style={{
+                background: "linear-gradient(135deg, rgba(19,29,46,0.7) 0%, rgba(13,21,37,0.9) 100%)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                border: "1px solid rgba(184,200,220,0.08)",
+                borderRadius: "12px",
+                transition: "box-shadow 0.3s ease, transform 0.3s ease",
+              }}
             >
-              <motion.div
-                whileHover={{ y: -5, boxShadow: "0 16px 40px rgba(0,0,0,0.4)" }}
-                transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                className="group h-full flex flex-col overflow-hidden"
-                style={{
-                  background: "rgba(15,22,40,0.7)",
-                  border: "1px solid rgba(232,237,245,0.07)",
-                }}
-              >
                 {/* Cover image */}
-                <div className="overflow-hidden" style={{ height: "200px" }}>
+                <div className="overflow-hidden" style={{ height: "200px", borderRadius: "12px 12px 0 0" }}>
                   <motion.img
                     src={project.coverImage}
                     alt={project.title}
                     className="w-full h-full object-cover"
-                    whileHover={{ scale: 1.04 }}
-                    transition={{ duration: 0.5 }}
+                    whileHover={{ scale: 1.06 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
                   />
                 </div>
 
@@ -521,7 +523,6 @@ export default function Projects() {
                   )}
                 </div>
               </motion.div>
-            </motion.div>
           ))}
         </div>
 
