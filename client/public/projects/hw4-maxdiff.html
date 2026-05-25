@@ -2315,6 +2315,127 @@ window.Quarto = {
 };
 </script>
 
+
+<style>
+/* ── Portfolio Dark Theme Override ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;800&family=Lato:wght@300;400;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+html, body {
+  background: #080C18 !important;
+  color: #C8D8E8 !important;
+  font-family: 'Lato', sans-serif !important;
+}
+
+/* Main content area */
+#quarto-content, .quarto-container, main, .content, #content {
+  background: #080C18 !important;
+  color: #C8D8E8 !important;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  color: #F0F4F8 !important;
+  font-family: 'Playfair Display', serif !important;
+}
+
+h1.title {
+  color: #F0F4F8 !important;
+  font-size: 2.2rem !important;
+  font-weight: 800 !important;
+}
+
+/* Navbar / TOC sidebar */
+#quarto-sidebar, .sidebar, nav.quarto-page-navigation {
+  background: #0D1525 !important;
+  border-color: rgba(184,200,220,0.1) !important;
+}
+
+#quarto-sidebar a, .sidebar a {
+  color: #7A8FA8 !important;
+}
+
+#quarto-sidebar a:hover, .sidebar a:hover {
+  color: #B8C8DC !important;
+}
+
+/* Body text */
+p, li, td, th, span, div {
+  color: #C8D8E8 !important;
+}
+
+/* Links */
+a { color: #5A9AB8 !important; }
+a:hover { color: #B8C8DC !important; }
+
+/* Code blocks */
+pre, code, .sourceCode {
+  background: #0D1525 !important;
+  border: 1px solid rgba(184,200,220,0.1) !important;
+  color: #A8C8E8 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+pre.sourceCode { border-radius: 4px !important; }
+
+/* Inline code */
+code:not(.sourceCode) {
+  background: rgba(184,200,220,0.08) !important;
+  color: #7ABCDC !important;
+  padding: 0.1em 0.3em !important;
+  border: none !important;
+}
+
+/* Tables */
+table {
+  background: #0D1525 !important;
+  border-color: rgba(184,200,220,0.1) !important;
+}
+th {
+  background: rgba(184,200,220,0.08) !important;
+  color: #B8C8DC !important;
+  border-color: rgba(184,200,220,0.1) !important;
+}
+td {
+  border-color: rgba(184,200,220,0.08) !important;
+}
+tr:nth-child(even) { background: rgba(184,200,220,0.03) !important; }
+
+/* Callouts / alerts */
+.callout, .alert {
+  background: rgba(13,21,37,0.8) !important;
+  border-color: rgba(184,200,220,0.15) !important;
+}
+
+/* TOC active link */
+.active > a, #TOC .active > a {
+  color: #B8C8DC !important;
+  font-weight: bold !important;
+}
+
+/* Section numbers / labels */
+.header-section-number { color: #4A6A8A !important; }
+
+/* Quarto navbar top bar */
+#quarto-header, header {
+  background: rgba(8,12,24,0.97) !important;
+  border-bottom: 1px solid rgba(184,200,220,0.08) !important;
+}
+
+/* Details/summary (code fold) */
+details > summary {
+  background: rgba(184,200,220,0.06) !important;
+  color: #7A8FA8 !important;
+  border: 1px solid rgba(184,200,220,0.1) !important;
+  padding: 4px 8px !important;
+  border-radius: 3px !important;
+  cursor: pointer !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #080C18; }
+::-webkit-scrollbar-thumb { background: rgba(184,200,220,0.2); border-radius: 3px; }
+</style>
 </head>
 
 <body class="quarto-light">
