@@ -5276,4 +5276,174 @@ Figure 5: Class preferences under three methods. The same class is colored the 
 
 
 <script>!function(t,e){"function"==typeof define&&define.amd?define([],e()):"object"==typeof module&&module.exports?module.exports=e():function n(){document&&document.body?t.zenscroll=e():setTimeout(n,9)}()}(this,function(){"use strict";var t=function(t){return t&&"getComputedStyle"in window&&"smooth"===window.getComputedStyle(t)["scroll-behavior"]};if("undefined"==typeof window||!("document"in window))return{};var e=function(e,n,o){n=n||999,o||0===o||(o=9);var i,r=function(t){i=t},u=function(){clearTimeout(i),r(0)},c=function(t){return Math.max(0,e.getTopOf(t)-o)},a=function(o,i,c){if(u(),0===i||i&&i<0||t(e.body))e.toY(o),c&&c();else{var a=e.getY(),f=Math.max(0,o)-a,s=(new Date).getTime();i=i||Math.min(Math.abs(f),n),function t(){r(setTimeout(function(){var n=Math.min(1,((new Date).getTime()-s)/i),o=Math.max(0,Math.floor(a+f*(n<.5?2*n*n:n*(4-2*n)-1)));e.toY(o),n<1&&e.getHeight()+o<e.body.scrollHeight?t():(setTimeout(u,99),c&&c())},9))}()}},f=function(t,e,n){a(c(t),e,n)},s=function(t,n,i){var r=t.getBoundingClientRect().height,u=e.getTopOf(t)+r,s=e.getHeight(),l=e.getY(),d=l+s;c(t)<l||r+o>s?f(t,n,i):u+o>d?a(u-s+o,n,i):i&&i()},l=function(t,n,o,i){a(Math.max(0,e.getTopOf(t)-e.getHeight()/2+(o||t.getBoundingClientRect().height/2)),n,i)};return{setup:function(t,e){return(0===t||t)&&(n=t),(0===e||e)&&(o=e),{defaultDuration:n,edgeOffset:o}},to:f,toY:a,intoView:s,center:l,stop:u,moving:function(){return!!i},getY:e.getY,getTopOf:e.getTopOf}},n=document.documentElement,o=function(){return window.scrollY||n.scrollTop},i=e({body:document.scrollingElement||document.body,toY:function(t){window.scrollTo(0,t)},getY:o,getHeight:function(){return window.innerHeight||n.clientHeight},getTopOf:function(t){return t.getBoundingClientRect().top+o()-n.offsetTop}});if(i.createScroller=function(t,o,i){return e({body:t,toY:function(e){t.scrollTop=e},getY:function(){return t.scrollTop},getHeight:function(){return Math.min(t.clientHeight,window.innerHeight||n.clientHeight)},getTopOf:function(t){return t.offsetTop}},o,i)},"addEventListener"in window&&!window.noZensmooth&&!t(document.body)){var r="history"in window&&"pushState"in history,u=r&&"scrollRestoration"in history;u&&(history.scrollRestoration="auto"),window.addEventListener("load",function(){u&&(setTimeout(function(){history.scrollRestoration="manual"},9),window.addEventListener("popstate",function(t){t.state&&"zenscrollY"in t.state&&i.toY(t.state.zenscrollY)},!1)),window.location.hash&&setTimeout(function(){var t=i.setup().edgeOffset;if(t){var e=document.getElementById(window.location.href.split("#")[1]);if(e){var n=Math.max(0,i.getTopOf(e)-t),o=i.getY()-n;0<=o&&o<9&&window.scrollTo(0,n)}}},9)},!1);var c=new RegExp("(^|\\s)noZensmooth(\\s|$)");window.addEventListener("click",function(t){for(var e=t.target;e&&"A"!==e.tagName;)e=e.parentNode;if(!(!e||1!==t.which||t.shiftKey||t.metaKey||t.ctrlKey||t.altKey)){if(u){var n=history.state&&"object"==typeof history.state?history.state:{};n.zenscrollY=i.getY();try{history.replaceState(n,"")}catch(t){}}var o=e.getAttribute("href")||"";if(0===o.indexOf("#")&&!c.test(e.className)){var a=0,f=document.getElementById(o.substring(1));if("#"!==o){if(!f)return;a=i.getTopOf(f)}t.preventDefault();var s=function(){window.location=o},l=i.setup().edgeOffset;l&&(a=Math.max(0,a-l),r&&(s=function(){history.pushState({},"",o)})),i.toY(a,null,s)}}},!1)}return i});</script>
+
+<style>
+/* ── Portfolio Dark Theme Override ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;800&family=Lato:wght@300;400;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+html, body { background: #080C18 !important; color: #C8D8E8 !important; font-family: 'Lato', sans-serif !important; }
+#quarto-content, .quarto-container, main, .content, #content { background: #080C18 !important; color: #C8D8E8 !important; }
+h1, h2, h3, h4, h5, h6 { color: #F0F4F8 !important; font-family: 'Playfair Display', serif !important; }
+h1.title { color: #F0F4F8 !important; font-size: 2.2rem !important; font-weight: 800 !important; }
+#quarto-sidebar, .sidebar, nav.quarto-page-navigation { background: #0D1525 !important; border-color: rgba(184,200,220,0.1) !important; }
+#quarto-sidebar a, .sidebar a { color: #7A8FA8 !important; }
+#quarto-sidebar a:hover, .sidebar a:hover { color: #B8C8DC !important; }
+p, li, td, th, span, div { color: #C8D8E8 !important; }
+a { color: #5A9AB8 !important; } a:hover { color: #B8C8DC !important; }
+pre, code, .sourceCode { background: #0D1525 !important; border: 1px solid rgba(184,200,220,0.1) !important; color: #A8C8E8 !important; font-family: 'JetBrains Mono', monospace !important; }
+pre.sourceCode { border-radius: 4px !important; }
+code:not(.sourceCode) { background: rgba(184,200,220,0.08) !important; color: #7ABCDC !important; padding: 0.1em 0.3em !important; border: none !important; }
+table { background: #0D1525 !important; border-color: rgba(184,200,220,0.1) !important; }
+th { background: rgba(184,200,220,0.08) !important; color: #B8C8DC !important; border-color: rgba(184,200,220,0.1) !important; }
+td { border-color: rgba(184,200,220,0.08) !important; }
+tr:nth-child(even) { background: rgba(184,200,220,0.03) !important; }
+.callout, .alert { background: rgba(13,21,37,0.8) !important; border-color: rgba(184,200,220,0.15) !important; }
+.active > a, #TOC .active > a { color: #B8C8DC !important; font-weight: bold !important; }
+.header-section-number { color: #4A6A8A !important; }
+#quarto-header, header { background: rgba(8,12,24,0.97) !important; border-bottom: 1px solid rgba(184,200,220,0.08) !important; }
+details > summary { background: rgba(184,200,220,0.06) !important; color: #7A8FA8 !important; border: 1px solid rgba(184,200,220,0.1) !important; padding: 4px 8px !important; border-radius: 3px !important; cursor: pointer !important; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #080C18; }
+::-webkit-scrollbar-thumb { background: rgba(184,200,220,0.2); border-radius: 3px; }
+</style>
+<style id="layout-override">
+/* Hide any dynamically-created TOC sidebar */
+nav[role="doc-toc"],
+nav.toc-active,
+.sidebar.margin-sidebar,
+#quarto-margin-sidebar,
+#quarto-sidebar,
+#quarto-sidebar-toc-left,
+[id*="quarto-margin"],
+[id*="quarto-sidebar"] {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  left: -9999px !important;
+}
+
+/* Force single-column layout */
+#quarto-content {
+  display: block !important;
+  max-width: 880px !important;
+  margin: 0 auto !important;
+  padding: 2.5rem 2rem !important;
+  grid-template-columns: none !important;
+}
+
+main.content {
+  display: block !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  grid-column: unset !important;
+}
+
+/* All content blocks full width */
+main.content section,
+main.content p,
+main.content ul,
+main.content ol,
+main.content figure,
+main.content .cell,
+main.content .cell-output,
+main.content .cell-output-display,
+main.content pre,
+main.content .sourceCode,
+main.content .callout,
+main.content .widget-container,
+main.content .stat-row,
+main.content .summary-grid,
+main.content .guide-box,
+main.content .key-result,
+main.content blockquote,
+main.content hr,
+main.content table {
+  max-width: 100% !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  grid-column: unset !important;
+}
+</style>
+<script id="layout-fix-js">
+(function() {
+  function killTOC() {
+    // Remove any TOC nav elements
+    document.querySelectorAll('nav[role="doc-toc"], nav.toc-active, #quarto-margin-sidebar, #quarto-sidebar').forEach(function(el) {
+      el.remove();
+    });
+    // Fix the content container
+    var qc = document.getElementById('quarto-content');
+    if (qc) {
+      qc.style.display = 'block';
+      qc.style.maxWidth = '880px';
+      qc.style.margin = '0 auto';
+      qc.style.padding = '2.5rem 2rem';
+    }
+  }
+
+  // Run immediately
+  killTOC();
+
+  // Run after DOM is ready
+  document.addEventListener('DOMContentLoaded', function() {
+    killTOC();
+    // Also watch for dynamically added elements
+    var observer = new MutationObserver(function(mutations) {
+      killTOC();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    // Stop observing after 5 seconds to avoid performance issues
+    setTimeout(function() { observer.disconnect(); }, 5000);
+  });
+
+  // Also run with delays
+  setTimeout(killTOC, 100);
+  setTimeout(killTOC, 500);
+  setTimeout(killTOC, 1000);
+  setTimeout(killTOC, 2000);
+})();
+</script>
+<style>
+img[role="img"], .cell-output img, .quarto-figure img {
+  opacity: 0;
+  transform: translateY(40px) scale(0.96);
+  transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);
+  border-radius: 4px;
+  border: 1px solid rgba(184,200,220,0.08) !important;
+  box-shadow: 0 0 40px rgba(0,0,0,0.4) !important;
+}
+img[role="img"].chart-visible, .cell-output img.chart-visible, .quarto-figure img.chart-visible { opacity: 1; transform: translateY(0) scale(1); }
+.section, section, h2, h3 { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.section.section-visible, section.section-visible, h2.section-visible, h3.section-visible { opacity: 1; transform: translateY(0); }
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const charts = document.querySelectorAll('img[role="img"], .cell-output img, .quarto-figure img');
+  const sections = document.querySelectorAll('.section, section, h2, h3');
+  const opts = { threshold: 0.1, rootMargin: "0px 0px -40px 0px" };
+  let chartIndex = 0;
+  const chartObs = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const delay = (chartIndex % 3) * 120;
+        chartIndex++;
+        setTimeout(() => entry.target.classList.add("chart-visible"), delay);
+        chartObs.unobserve(entry.target);
+      }
+    });
+  }, opts);
+  const secObs = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) { entry.target.classList.add("section-visible"); secObs.unobserve(entry.target); }
+    });
+  }, opts);
+  charts.forEach(el => chartObs.observe(el));
+  sections.forEach(el => secObs.observe(el));
+});
+</script>
 </body></html>
