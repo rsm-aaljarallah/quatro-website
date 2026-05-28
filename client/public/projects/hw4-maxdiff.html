@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="AJ">
-<meta name="dcterms.date" content="2026-05-23">
+<meta name="dcterms.date" content="2026-05-27">
 
 <title>MaxDiff Analysis of MSBA Class Preferences</title>
 <style>
@@ -2315,127 +2315,6 @@ window.Quarto = {
 };
 </script>
 
-
-<style>
-/* ── Portfolio Dark Theme Override ── */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;800&family=Lato:wght@300;400;700&family=JetBrains+Mono:wght@400;500&display=swap');
-
-html, body {
-  background: #080C18 !important;
-  color: #C8D8E8 !important;
-  font-family: 'Lato', sans-serif !important;
-}
-
-/* Main content area */
-#quarto-content, .quarto-container, main, .content, #content {
-  background: #080C18 !important;
-  color: #C8D8E8 !important;
-}
-
-/* Headings */
-h1, h2, h3, h4, h5, h6 {
-  color: #F0F4F8 !important;
-  font-family: 'Playfair Display', serif !important;
-}
-
-h1.title {
-  color: #F0F4F8 !important;
-  font-size: 2.2rem !important;
-  font-weight: 800 !important;
-}
-
-/* Navbar / TOC sidebar */
-#quarto-sidebar, .sidebar, nav.quarto-page-navigation {
-  background: #0D1525 !important;
-  border-color: rgba(184,200,220,0.1) !important;
-}
-
-#quarto-sidebar a, .sidebar a {
-  color: #7A8FA8 !important;
-}
-
-#quarto-sidebar a:hover, .sidebar a:hover {
-  color: #B8C8DC !important;
-}
-
-/* Body text */
-p, li, td, th, span, div {
-  color: #C8D8E8 !important;
-}
-
-/* Links */
-a { color: #5A9AB8 !important; }
-a:hover { color: #B8C8DC !important; }
-
-/* Code blocks */
-pre, code, .sourceCode {
-  background: #0D1525 !important;
-  border: 1px solid rgba(184,200,220,0.1) !important;
-  color: #A8C8E8 !important;
-  font-family: 'JetBrains Mono', monospace !important;
-}
-
-pre.sourceCode { border-radius: 4px !important; }
-
-/* Inline code */
-code:not(.sourceCode) {
-  background: rgba(184,200,220,0.08) !important;
-  color: #7ABCDC !important;
-  padding: 0.1em 0.3em !important;
-  border: none !important;
-}
-
-/* Tables */
-table {
-  background: #0D1525 !important;
-  border-color: rgba(184,200,220,0.1) !important;
-}
-th {
-  background: rgba(184,200,220,0.08) !important;
-  color: #B8C8DC !important;
-  border-color: rgba(184,200,220,0.1) !important;
-}
-td {
-  border-color: rgba(184,200,220,0.08) !important;
-}
-tr:nth-child(even) { background: rgba(184,200,220,0.03) !important; }
-
-/* Callouts / alerts */
-.callout, .alert {
-  background: rgba(13,21,37,0.8) !important;
-  border-color: rgba(184,200,220,0.15) !important;
-}
-
-/* TOC active link */
-.active > a, #TOC .active > a {
-  color: #B8C8DC !important;
-  font-weight: bold !important;
-}
-
-/* Section numbers / labels */
-.header-section-number { color: #4A6A8A !important; }
-
-/* Quarto navbar top bar */
-#quarto-header, header {
-  background: rgba(8,12,24,0.97) !important;
-  border-bottom: 1px solid rgba(184,200,220,0.08) !important;
-}
-
-/* Details/summary (code fold) */
-details > summary {
-  background: rgba(184,200,220,0.06) !important;
-  color: #7A8FA8 !important;
-  border: 1px solid rgba(184,200,220,0.1) !important;
-  padding: 4px 8px !important;
-  border-radius: 3px !important;
-  cursor: pointer !important;
-}
-
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: #080C18; }
-::-webkit-scrollbar-thumb { background: rgba(184,200,220,0.2); border-radius: 3px; }
-</style>
 </head>
 
 <body class="quarto-light">
@@ -2487,7 +2366,7 @@ details > summary {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 23, 2026</p>
+      <p class="date">May 27, 2026</p>
     </div>
   </div>
   
@@ -2965,7 +2844,7 @@ Figure 1: Counts score (% best − % worst) for each MSBA class, with 95% boots
 </div>
 </div>
 </div>
-<p>The pattern is striking. <strong>Marketing Analytics (MGTA 495) sits far above everything else with a score of +0.49</strong>, meaning when it appeared on a screen it was picked best about 54% of the time and picked worst only 4% of the time. The bootstrap interval doesn’t come close to touching the next class. Below it, <strong>Business Analytics, Customer Analytics, Large Data, Capstone, and SQL</strong> form a cluster of generally-liked classes, with overlapping confidence intervals among them.</p>
+<p>The pattern is striking. <strong>Marketing Analytics (MGTA 495) sits far above everything else with a score of +0.49</strong>, meaning when it appeared on a screen it was picked best about 54% of the time and picked worst only 4% of the time. The bootstrap interval doesn’t come close to touching the next class. Below it, <strong>Business Analytics, Customer Analytics, Large Data, and Capstone</strong> form a cluster of generally-liked classes (all with positive scores), with <strong>SQL</strong> sitting essentially at zero. Their confidence intervals overlap heavily, so it would be reading too much into noise to rank these five against each other.</p>
 <p>At the bottom: <strong>Analytics Consulting (444), Marketing/Finance/Operations (451), AI Math (403), and Business Intelligence Systems (457)</strong> all score negatively. The confidence intervals here don’t overlap with the top cluster, so this is a real signal: there is a clear top tier and a clear bottom tier.</p>
 <p>One honest caveat to flag up front. The favorite is the class this assignment is <em>for</em>, with the instructor reading the writeup. Some respondents may have leaned generous on Item 9, knowing the answers feed back to the professor. That is a perfectly reasonable critique of any survey conducted inside the room it studies. I’ll come back to it in the discussion.</p>
 </section>
@@ -3476,7 +3355,7 @@ Figure 3: Trace plots for three of the nine free parameters. The vertical line 
 Min ESS across parameters: 281</code></pre>
 </div>
 </div>
-<p>ESS values in the few hundreds are perfectly fine for posterior <em>means</em> (where Monte Carlo error scales as <span class="math inline">\(1/\sqrt{\text{ESS}}\)</span>); for the <em>tail quantiles</em> in the 95% credible intervals, I’d ideally want ESS <span class="math inline">\(&gt;\)</span> 400, which is what motivated me to bump iterations from a default 20,000 up to 50,000. Below that I’d consider a Cauchy-tailed proposal or a covariance-scaled multivariate normal proposal to break the autocorrelation, but for this analysis the plain random-walk MH gets to a stable answer.</p>
+<p>ESS values in the few hundreds are perfectly fine for posterior <em>means</em> (where Monte Carlo error scales as <span class="math inline">\(1/\sqrt{\text{ESS}}\)</span>); for the <em>tail quantiles</em> in the 95% credible intervals, I’d ideally want ESS <span class="math inline">\(&gt;\)</span> 400, which is what motivated me to bump iterations up to 50,000 from a shorter pilot. Below that I’d consider a Cauchy-tailed proposal or a covariance-scaled multivariate normal proposal to break the autocorrelation, but for this analysis the plain random-walk MH gets to a stable answer.</p>
 </section>
 <section id="posterior-summaries" class="level3">
 <h3 class="anchored" data-anchor-id="posterior-summaries">Posterior summaries</h3>
@@ -4086,7 +3965,7 @@ Figure 5: Class preferences under three methods. The same class is colored the 
 </section>
 <section id="discussion" class="level2">
 <h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
-<p>The substantive finding is short. Among the ten core MGTA classes, <strong>Marketing Analytics (MGTA 495)</strong> is dramatically more preferred than anything else: about 28% predicted share against a uniform baseline of 10%. The middle of the pack contains Business Analytics, Customer Analytics, Large Data, Capstone, SQL, and BI Systems, all within striking distance of each other. The bottom is held down by AI Math (MGTA 403), Marketing/Finance/Operations (MGTA 451), and Analytics Consulting (MGTA 444), with shares between 4% and 6%.</p>
+<p>The substantive finding is short. Among the ten core MGTA classes, <strong>Marketing Analytics (MGTA 495)</strong> is dramatically more preferred than anything else: about 28% predicted share against a uniform baseline of 10%. The middle of the pack contains Business Analytics, Customer Analytics, Large Data, and Capstone (all with positive counts scores), with SQL sitting essentially at zero (-0.004). The bottom is held down by BI Systems (MGTA 457), AI Math (MGTA 403), Marketing/Finance/Operations (MGTA 451), and Analytics Consulting (MGTA 444), all with clearly negative counts scores and MLE shares in the 4-7% range.</p>
 <p>A few caveats worth being direct about. The favorite happens to be the class this assignment is <em>for</em>, and the respondents knew the instructor would see the data. Some social-desirability inflation is likely, even if the survey was anonymous. I don’t think it explains the whole gap (the Bayes credible interval for Item 9’s share doesn’t go anywhere near the second-place class), but I’d want to see the same instrument run on a different cohort to be sure. There are also general selection issues: the sample is self-selected MSBA students, not the population a curriculum committee might care about. Worth flagging separately: respondents took this survey at different points in the MSBA program. Some have already taken several of the classes on the list, others have only seen course catalog descriptions, so the preferences reflect a mix of lived experience, anticipated experience, and reputation, and the survey can’t disentangle those. Presentation order and the specific items that happened to appear together on each screen also affect responses in ways the aggregate model can’t address.</p>
 <p>There’s also a technical caveat worth flagging for a methodological reader. The likelihood I wrote treats the <span class="math inline">\(N \cdot T = 680\)</span> tasks as independent observations, which they aren’t, since eight tasks per respondent are correlated through that respondent’s tastes. The MLE point estimates are still consistent under this misspecification, but the SEs from the inverse Hessian assume independence and so probably understate uncertainty a bit. A cluster-robust (“sandwich”) variance estimator that groups tasks within respondent, or a properly hierarchical model that gives each respondent their own <span class="math inline">\(\boldsymbol{\beta}\)</span>, would give wider and more honest intervals.</p>
 <p>The methodological finding is also short. Each of the three methods has a clear use case.</p>
@@ -4821,7 +4700,7 @@ Figure 5: Class preferences under three methods. The same class is colored the 
 <span id="cb35-287"><a href="#cb35-287" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
 <span id="cb35-288"><a href="#cb35-288" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb35-289"><a href="#cb35-289" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-290"><a href="#cb35-290" aria-hidden="true" tabindex="-1"></a>The pattern is striking. **Marketing Analytics (MGTA 495) sits far above everything else with a score of +0.49**, meaning when it appeared on a screen it was picked best about 54% of the time and picked worst only 4% of the time. The bootstrap interval doesn&#39;t come close to touching the next class. Below it, **Business Analytics, Customer Analytics, Large Data, Capstone, and SQL** form a cluster of generally-liked classes, with overlapping confidence intervals among them.</span>
+<span id="cb35-290"><a href="#cb35-290" aria-hidden="true" tabindex="-1"></a>The pattern is striking. **Marketing Analytics (MGTA 495) sits far above everything else with a score of +0.49**, meaning when it appeared on a screen it was picked best about 54% of the time and picked worst only 4% of the time. The bootstrap interval doesn&#39;t come close to touching the next class. Below it, **Business Analytics, Customer Analytics, Large Data, and Capstone** form a cluster of generally-liked classes (all with positive scores), with **SQL** sitting essentially at zero. Their confidence intervals overlap heavily, so it would be reading too much into noise to rank these five against each other.</span>
 <span id="cb35-291"><a href="#cb35-291" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-292"><a href="#cb35-292" aria-hidden="true" tabindex="-1"></a>At the bottom: **Analytics Consulting (444), Marketing/Finance/Operations (451), AI Math (403), and Business Intelligence Systems (457)** all score negatively. The confidence intervals here don&#39;t overlap with the top cluster, so this is a real signal: there is a clear top tier and a clear bottom tier.</span>
 <span id="cb35-293"><a href="#cb35-293" aria-hidden="true" tabindex="-1"></a></span>
@@ -5159,7 +5038,7 @@ Figure 5: Class preferences under three methods. The same class is colored the 
 <span id="cb35-649"><a href="#cb35-649" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;</span><span class="ch">\n</span><span class="ss">Min ESS across parameters: </span><span class="sc">{</span><span class="bu">min</span>(r[<span class="st">&#39;ESS&#39;</span>] <span class="cf">for</span> r <span class="kw">in</span> ess_table)<span class="sc">}</span><span class="ss">&quot;</span>)</span>
 <span id="cb35-650"><a href="#cb35-650" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb35-651"><a href="#cb35-651" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-652"><a href="#cb35-652" aria-hidden="true" tabindex="-1"></a>ESS values in the few hundreds are perfectly fine for posterior *means* (where Monte Carlo error scales as $1/\sqrt{\text{ESS}}$); for the *tail quantiles* in the 95% credible intervals, I&#39;d ideally want ESS $&gt;$ 400, which is what motivated me to bump iterations from a default 20,000 up to 50,000. Below that I&#39;d consider a Cauchy-tailed proposal or a covariance-scaled multivariate normal proposal to break the autocorrelation, but for this analysis the plain random-walk MH gets to a stable answer.</span>
+<span id="cb35-652"><a href="#cb35-652" aria-hidden="true" tabindex="-1"></a>ESS values in the few hundreds are perfectly fine for posterior *means* (where Monte Carlo error scales as $1/\sqrt{\text{ESS}}$); for the *tail quantiles* in the 95% credible intervals, I&#39;d ideally want ESS $&gt;$ 400, which is what motivated me to bump iterations up to 50,000 from a shorter pilot. Below that I&#39;d consider a Cauchy-tailed proposal or a covariance-scaled multivariate normal proposal to break the autocorrelation, but for this analysis the plain random-walk MH gets to a stable answer.</span>
 <span id="cb35-653"><a href="#cb35-653" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-654"><a href="#cb35-654" aria-hidden="true" tabindex="-1"></a><span class="fu">### Posterior summaries</span></span>
 <span id="cb35-655"><a href="#cb35-655" aria-hidden="true" tabindex="-1"></a></span>
@@ -5374,7 +5253,7 @@ Figure 5: Class preferences under three methods. The same class is colored the 
 <span id="cb35-874"><a href="#cb35-874" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-875"><a href="#cb35-875" aria-hidden="true" tabindex="-1"></a><span class="fu">## Discussion</span></span>
 <span id="cb35-876"><a href="#cb35-876" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-877"><a href="#cb35-877" aria-hidden="true" tabindex="-1"></a>The substantive finding is short. Among the ten core MGTA classes, **Marketing Analytics (MGTA 495)** is dramatically more preferred than anything else: about 28% predicted share against a uniform baseline of 10%. The middle of the pack contains Business Analytics, Customer Analytics, Large Data, Capstone, SQL, and BI Systems, all within striking distance of each other. The bottom is held down by AI Math (MGTA 403), Marketing/Finance/Operations (MGTA 451), and Analytics Consulting (MGTA 444), with shares between 4% and 6%.</span>
+<span id="cb35-877"><a href="#cb35-877" aria-hidden="true" tabindex="-1"></a>The substantive finding is short. Among the ten core MGTA classes, **Marketing Analytics (MGTA 495)** is dramatically more preferred than anything else: about 28% predicted share against a uniform baseline of 10%. The middle of the pack contains Business Analytics, Customer Analytics, Large Data, and Capstone (all with positive counts scores), with SQL sitting essentially at zero (-0.004). The bottom is held down by BI Systems (MGTA 457), AI Math (MGTA 403), Marketing/Finance/Operations (MGTA 451), and Analytics Consulting (MGTA 444), all with clearly negative counts scores and MLE shares in the 4-7% range.</span>
 <span id="cb35-878"><a href="#cb35-878" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-879"><a href="#cb35-879" aria-hidden="true" tabindex="-1"></a>A few caveats worth being direct about. The favorite happens to be the class this assignment is *for*, and the respondents knew the instructor would see the data. Some social-desirability inflation is likely, even if the survey was anonymous. I don&#39;t think it explains the whole gap (the Bayes credible interval for Item 9&#39;s share doesn&#39;t go anywhere near the second-place class), but I&#39;d want to see the same instrument run on a different cohort to be sure. There are also general selection issues: the sample is self-selected MSBA students, not the population a curriculum committee might care about. Worth flagging separately: respondents took this survey at different points in the MSBA program. Some have already taken several of the classes on the list, others have only seen course catalog descriptions, so the preferences reflect a mix of lived experience, anticipated experience, and reputation, and the survey can&#39;t disentangle those. Presentation order and the specific items that happened to appear together on each screen also affect responses in ways the aggregate model can&#39;t address.</span>
 <span id="cb35-880"><a href="#cb35-880" aria-hidden="true" tabindex="-1"></a></span>
@@ -5397,67 +5276,4 @@ Figure 5: Class preferences under three methods. The same class is colored the 
 
 
 <script>!function(t,e){"function"==typeof define&&define.amd?define([],e()):"object"==typeof module&&module.exports?module.exports=e():function n(){document&&document.body?t.zenscroll=e():setTimeout(n,9)}()}(this,function(){"use strict";var t=function(t){return t&&"getComputedStyle"in window&&"smooth"===window.getComputedStyle(t)["scroll-behavior"]};if("undefined"==typeof window||!("document"in window))return{};var e=function(e,n,o){n=n||999,o||0===o||(o=9);var i,r=function(t){i=t},u=function(){clearTimeout(i),r(0)},c=function(t){return Math.max(0,e.getTopOf(t)-o)},a=function(o,i,c){if(u(),0===i||i&&i<0||t(e.body))e.toY(o),c&&c();else{var a=e.getY(),f=Math.max(0,o)-a,s=(new Date).getTime();i=i||Math.min(Math.abs(f),n),function t(){r(setTimeout(function(){var n=Math.min(1,((new Date).getTime()-s)/i),o=Math.max(0,Math.floor(a+f*(n<.5?2*n*n:n*(4-2*n)-1)));e.toY(o),n<1&&e.getHeight()+o<e.body.scrollHeight?t():(setTimeout(u,99),c&&c())},9))}()}},f=function(t,e,n){a(c(t),e,n)},s=function(t,n,i){var r=t.getBoundingClientRect().height,u=e.getTopOf(t)+r,s=e.getHeight(),l=e.getY(),d=l+s;c(t)<l||r+o>s?f(t,n,i):u+o>d?a(u-s+o,n,i):i&&i()},l=function(t,n,o,i){a(Math.max(0,e.getTopOf(t)-e.getHeight()/2+(o||t.getBoundingClientRect().height/2)),n,i)};return{setup:function(t,e){return(0===t||t)&&(n=t),(0===e||e)&&(o=e),{defaultDuration:n,edgeOffset:o}},to:f,toY:a,intoView:s,center:l,stop:u,moving:function(){return!!i},getY:e.getY,getTopOf:e.getTopOf}},n=document.documentElement,o=function(){return window.scrollY||n.scrollTop},i=e({body:document.scrollingElement||document.body,toY:function(t){window.scrollTo(0,t)},getY:o,getHeight:function(){return window.innerHeight||n.clientHeight},getTopOf:function(t){return t.getBoundingClientRect().top+o()-n.offsetTop}});if(i.createScroller=function(t,o,i){return e({body:t,toY:function(e){t.scrollTop=e},getY:function(){return t.scrollTop},getHeight:function(){return Math.min(t.clientHeight,window.innerHeight||n.clientHeight)},getTopOf:function(t){return t.offsetTop}},o,i)},"addEventListener"in window&&!window.noZensmooth&&!t(document.body)){var r="history"in window&&"pushState"in history,u=r&&"scrollRestoration"in history;u&&(history.scrollRestoration="auto"),window.addEventListener("load",function(){u&&(setTimeout(function(){history.scrollRestoration="manual"},9),window.addEventListener("popstate",function(t){t.state&&"zenscrollY"in t.state&&i.toY(t.state.zenscrollY)},!1)),window.location.hash&&setTimeout(function(){var t=i.setup().edgeOffset;if(t){var e=document.getElementById(window.location.href.split("#")[1]);if(e){var n=Math.max(0,i.getTopOf(e)-t),o=i.getY()-n;0<=o&&o<9&&window.scrollTo(0,n)}}},9)},!1);var c=new RegExp("(^|\\s)noZensmooth(\\s|$)");window.addEventListener("click",function(t){for(var e=t.target;e&&"A"!==e.tagName;)e=e.parentNode;if(!(!e||1!==t.which||t.shiftKey||t.metaKey||t.ctrlKey||t.altKey)){if(u){var n=history.state&&"object"==typeof history.state?history.state:{};n.zenscrollY=i.getY();try{history.replaceState(n,"")}catch(t){}}var o=e.getAttribute("href")||"";if(0===o.indexOf("#")&&!c.test(e.className)){var a=0,f=document.getElementById(o.substring(1));if("#"!==o){if(!f)return;a=i.getTopOf(f)}t.preventDefault();var s=function(){window.location=o},l=i.setup().edgeOffset;l&&(a=Math.max(0,a-l),r&&(s=function(){history.pushState({},"",o)})),i.toY(a,null,s)}}},!1)}return i});</script>
-
-<style>
-/* Chart animation styles */
-img[role="img"], .cell-output img {
-  opacity: 0;
-  transform: translateY(40px) scale(0.96);
-  transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);
-  border-radius: 4px;
-  border: 1px solid rgba(184,200,220,0.08) !important;
-  box-shadow: 0 0 40px rgba(0,0,0,0.4) !important;
-}
-img[role="img"].chart-visible, .cell-output img.chart-visible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-/* Section fade-in */
-.section, section, h2, h3 {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-.section.section-visible, section.section-visible, h2.section-visible, h3.section-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-</style>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  // Animate charts
-  const charts = document.querySelectorAll('img[role="img"], .cell-output img');
-  const sections = document.querySelectorAll('.section, section, h2, h3');
-
-  const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -40px 0px" };
-
-  let chartIndex = 0;
-  const chartObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const delay = (chartIndex % 3) * 120;
-        chartIndex++;
-        setTimeout(() => {
-          entry.target.classList.add("chart-visible");
-        }, delay);
-        chartObserver.unobserve(entry.target);
-      }
-    });
-  }, observerOptions);
-
-  const sectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("section-visible");
-        sectionObserver.unobserve(entry.target);
-      }
-    });
-  }, observerOptions);
-
-  charts.forEach(el => chartObserver.observe(el));
-  sections.forEach(el => sectionObserver.observe(el));
-});
-</script>
 </body></html>
