@@ -6,7 +6,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Brain, BarChart2, Zap, FlaskConical, ExternalLink } from "lucide-react";
+import { Brain, BarChart2, Zap, ExternalLink } from "lucide-react";
 
 const projects = [
   {
@@ -50,28 +50,6 @@ const projects = [
       { metric: "Real-time", label: "Budget Reallocation" },
     ],
     tools: ["Power BI", "SQL", "Python", "Marketing Analytics"],
-  },
-  {
-    id: 4,
-    title: "MaxDiff Analysis — MSBA Class Preferences",
-    date: "May 2026",
-    icon: FlaskConical,
-    color: "#A89BC8",
-    categories: ["Discrete Choice Modeling", "Bayesian Statistics", "Python"],
-    situation:
-      "MSBA students ranked core courses via a Best-Worst Scaling (MaxDiff) survey — 15 forced trade-off screens, each showing 4 classes. Rating scales would have introduced bias; discrete choices extract honest preferences.",
-    task: "Estimate and compare class preference rankings using three progressively richer methods, and quantify uncertainty around share-of-preference for each course.",
-    action: [
-      "Computed descriptive Best-Minus-Worst scores as a baseline ranking",
-      "Fit a Multinomial Logit (MNL) model via Maximum Likelihood Estimation with classical standard errors",
-      "Fit the same MNL model using a Bayesian random-walk Metropolis-Hastings sampler for full posterior inference",
-    ],
-    results: [
-      { metric: "3", label: "Estimation Methods" },
-      { metric: "MLE + MCMC", label: "Inference Approaches" },
-    ],
-    tools: ["Python", "NumPy", "SciPy", "Bayesian MCMC", "Discrete Choice"],
-    link: "/projects/hw4-maxdiff.html",
   },
   {
     id: 3,
@@ -144,7 +122,7 @@ export default function ProjectsSection() {
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
@@ -288,18 +266,6 @@ export default function ProjectsSection() {
                 ))}
               </div>
 
-              {"link" in project && project.link && (
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3 inline-flex items-center gap-1.5 text-xs font-['JetBrains_Mono'] transition-opacity duration-200 hover:opacity-80"
-                  style={{ color: project.color }}
-                >
-                  <ExternalLink size={11} />
-                  View Report
-                </a>
-              )}
             </motion.div>
           ))}
         </div>
