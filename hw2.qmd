@@ -1,0 +1,456 @@
+---
+title: "Replication of Card and Krueger (1994)"
+subtitle: "Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania"
+author: "Abdullah Aljarallah"
+date: today
+format:
+  html:
+    embed-resources: true
+    toc: true
+    toc-title: "Contents"
+    theme: darkly
+    css: hw2.css
+    include-in-header: hw2-fonts.html
+    code-fold: true
+execute:
+  warning: false
+  message: false
+---
+
+```{python}
+#| echo: false
+import sys
+sys.path.insert(0, 'src')
+from load_data import load
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+import statsmodels.api as sm
+from IPython.display import display, HTML
+
+plt.rcParams.update({
+    'figure.dpi': 120,
+    'font.family': 'DejaVu Sans',
+    'font.size': 11,
+    'axes.spines.top': False,
+    'axes.spines.right': False,
+    'axes.grid': True,
+    'axes.grid.axis': 'y',
+    'grid.alpha': 0.3,
+    'grid.linestyle': '--',
+})
+
+NJ_COLOR = "#2563EB"
+PA_COLOR = "#DC2626"
+
+df = load("data/public.dat")
+nj = df[df["STATE"] == 1]
+pa = df[df["STATE"] == 0]
+
+def mean_se(s):
+    s = s.dropna()
+    return s.mean(), s.std(ddof=1) / np.sqrt(len(s))
+```
+
+## Introduction
+
+For six years at Kuwait Finance House, I managed a consumer banking portfolio generating about $30M in annual revenue. We ran constant campaigns — direct mail, branch promotions, digital outreach — and I eventually realized I could not answer the most basic question about any of them: did the campaign cause the response, or did we just happen to reach customers who would have converted anyway? That gap between correlation and causation is what pulled me toward data science, and it is why Card and Krueger (1994) resonates with me more than most academic papers I have read.
+
+The paper asks a specific empirical question: did New Jersey's minimum wage increase in April 1992, from $4.25 to $5.05 per hour, reduce employment in fast-food restaurants? The standard economic prediction, rooted in Stigler (1946), is yes. A wage floor above the market rate should price out marginal workers. Card and Krueger tested that prediction directly.
+
+Their design is clean. Pennsylvania, right across the border from New Jersey, left its minimum wage unchanged. Card and Krueger surveyed roughly 410 fast-food restaurants in both states twice — once in February–March 1992 before the NJ increase, and again in November–December 1992 after it. They then compared employment changes across state lines. If both states were on the same employment trajectory before April 1992, any post-policy divergence can be attributed to the policy itself. This is the difference-in-differences estimator, and it has become the dominant design in applied labor economics.
+
+What they found surprised a lot of people: NJ employment did not fall. The DiD estimate is +2.75 full-time equivalent workers, with a t-statistic of 2.05. The textbook prediction was wrong, or at least far too simple for the real world.
+
+David Card shared the 2021 Nobel Prize in Economics partly for this work. The paper has been replicated, contested, and re-examined for thirty years, which is itself a signal of how much it mattered.
+
+Below I replicate the paper's main findings. I then add three things: a simulation showing why DiD recovers a causal effect when parallel trends holds and fails when it does not; a visualization of the employment shift that the paper only captures in tables; and a placebo test that checks whether the design produces spurious effects where none should exist. I close with an honest look at the Neumark–Wascher critique.
+
+## Main Analysis
+
+### Data
+
+The dataset covers 410 fast-food restaurants — Burger King, KFC, Roy Rogers, and Wendy's — surveyed in southern New Jersey and eastern Pennsylvania. Wave 1 ran in February–March 1992, before the NJ minimum wage increase. Wave 2 ran in November–December 1992, after it.
+
+Full-time equivalent employment is computed as EMPFT + NMGRS + 0.5 × EMPPT, per the paper's formula in Section II. Managers count as full-time; part-time workers count as half. Six stores that permanently closed before Wave 2 have their Wave 2 FTE set to zero, following the paper's convention. Stores temporarily closed at the time of the Wave 2 survey have missing Wave 2 employment and are excluded from means involving Wave 2 data.
+
+### Table 2: Summary Statistics by State
+
+Table 2 shows that NJ and PA stores were broadly comparable before the policy change. Starting wages were nearly identical ($4.61 vs $4.63 per hour), hours of operation were similar, and chain composition was close. The main pre-existing difference is in meal prices: NJ stores charged about $0.31 more per meal on average, consistent with higher general price levels in New Jersey rather than any differential employment trend.
+
+By Wave 2, wages in NJ have clustered sharply at $5.05. Among NJ stores, 85.5% were paying exactly the new minimum wage — up from near zero paying $5.05 in Wave 1 and down from 30.5% paying the old floor of $4.25. The policy had real bite.
+
+```{python}
+#| label: tbl-2
+#| tbl-cap: "Means of Key Variables by State. Standard errors of the mean in parentheses."
+#| echo: false
+
+def fmt(m, se, d=2):
+    return f"{m:.{d}f} ({se:.{d}f})"
+
+rows = [
+    ("**Wave 1 (Feb–Mar 1992)**", "", ""),
+    ("  FTE employment",
+     fmt(*mean_se(nj["FTE"])),
+     fmt(*mean_se(pa["FTE"]))),
+    ("  Starting wage ($/hr)",
+     fmt(*mean_se(nj["WAGE_ST"])),
+     fmt(*mean_se(pa["WAGE_ST"]))),
+    ("  % paid $4.25/hr",
+     fmt(*mean_se((nj["WAGE_ST"] == 4.25)*100), d=1),
+     fmt(*mean_se((pa["WAGE_ST"] == 4.25)*100), d=1)),
+    ("  Price of full meal ($)",
+     fmt(*mean_se(nj["PSODA"]+nj["PFRY"]+nj["PENTREE"])),
+     fmt(*mean_se(pa["PSODA"]+pa["PFRY"]+pa["PENTREE"]))),
+    ("  Hours open per weekday",
+     fmt(*mean_se(nj["HRSOPEN"])),
+     fmt(*mean_se(pa["HRSOPEN"]))),
+    ("**Wave 2 (Nov–Dec 1992)**", "", ""),
+    ("  FTE employment",
+     fmt(*mean_se(nj["FTE2"])),
+     fmt(*mean_se(pa["FTE2"]))),
+    ("  Starting wage ($/hr)",
+     fmt(*mean_se(nj["WAGE_ST2"])),
+     fmt(*mean_se(pa["WAGE_ST2"]))),
+    ("  % paid $4.25/hr",
+     fmt(*mean_se((nj["WAGE_ST2"] == 4.25)*100), d=1),
+     fmt(*mean_se((pa["WAGE_ST2"] == 4.25)*100), d=1)),
+    ("  % paid $5.05/hr",
+     fmt(*mean_se((nj["WAGE_ST2"] == 5.05)*100), d=1),
+     fmt(*mean_se((pa["WAGE_ST2"] == 5.05)*100), d=1)),
+    ("  Price of full meal ($)",
+     fmt(*mean_se(nj["PSODA2"]+nj["PFRY2"]+nj["PENTREE2"])),
+     fmt(*mean_se(pa["PSODA2"]+pa["PFRY2"]+pa["PENTREE2"]))),
+    ("  Hours open per weekday",
+     fmt(*mean_se(nj["HRSOPEN2"])),
+     fmt(*mean_se(pa["HRSOPEN2"]))),
+]
+
+t2 = pd.DataFrame(rows, columns=["Variable", "New Jersey", "Pennsylvania"])
+display(HTML(t2.to_html(index=False, border=0,
+    classes="table table-sm table-striped",
+    escape=False)))
+```
+
+### Table 3: Employment Before and After by State
+
+Table 3 is the paper's headline result. Before the minimum wage increase, NJ fast-food stores employed about 2.89 fewer FTE workers than PA stores on average. NJ started lower. After the increase, that gap closed: NJ and PA employment were nearly identical in Wave 2 (21.03 vs 21.17 FTE). The difference-in-differences estimate — the change in NJ minus the change in PA — is **+2.75 FTE** (SE 1.34, t = 2.05).
+
+Employment in NJ went up slightly; employment in PA went down. The net divergence is what Card and Krueger attribute to the minimum wage. The paper reports the DiD as +2.76 (SE 1.36, t = 2.03); our replication differs by rounding and one minor variance convention for closed stores.
+
+```{python}
+#| label: tbl-3
+#| tbl-cap: "Average FTE Employment Per Store Before and After the Minimum Wage Increase. Standard errors in parentheses."
+#| echo: false
+
+m_pa,  se_pa  = mean_se(pa["FTE"])
+m_nj,  se_nj  = mean_se(nj["FTE"])
+m_pa2, se_pa2 = mean_se(pa["FTE2"])
+m_nj2, se_nj2 = mean_se(nj["FTE2"])
+
+ch_pa = m_pa2 - m_pa
+ch_nj = m_nj2 - m_nj
+
+delta_pa = (pa["FTE2"] - pa["FTE"]).dropna()
+delta_nj = (nj["FTE2"] - nj["FTE"]).dropna()
+se_ch_pa = delta_pa.std(ddof=1) / np.sqrt(len(delta_pa))
+se_ch_nj = delta_nj.std(ddof=1) / np.sqrt(len(delta_nj))
+did      = ch_nj - ch_pa
+se_did   = np.sqrt(se_ch_pa**2 + se_ch_nj**2)
+
+def f2(m, se): return f"{m:.2f} ({se:.2f})"
+
+diff_1   = m_nj - m_pa
+diff_2   = m_nj2 - m_pa2
+se_diff1 = np.sqrt(se_nj**2 + se_pa**2)
+se_diff2 = np.sqrt(se_nj2**2 + se_pa2**2)
+
+t3 = pd.DataFrame({
+    "": ["1. FTE before (Wave 1)", "2. FTE after (Wave 2)", "3. Change in mean FTE"],
+    "Pennsylvania (i)":     [f2(m_pa, se_pa),   f2(m_pa2, se_pa2),  f2(ch_pa, se_ch_pa)],
+    "New Jersey (ii)":      [f2(m_nj, se_nj),   f2(m_nj2, se_nj2),  f2(ch_nj, se_ch_nj)],
+    "NJ − PA (iii)":        [f2(diff_1, se_diff1), f2(diff_2, se_diff2), f2(did, se_did)],
+})
+
+display(HTML(t3.to_html(index=False, border=0,
+    classes="table table-sm")))
+```
+
+*DiD t-statistic: **`{python} f"{did/se_did:.2f}"`** (paper: 2.03)*
+
+### Table 4: Regression Form of the DiD
+
+The regression form of the DiD confirms the table-of-means result. Regressing the change in FTE employment on a New Jersey indicator gives a coefficient of **2.33** (SE 1.19), using the balanced sample of 357 stores with employment and wage data in both waves. Adding chain and ownership dummies barely moves the estimate to 2.30 (SE 1.20), which tells us the result is not driven by compositional differences between states. The standard error of the regression is 8.79 in both specifications, consistent with the paper.
+
+```{python}
+#| label: tbl-4
+#| tbl-cap: "OLS Estimates of the Effect of the Minimum Wage Increase on Employment. Dependent variable: change in FTE employment (Wave 2 − Wave 1). Standard errors in parentheses."
+#| echo: false
+
+df["DELTA_E"] = df["FTE2"] - df["FTE"]
+keep = (
+    df["DELTA_E"].notna()
+    & df["WAGE_ST"].notna()
+    & (df["WAGE_ST2"].notna() | (df["STATUS2"] == 3))
+)
+bal = df[keep].copy()
+
+X1 = sm.add_constant(bal[["STATE"]].rename(columns={"STATE": "NJ"}))
+y  = bal["DELTA_E"]
+m1 = sm.OLS(y, X1).fit()
+
+chain_d = pd.get_dummies(bal["CHAIN"], prefix="chain", drop_first=True).astype(int)
+X2 = pd.concat([
+    bal[["STATE", "CO_OWNED"]].rename(columns={"STATE": "NJ"}),
+    chain_d,
+], axis=1)
+X2 = sm.add_constant(X2)
+m2 = sm.OLS(y, X2).fit()
+
+t4 = pd.DataFrame({
+    "": ["NJ indicator", "Constant", "Chain & ownership dummies", "N", "SER"],
+    "Column (i)": [
+        f"{m1.params['NJ']:.2f} ({m1.bse['NJ']:.2f})",
+        f"{m1.params['const']:.2f} ({m1.bse['const']:.2f})",
+        "No", str(len(bal)),
+        f"{np.sqrt(m1.scale):.2f}",
+    ],
+    "Column (ii)": [
+        f"{m2.params['NJ']:.2f} ({m2.bse['NJ']:.2f})",
+        f"{m2.params['const']:.2f} ({m2.bse['const']:.2f})",
+        "Yes", str(len(bal)),
+        f"{np.sqrt(m2.scale):.2f}",
+    ],
+})
+
+display(HTML(t4.to_html(index=False, border=0,
+    classes="table table-sm")))
+```
+
+## Something Additional
+
+### Why Difference-in-Differences Identifies a Causal Effect
+
+The DiD estimator is not magic, and it is worth being precise about what assumption it requires and when it breaks. The cleanest way to see this is to simulate data where you know the true answer.
+
+I generate synthetic panel data for 200 stores — 100 in a "treated" group (NJ analog) and 100 in a "control" group (PA analog) — across two periods. The true treatment effect is **5 FTE workers**. But the treated group starts with 5 fewer workers on average than the control group, and both groups have a common upward time trend of 2 FTE per period.
+
+Three estimators respond differently to this setup. The cross-section comparison (treated vs control in the post period) estimates close to zero because the pre-existing gap between the groups offsets the treatment effect. The pre/post comparison (treated group only, before vs after) estimates close to 7 because the common time trend inflates the treatment estimate. DiD subtracts the control group's trend from the treated group's change, recovering exactly 5.
+
+The bottom row shows what happens when parallel trends fails: I give the treated group an extra trend of 3 units per period on top of the common trend. The true effect is still 5, but DiD now estimates around 8. It can no longer separate the treatment from the group-specific trend.
+
+```{python}
+#| label: fig-simulation
+#| fig-cap: "DiD identification simulation. Top: parallel trends holds, DiD recovers the true effect. Bottom: parallel trends fails, DiD overcorrects. Left panels show group means over time; right panels compare all three estimators to the true effect (green dashed line)."
+#| fig-width: 10
+#| fig-height: 7
+#| echo: true
+#| code-fold: true
+
+np.random.seed(42)
+n          = 100
+TRUE_EFF   = 5.0
+alpha_c    = 20.0   # control baseline
+alpha_t    = 15.0   # treated baseline (starts lower, like NJ)
+trend      = 2.0    # common time trend
+extra_t    = 3.0    # extra treated trend in the broken scenario
+
+noise = lambda: np.random.normal(0, 3, n)
+
+Yc0  = alpha_c + noise()
+Yc1  = alpha_c + trend + noise()
+Yt0  = alpha_t + noise()
+Yt1  = alpha_t + trend + TRUE_EFF + noise()    # scenario 1: parallel trends
+Yt1b = alpha_t + trend + extra_t + TRUE_EFF + noise()  # scenario 2: broken
+
+def estimators(t0, t1, c0, c1):
+    cross  = t1.mean() - c1.mean()
+    prepost = t1.mean() - t0.mean()
+    did     = (t1.mean() - t0.mean()) - (c1.mean() - c0.mean())
+    return cross, prepost, did
+
+cs1, pp1, did1 = estimators(Yt0, Yt1,  Yc0, Yc1)
+cs2, pp2, did2 = estimators(Yt0, Yt1b, Yc0, Yc1)
+
+fig, axes = plt.subplots(2, 2, figsize=(10, 7))
+fig.suptitle("Why DiD Works — and When It Doesn't", fontsize=13,
+             fontweight='bold', y=1.01)
+
+TRUE_C = "#16A34A"
+
+def plot_trends(ax, c0, c1, t0, t1, title, broken=False):
+    ax.plot([0, 1], [c0.mean(), c1.mean()], 'o-', color=PA_COLOR,
+            lw=2.5, ms=7, label="Control (PA analog)")
+    ax.plot([0, 1], [t0.mean(), t1.mean()], 'o-', color=NJ_COLOR,
+            lw=2.5, ms=7, label="Treated (NJ analog)")
+    cf = t0.mean() + (c1.mean() - c0.mean())
+    ax.plot([0, 1], [t0.mean(), cf], '--', color=NJ_COLOR,
+            lw=1.5, alpha=0.45, label="Counterfactual (no treatment)")
+    ax.annotate("", xy=(1, t1.mean()), xytext=(1, cf),
+                arrowprops=dict(arrowstyle="<->", color=TRUE_C, lw=1.5))
+    ax.text(1.03, (t1.mean() + cf) / 2, f"DiD = {t1.mean()-cf:.1f}",
+            fontsize=9, color=TRUE_C, va='center')
+    ax.set_xticks([0, 1])
+    ax.set_xticklabels(["Pre", "Post"])
+    ax.set_ylabel("Mean FTE employment")
+    ax.set_title(title, fontsize=11)
+    ax.legend(fontsize=8.5, loc='upper left')
+    ax.set_xlim(-0.15, 1.35)
+    ax.set_ylim(10, 30)
+    if broken:
+        ax.text(0.5, 0.05, "Parallel trends violated",
+                transform=ax.transAxes, ha='center',
+                color='#B91C1C', fontsize=9, fontstyle='italic')
+
+def plot_bars(ax, cs, pp, did, title):
+    labels = ["Cross-\nsection", "Pre /\nPost", "DiD"]
+    vals   = [cs, pp, did]
+    colors = [PA_COLOR, PA_COLOR, NJ_COLOR]
+    bars   = ax.bar(labels, vals, color=colors, width=0.5, alpha=0.82)
+    ax.axhline(TRUE_EFF, color=TRUE_C, lw=2, linestyle='--',
+               label=f"True effect = {TRUE_EFF}")
+    ax.set_ylabel("Estimated effect (FTE)")
+    ax.set_title(title, fontsize=11)
+    ax.legend(fontsize=8.5)
+    ax.set_ylim(-2, 13)
+    for bar, v in zip(bars, vals):
+        ax.text(bar.get_x() + bar.get_width()/2,
+                bar.get_height() + 0.2,
+                f"{v:.1f}", ha='center', fontsize=10, fontweight='bold')
+
+plot_trends(axes[0, 0], Yc0, Yc1, Yt0, Yt1,
+            "Scenario 1: Parallel trends holds")
+plot_bars(axes[0, 1], cs1, pp1, did1,
+          "Estimators — parallel trends")
+
+plot_trends(axes[1, 0], Yc0, Yc1, Yt0, Yt1b,
+            "Scenario 2: Parallel trends fails", broken=True)
+plot_bars(axes[1, 1], cs2, pp2, did2,
+          "Estimators — parallel trends violated")
+
+plt.tight_layout()
+plt.show()
+```
+
+When parallel trends holds, DiD recovers the true effect precisely while the naive alternatives are off by the pre-existing gap or the time trend. When parallel trends fails, there is no estimator that rescues you without additional data or assumptions. For Card and Krueger's design to be valid, NJ and PA fast-food employment would have needed to trend together in the absence of the minimum wage change. The pre-period data consists of a single wave, so this cannot be tested directly from the data. The evidence for parallel trends rests on the fact that the two labor markets are geographically adjacent, the industries are identical across states, and the pre-period store characteristics are similar.
+
+### Visualizing the Employment Shift
+
+The tables tell you the numbers. The chart tells you the story in a way that is harder to dismiss.
+
+The left panel shows mean FTE employment by state across both survey waves, with 95% confidence intervals. Pennsylvania employment declined between the two waves; New Jersey employment rose. The visual gap between the two lines widens from Wave 1 to Wave 2, which is the visual footprint of the positive DiD estimate. There is no sign of the textbook-predicted NJ employment collapse.
+
+The right panel shows the wage distribution for NJ stores in each wave. In Wave 1, wages are spread across a range from $4.25 up to around $5.50, with many stores clustered at the $4.25 federal floor. In Wave 2, the distribution has compressed almost entirely into a spike at exactly $5.05. The policy was binding for the majority of NJ stores, and they adjusted wages to comply rather than cutting employment.
+
+```{python}
+#| label: fig-viz
+#| fig-cap: "Left: mean FTE employment by state across survey waves with 95% confidence intervals. Right: NJ starting wage distribution before and after the minimum wage increase."
+#| fig-width: 11
+#| fig-height: 4.5
+#| echo: true
+#| code-fold: true
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4.5))
+
+def mean_ci95(s):
+    s = s.dropna()
+    m = s.mean()
+    ci = 1.96 * s.std(ddof=1) / np.sqrt(len(s))
+    return m, ci
+
+nj_w1, ci_nj_w1 = mean_ci95(nj["FTE"])
+nj_w2, ci_nj_w2 = mean_ci95(nj["FTE2"])
+pa_w1, ci_pa_w1 = mean_ci95(pa["FTE"])
+pa_w2, ci_pa_w2 = mean_ci95(pa["FTE2"])
+
+ax1.errorbar([0, 1], [pa_w1, pa_w2], yerr=[ci_pa_w1, ci_pa_w2],
+             fmt='o-', color=PA_COLOR, lw=2.5, capsize=6, ms=8,
+             label="Pennsylvania")
+ax1.errorbar([0, 1], [nj_w1, nj_w2], yerr=[ci_nj_w1, ci_nj_w2],
+             fmt='o-', color=NJ_COLOR, lw=2.5, capsize=6, ms=8,
+             label="New Jersey")
+
+ax1.set_xticks([0, 1])
+ax1.set_xticklabels(["Wave 1\n(Feb–Mar 1992)", "Wave 2\n(Nov–Dec 1992)"],
+                    fontsize=10)
+ax1.set_ylabel("Mean FTE employment")
+ax1.set_title("Employment Before and After the Minimum Wage Increase",
+              fontsize=11, pad=10)
+ax1.legend(fontsize=10)
+ax1.set_ylim(17, 27)
+
+ax2.hist(nj["WAGE_ST"].dropna(),  bins=np.arange(4.20, 5.65, 0.075),
+         alpha=0.55, color='#9CA3AF', label="Wave 1 (pre-policy)", density=True)
+ax2.hist(nj["WAGE_ST2"].dropna(), bins=np.arange(4.20, 5.65, 0.075),
+         alpha=0.70, color=NJ_COLOR, label="Wave 2 (post-policy)", density=True)
+ax2.axvline(5.05, color='#DC2626', lw=1.8, linestyle='--', alpha=0.9)
+ax2.text(5.07, 0.5, "$5.05\nnew min.", fontsize=8.5, color='#DC2626',
+         transform=ax2.get_xaxis_transform(), va='top')
+ax2.set_xlabel("Starting wage ($/hr)")
+ax2.set_ylabel("Density")
+ax2.set_title("NJ Starting Wage Distribution", fontsize=11, pad=10)
+ax2.legend(fontsize=10)
+
+plt.tight_layout()
+plt.show()
+```
+
+The right panel is particularly striking. The minimum wage law created a mass-point in the wage distribution at exactly $5.05. The stores did not avoid it by moving workers to part-time, and they did not avoid it by closing (only 6 permanently closed). They just paid the higher wage.
+
+### Placebo Test
+
+A well-designed quasi-experiment should find an effect where there is one and find nothing where there is not. The placebo test checks the latter.
+
+I restrict the sample to Pennsylvania stores only. Pennsylvania had no minimum wage change in 1992, so there is no policy reason to expect any employment divergence within this group. I split PA stores at the median Wave 1 starting wage and label the lower-wage half as "pseudo-treated." The regression mirrors Table 4 column (i), but on this fake treatment. If the coefficient is large and significant, it would suggest the DiD design is picking up something other than the minimum wage policy, which would undermine the main finding. The result we want to see is a coefficient near zero with a high p-value.
+
+```{python}
+#| label: tbl-placebo
+#| tbl-cap: "Placebo test: DiD regression on PA-only sample with a fake treatment assignment based on median Wave 1 wage."
+#| echo: true
+#| code-fold: true
+
+pa_bal = pa.copy()
+pa_bal["DELTA_E"] = pa_bal["FTE2"] - pa_bal["FTE"]
+pa_bal = pa_bal[
+    pa_bal["DELTA_E"].notna() &
+    pa_bal["WAGE_ST"].notna() &
+    (pa_bal["WAGE_ST2"].notna() | (pa_bal["STATUS2"] == 3))
+].copy()
+
+median_wage = pa_bal["WAGE_ST"].median()
+pa_bal["PSEUDO_TREAT"] = (pa_bal["WAGE_ST"] <= median_wage).astype(int)
+
+X_p = sm.add_constant(pa_bal[["PSEUDO_TREAT"]])
+y_p = pa_bal["DELTA_E"]
+m_p = sm.OLS(y_p, X_p).fit()
+
+coef = m_p.params["PSEUDO_TREAT"]
+se_p = m_p.bse["PSEUDO_TREAT"]
+t_p  = coef / se_p
+pval = m_p.pvalues["PSEUDO_TREAT"]
+
+result = pd.DataFrame({
+    "": ["Pseudo-treatment coefficient", "t-statistic", "p-value", "N (PA stores)"],
+    "Value": [
+        f"{coef:.2f} (SE {se_p:.2f})",
+        f"{t_p:.2f}",
+        f"{pval:.3f}",
+        str(len(pa_bal)),
+    ],
+})
+display(HTML(result.to_html(index=False, border=0,
+    classes="table table-sm table-bordered w-50")))
+```
+
+The pseudo-treatment coefficient is close to zero and statistically insignificant. There is no spurious employment effect among PA stores when we assign a fake treatment. This strengthens the credibility of the main result: the design does not generate phantom effects by construction.
+
+### The Neumark–Wascher Controversy
+
+The headline finding deserves a qualification. In 1995, Neumark and Wascher published a response using administrative payroll data rather than telephone surveys. Their data showed that NJ fast-food employment decreased after the minimum wage increase — opposite sign to Card and Krueger. The core disagreement came down to measurement: telephone surveys asking managers about headcounts versus payroll records that capture hours worked and total compensation.
+
+This is not a minor technical footnote. If payroll data and survey data disagree systematically, one of the two approaches is measuring something different from the theoretical object of interest, and it is not obvious which.
+
+Card and Krueger responded in 2000 with BLS payroll data that supported their original findings, but the debate surfaced a genuine tension in empirical research: data collection method can determine the qualitative conclusion. The Neumark–Wascher critique does not invalidate the DiD design; it challenges the reliability of the underlying measurements.
+
+What this means in practice: the +2.75 FTE estimate should not be read as a precise, settled fact. The evidence is consistent with employment not falling after the NJ minimum wage increase, and possibly rising slightly relative to PA. The effect size is uncertain and the methodology is contested. The more durable contribution of the paper is the design itself. Before Card and Krueger, the empirical case against minimum wage increases was weak or nonexistent; the field relied on theory. After this paper, the burden shifted: if you claim minimum wages destroy jobs, you need data. That methodological shift, more than the specific estimate, is what earned Card the Nobel.

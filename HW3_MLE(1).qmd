@@ -1,0 +1,854 @@
+---
+title: "Poisson Regression and Maximum Likelihood Estimation"
+subtitle: "A Case Study of Blueprinty's Software and Patent Awards"
+author: "Abdullah Aljarallah"
+date: today
+format:
+  html:
+    embed-resources: true
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    theme: darkly
+    css: styles.css
+execute:
+  warning: false
+  message: false
+---
+
+```{=html}
+<div id="reading-progress"></div>
+<script>
+window.addEventListener('scroll', () => {
+  const el = document.documentElement;
+  const pct = (el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100;
+  document.getElementById('reading-progress').style.width = pct + '%';
+});
+</script>
+```
+
+```{python}
+#| echo: false
+import pandas as pd
+import numpy as np
+from scipy import optimize
+from scipy.special import gammaln
+import statsmodels.api as sm
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+import math, json
+
+# ── Palette — Manus dark theme ──────────────────────────────────────────
+BLUE      = '#3b82f6'
+BLUE_BR   = '#60a5fa'
+BG        = '#0a0f1a'
+BG_CARD   = '#111827'
+BG_CARD2  = '#1a2235'
+TEXT      = '#e2e8f0'
+TEXT_M    = '#94a3b8'
+RED       = '#ef4444'
+GREEN     = '#22c55e'
+AMBER     = '#f59e0b'
+GRID      = 'rgba(255,255,255,0.05)'
+BORDER    = 'rgba(255,255,255,0.08)'
+
+BASE = dict(
+    paper_bgcolor = BG_CARD,
+    plot_bgcolor  = BG,
+    font          = dict(family='Inter, sans-serif', size=12.5, color=TEXT),
+    margin        = dict(l=55, r=25, t=55, b=50),
+    hoverlabel    = dict(bgcolor=BG_CARD2, font_size=13,
+                         bordercolor=BORDER, font_color=TEXT),
+    legend        = dict(bgcolor=BG_CARD, bordercolor=BORDER,
+                         borderwidth=1, font_size=12, font_color=TEXT),
+)
+def base(fig):
+    fig.update_layout(**BASE)
+    fig.update_xaxes(showgrid=True, gridcolor=GRID, zeroline=False,
+                     linecolor=BORDER, linewidth=1, color=TEXT_M,
+                     title_font_color=TEXT_M)
+    fig.update_yaxes(showgrid=True, gridcolor=GRID, zeroline=False,
+                     linecolor=BORDER, linewidth=1, color=TEXT_M,
+                     title_font_color=TEXT_M)
+    return fig
+
+df  = pd.read_csv('blueprinty.csv')
+Y   = df['patents'].values
+mle = float(Y.mean())
+```
+
+## Introduction
+
+<span class="section-label">01 / Background</span>
+
+::: {.guide-box}
+::: {.guide-icon}
+🔬
+:::
+::: {.guide-text}
+**The problem.** Blueprinty sells patent-filing software and claims it leads to more approvals. Their data are observational — customers are not randomly assigned — so a raw comparison of patent counts could reflect who buys the software, not what it does. This analysis controls for age and region before drawing any conclusions.
+:::
+:::
+
+Blueprinty is a small firm that produces software specifically designed to help engineers draft blueprints for US patent office submissions. Its marketing team wants to argue that companies using Blueprinty's software enjoy higher rates of patent approval.
+
+The cleanest evidence would come from a before-and-after study: observe each firm's patent rate *before* adopting the software, then *after*, and compare. **No such data exist.** Instead, Blueprinty has a cross-sectional dataset of **1,500 mature engineering firms** recording patents awarded over five years, geographic region, age since incorporation, and whether the firm uses Blueprinty's software.
+
+Blueprinty's customers are **not selected at random** — firms that buy the software likely differ systematically from those that don't. Any raw patent gap could reflect pre-existing differences rather than the product itself. The analysis below controls for age and region before drawing conclusions.
+
+---
+
+## Exploring the Data
+
+<span class="section-label">02 / EDA</span>
+
+### Patent Counts by Customer Status
+
+```{python}
+#| label: fig-patent-hist
+#| fig-cap: "Hover over any bar for exact counts."
+
+customers    = df[df['iscustomer'] == 1]['patents']
+noncustomers = df[df['iscustomer'] == 0]['patents']
+mean_c, mean_nc = customers.mean(), noncustomers.mean()
+bins = list(range(0, int(df['patents'].max()) + 2))
+
+fig = make_subplots(
+    rows=1, cols=2,
+    subplot_titles=(
+        f'<b style="color:{TEXT}">Non-Customers</b>  (n = 1,019)',
+        f'<b style="color:{TEXT}">Customers</b>  (n = 481)',
+    ),
+    shared_yaxes=True, shared_xaxes=True,
+    horizontal_spacing=0.06,
+)
+
+for col, data, color, label, m in [
+        (1, noncustomers, BLUE,   'Non-Customer', mean_nc),
+        (2, customers,    BLUE_BR,'Customer',     mean_c)]:
+    counts, edges = np.histogram(data, bins=bins)
+    centers = [(edges[i]+edges[i+1])/2 for i in range(len(edges)-1)]
+    fig.add_trace(go.Bar(
+        x=centers, y=counts, name=label,
+        marker_color=color, marker_opacity=0.75,
+        marker_line_color=BG, marker_line_width=0.8,
+        hovertemplate='<b>%{x} patents</b><br>Firms: %{y}<extra></extra>'),
+        row=1, col=col)
+    fig.add_vline(x=m, line_dash='dash', line_color=RED, line_width=1.8,
+        row=1, col=col,
+        annotation_text=f' mean = {m:.2f}',
+        annotation_font_color=RED,
+        annotation_position='top right')
+
+fig.update_layout(
+    title=dict(text='Patent Counts by Customer Status',
+               font=dict(size=15, color=TEXT, family='Inter')),
+    showlegend=False, height=390, **BASE)
+fig.update_xaxes(title_text='Patents awarded (5-year window)')
+fig.update_yaxes(title_text='Number of firms', col=1)
+base(fig).show()
+```
+
+Both distributions are right-skewed — typical for count data. Customers average **`{python} f"{mean_c:.2f}"`** patents vs. **`{python} f"{mean_nc:.2f}"`** for non-customers, a raw gap of **`{python} f"{mean_c - mean_nc:.2f}"`**. Before crediting the software we need to check whether the two groups are comparable on age and region.
+
+::: {.takeaway}
+A raw mean difference exists, but it could reflect who buys the software — not what the software does.
+:::
+
+---
+
+### Confounders: Region and Age
+
+```{python}
+#| label: fig-confounders
+#| fig-cap: "Left: share of firms in each region by customer status. Right: firm age distributions."
+
+region_tab = pd.crosstab(df['region'], df['iscustomer'], normalize='columns') * 100
+region_tab.columns = ['Non-Customer', 'Customer']
+region_tab = region_tab.sort_values('Customer', ascending=True)
+
+age_c  = df[df['iscustomer']==1]['age']
+age_nc = df[df['iscustomer']==0]['age']
+bins_age = np.arange(df['age'].min()-1, df['age'].max()+3, 2)
+
+fig = make_subplots(
+    rows=1, cols=2,
+    subplot_titles=(
+        f'<b style="color:{TEXT}">Regional Composition</b>',
+        f'<b style="color:{TEXT}">Firm Age</b>',
+    ),
+    horizontal_spacing=0.1,
+)
+
+for col_name, color, label in [('Non-Customer', BLUE, 'Non-Customer'),
+                                ('Customer', BLUE_BR, 'Customer')]:
+    fig.add_trace(go.Bar(
+        y=region_tab.index, x=region_tab[col_name],
+        name=label, orientation='h',
+        marker_color=color, marker_opacity=0.75,
+        marker_line_color=BG, marker_line_width=0.5,
+        hovertemplate='<b>%{y}</b>: %{x:.1f}%<extra>' + label + '</extra>'),
+        row=1, col=1)
+
+for data, color, label in [(age_nc, BLUE, 'Non-Customer'), (age_c, BLUE_BR, 'Customer')]:
+    counts, edges = np.histogram(data, bins=bins_age)
+    centers = [(edges[i]+edges[i+1])/2 for i in range(len(edges)-1)]
+    fig.add_trace(go.Bar(
+        x=centers, y=counts, name=label,
+        marker_color=color, marker_opacity=0.65,
+        marker_line_color=BG, marker_line_width=0.4,
+        showlegend=False,
+        hovertemplate='Age ~%{x:.0f} yrs<br>Firms: %{y}<extra></extra>'),
+        row=1, col=2)
+    fig.add_vline(x=data.mean(), line_dash='dot', line_color=RED,
+        line_width=1.5, row=1, col=2)
+
+fig.update_layout(
+    title=dict(text='Potential Confounders',
+               font=dict(size=15, color=TEXT, family='Inter')),
+    barmode='group', height=350, **BASE)
+fig.update_xaxes(title_text='Share (%)', ticksuffix='%', col=1)
+fig.update_xaxes(title_text='Age (years)', col=2)
+base(fig).show()
+```
+
+Two clear patterns: **~68% of customers are from the Northeast** vs. ~27% of non-customers, and customers are slightly older on average. Both factors could independently inflate patent counts. Controlling for them is essential.
+
+::: {.takeaway}
+The Northeast concentration is the biggest red flag — comparing Northeast-heavy customer firms to a geographically diverse baseline is not an apples-to-apples test of the software.
+:::
+
+---
+
+## Simple Poisson Model via MLE
+
+<span class="section-label">03 / Simple Model</span>
+
+::: {.guide-box}
+::: {.guide-icon}
+🎯
+:::
+::: {.guide-text}
+**Why Poisson?** Patents are non-negative integers. The Normal distribution allows negatives and is continuous — a poor fit. The Poisson distribution is built for counts: assigns zero probability to negatives, has a single rate parameter λ equal to the mean, and naturally produces the right-skewed shape we observed.
+:::
+:::
+
+### Likelihood and Log-Likelihood
+
+For $Y_i \sim \text{Poisson}(\lambda)$:
+
+$$f(Y_i \mid \lambda) = \frac{e^{-\lambda}\,\lambda^{Y_i}}{Y_i!}$$
+
+Assuming iid observations:
+
+$$\mathcal{L}(\lambda) = e^{-n\lambda}\;\lambda^{\sum_i Y_i}\;\prod_{i=1}^{n}\frac{1}{Y_i!} \qquad\Longrightarrow\qquad \ell(\lambda) = -n\lambda + n\bar{Y}\ln\lambda + \text{const}$$
+
+### Log-Likelihood Function
+
+```{python}
+#| code-fold: false
+
+def poisson_loglikelihood(lam, Y):
+    """Log-likelihood for Y ~ Poisson(lam). lam: scalar > 0, Y: 1-D array."""
+    if lam <= 0:
+        return -np.inf
+    return float(np.sum(-lam + Y * np.log(lam) - gammaln(Y + 1)))
+```
+
+### 🎛️ Interactive Poisson Explorer
+
+```{python}
+#| echo: false
+k_vals = list(range(16))
+facts  = [float(math.factorial(k)) for k in k_vals]
+lam_steps = [round(x,1) for x in np.arange(0.5,8.01,0.1)]
+ll_mle = poisson_loglikelihood(mle, Y)
+
+pmf_data = []
+for lam in lam_steps:
+    pmf = [math.exp(-lam)*(lam**k)/facts[k] for k in k_vals]
+    ll  = poisson_loglikelihood(lam, Y)
+    pmf_data.append({'lam':lam,'pmf':[round(p,6) for p in pmf],'ll':round(ll,1)})
+
+widget_json = json.dumps({
+    'data':pmf_data,'mle':round(mle,4),
+    'll_mle':round(ll_mle,1),'k_vals':k_vals,
+    'sample_mean':round(float(Y.mean()),4),
+})
+```
+
+```{python}
+#| output: asis
+#| echo: false
+print(f'<script>window.__PD__={widget_json};</script>')
+```
+
+```{=html}
+<div class="widget-container">
+  <h4>Poisson PMF Explorer</h4>
+  <div class="slider-row">
+    <label>λ =</label>
+    <input type="range" id="lam-sl" min="0" max="75" value="30">
+    <span class="slider-value" id="lam-val">3.0</span>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center;margin:0.6em 0 0.9em;font-size:0.88em;">
+    <span style="color:#94a3b8;">Log-likelihood:</span>
+    <span class="stat-badge" id="ll-val">—</span>
+    <span style="color:#94a3b8;margin-left:0.4rem;">Gap from MLE:</span>
+    <span class="stat-badge" id="ll-gap">—</span>
+    <button id="jump-btn"
+      style="margin-left:auto;background:#3b82f6;color:#fff;border:none;
+             border-radius:7px;padding:0.35em 1.1em;cursor:pointer;
+             font-size:0.85em;font-weight:600;font-family:inherit;
+             transition:background 0.2s;"
+      onmouseover="this.style.background='#2563eb'"
+      onmouseout="this.style.background='#3b82f6'">
+      Jump to MLE →
+    </button>
+  </div>
+  <canvas id="pmf-cv" style="width:100%;height:255px;border-radius:8px;
+    background:#0a0f1a;display:block;"></canvas>
+  <p style="font-size:0.78em;color:#64748b;text-align:center;margin:0.5em 0 0;">
+    Drag slider · bars show P(Y = k | λ) · find the λ that maximises the log-likelihood
+  </p>
+</div>
+
+<script>
+(function(){
+  const D=window.__PD__;
+  const cv=document.getElementById('pmf-cv');
+  const ctx=cv.getContext('2d');
+  const sl=document.getElementById('lam-sl');
+  const dpr=window.devicePixelRatio||1;
+  cv.width=700*dpr; cv.height=255*dpr;
+  cv.style.width='100%'; cv.style.height='255px';
+  ctx.scale(dpr,dpr);
+  const W=700,H=255;
+  const PAD={t:28,r:14,b:42,l:52};
+
+  function draw(idx){
+    const e=D.data[idx],lam=e.lam,pmf=e.pmf;
+    const isMle=Math.abs(lam-D.mle)<0.06;
+    const barC=isMle?'#60a5fa':'#3b82f6';
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='#0a0f1a'; ctx.fillRect(0,0,W,H);
+    const pW=W-PAD.l-PAD.r, pH=H-PAD.t-PAD.b;
+    const maxP=Math.max(...pmf)*1.18||0.01;
+    ctx.strokeStyle='rgba(255,255,255,0.05)'; ctx.lineWidth=1;
+    for(let i=0;i<=4;i++){
+      const y=PAD.t+pH-(i/4)*pH;
+      ctx.beginPath();ctx.moveTo(PAD.l,y);ctx.lineTo(PAD.l+pW,y);ctx.stroke();
+      ctx.fillStyle='#64748b';
+      ctx.font='10px Inter,sans-serif';ctx.textAlign='right';
+      ctx.fillText((i/4*maxP).toFixed(3),PAD.l-5,y+4);
+    }
+    const n=pmf.length,bW=pW/n*0.60;
+    for(let k=0;k<n;k++){
+      const x=PAD.l+(k+0.5)*(pW/n)-bW/2;
+      const bH=(pmf[k]/maxP)*pH;
+      const y=PAD.t+pH-bH;
+      ctx.fillStyle=barC+'cc';
+      ctx.beginPath();
+      const r=3;
+      ctx.moveTo(x+r,y);ctx.lineTo(x+bW-r,y);
+      ctx.quadraticCurveTo(x+bW,y,x+bW,y+r);
+      ctx.lineTo(x+bW,y+bH);ctx.lineTo(x,y+bH);
+      ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);
+      ctx.closePath();ctx.fill();
+      ctx.fillStyle='#64748b';
+      ctx.font='10px Inter,sans-serif';ctx.textAlign='center';
+      ctx.fillText(k,PAD.l+(k+0.5)*(pW/n),PAD.t+pH+15);
+    }
+    ctx.fillStyle='#94a3b8';ctx.font='11px Inter,sans-serif';
+    ctx.textAlign='center';
+    ctx.fillText('Number of patents  k',PAD.l+pW/2,H-3);
+    ctx.save();ctx.translate(13,PAD.t+pH/2);ctx.rotate(-Math.PI/2);
+    ctx.fillText('P(Y = k | λ)',0,0);ctx.restore();
+    const titleColor=isMle?'#86efac':'#94a3b8';
+    const titleText=isMle
+      ?`✓  λ = ${lam.toFixed(1)}  =  MLE  =  sample mean ${D.sample_mean}`
+      :`Poisson(λ = ${lam.toFixed(1)})   ·   MLE = ${D.mle}`;
+    ctx.fillStyle=titleColor;ctx.font=(isMle?'bold ':'')+' 11px Inter,sans-serif';
+    ctx.textAlign='center';
+    ctx.fillText(titleText,PAD.l+pW/2,PAD.t-8);
+  }
+
+  function update(){
+    const idx=+sl.value,e=D.data[idx];
+    document.getElementById('lam-val').textContent=e.lam.toFixed(1);
+    document.getElementById('ll-val').textContent=e.ll.toLocaleString();
+    const gap=e.ll-D.ll_mle;
+    const gEl=document.getElementById('ll-gap');
+    if(Math.abs(gap)<10){gEl.textContent='≈ 0  ✓';gEl.className='stat-badge success';}
+    else{gEl.textContent=gap.toFixed(0);gEl.className='stat-badge';}
+    draw(idx);
+  }
+
+  document.getElementById('jump-btn').onclick=function(){
+    const ti=D.data.findIndex(d=>Math.abs(d.lam-D.mle)<0.06);
+    if(ti<0)return;
+    let cur=+sl.value;const step=cur<ti?1:-1;
+    const iv=setInterval(()=>{if(cur===ti){clearInterval(iv);return;}cur+=step;sl.value=cur;update();},22);
+  };
+  sl.addEventListener('input',update);
+  update();
+})();
+</script>
+```
+
+### Analytical MLE
+
+$$\frac{d\ell}{d\lambda} = -n + \frac{\sum_i Y_i}{\lambda} = 0 \implies \hat{\lambda}_{\text{MLE}} = \bar{Y}$$
+
+The MLE is the **sample mean** — satisfying because $\mathbb{E}[Y] = \lambda$ for a Poisson.
+
+### 🎬 Animated Log-Likelihood Curve
+
+```{python}
+#| label: fig-loglik
+#| fig-cap: "Press ▶ Play — the curve sweeps across the parameter space, then the MLE locks in."
+
+lam_grid = np.linspace(0.5, 8.0, 300)
+ll_vals  = np.array([poisson_loglikelihood(l, Y) for l in lam_grid])
+ll_min, ll_max = ll_vals.min(), ll_vals.max()
+
+step   = 5
+frames = []
+for i in range(step, len(lam_grid), step):
+    frames.append(go.Frame(data=[
+        go.Scatter(x=lam_grid[:i], y=ll_vals[:i], mode='lines',
+                   line=dict(color=BLUE, width=2.5), name='ℓ(λ)'),
+        go.Scatter(x=[], y=[], mode='lines+markers',
+                   line=dict(color=RED, width=0), marker=dict(size=0), name='MLE'),
+    ], name=f'c{i}'))
+
+for a in np.linspace(0, 1, 22):
+    top = ll_min*1.06 + a*(ll_max - ll_min*1.06)
+    frames.append(go.Frame(data=[
+        go.Scatter(x=lam_grid, y=ll_vals, mode='lines',
+                   line=dict(color=BLUE, width=2.5), name='ℓ(λ)'),
+        go.Scatter(x=[mle,mle], y=[ll_min*1.06, top], mode='lines',
+                   line=dict(color=BLUE_BR, width=2, dash='dash'),
+                   name=f'MLE = {mle:.4f}'),
+    ], name=f'm{a:.2f}'))
+
+frames.append(go.Frame(data=[
+    go.Scatter(x=lam_grid, y=ll_vals, mode='lines',
+               line=dict(color=BLUE, width=2.5), name='ℓ(λ)'),
+    go.Scatter(x=[mle,mle], y=[ll_min*1.06, ll_max],
+               mode='lines+markers',
+               line=dict(color=BLUE_BR, width=2, dash='dash'),
+               marker=dict(size=[0,13], color=BLUE_BR,
+                           line=dict(width=2, color=BG)),
+               name=f'MLE = {mle:.4f}'),
+], name='done'))
+
+fig = go.Figure(
+    data=[
+        go.Scatter(x=[], y=[], mode='lines',
+                   line=dict(color=BLUE, width=2.5), name='ℓ(λ)'),
+        go.Scatter(x=[], y=[], mode='lines+markers',
+                   line=dict(color=BLUE_BR, width=2, dash='dash'),
+                   marker=dict(size=13, color=BLUE_BR,
+                               line=dict(width=2, color=BG)),
+                   name=f'MLE = {mle:.4f}'),
+    ],
+    frames=frames,
+    layout=go.Layout(
+        title=dict(text='Poisson Log-Likelihood  ·  Press ▶ to animate',
+                   font=dict(size=14, color=TEXT, family='Inter')),
+        xaxis=dict(title='λ', range=[0.4,8.1]),
+        yaxis=dict(title='ℓ(λ)', range=[ll_min*1.1, ll_max*1.04]),
+        height=400,
+        updatemenus=[dict(
+            type='buttons', showactive=False, y=1.12, x=0.5, xanchor='center',
+            bgcolor=BG_CARD, bordercolor=BORDER,
+            font=dict(color=TEXT, size=12),
+            buttons=[
+                dict(label='▶  Play', method='animate',
+                     args=[None, dict(frame=dict(duration=16,redraw=True),
+                                      fromcurrent=True, transition=dict(duration=0))]),
+                dict(label='⏸  Pause', method='animate',
+                     args=[[None], dict(frame=dict(duration=0,redraw=False),
+                                        mode='immediate')]),
+                dict(label='↺  Reset', method='animate',
+                     args=[[f'c{step}'], dict(frame=dict(duration=0,redraw=True),
+                                               mode='immediate')]),
+            ])],
+        **BASE)
+)
+base(fig).show()
+```
+
+### Numerical MLE via `sp.optimize`
+
+```{python}
+#| code-fold: false
+
+result_simple = optimize.minimize(
+    fun    = lambda lam: -poisson_loglikelihood(lam[0], Y),
+    x0     = [2.0],
+    method = 'Nelder-Mead',
+    options= {'xatol': 1e-9, 'fatol': 1e-10}
+)
+lam_mle = result_simple.x[0]
+print(f"Numerical MLE  (sp.optimize):  λ̂ = {lam_mle:.6f}")
+print(f"Analytical MLE (sample mean):  Ȳ = {Y.mean():.6f}")
+print(f"Absolute difference:               {abs(lam_mle - Y.mean()):.2e}")
+```
+
+::: {.takeaway}
+Numerical optimizer and closed-form result agree to 5+ decimal places — confirms the log-likelihood is correctly coded and has a unique global maximum at $\bar{Y}$.
+:::
+
+---
+
+## Poisson Regression
+
+<span class="section-label">04 / Regression Model</span>
+
+::: {.guide-box}
+::: {.guide-icon}
+📐
+:::
+::: {.guide-text}
+**Extending the model.** One shared λ for 1,500 different firms is too restrictive. Poisson regression lets each firm's rate depend on its own age, region, and customer status. The exponential link keeps λ positive and gives coefficients a multiplicative interpretation.
+:::
+:::
+
+$$Y_i \sim \text{Poisson}(\lambda_i) \qquad \lambda_i = \exp(X_i'\beta)$$
+
+### Updated Log-Likelihood
+
+$$\ell(\beta) = \sum_{i=1}^{n}\Bigl[-e^{X_i'\beta} + Y_i(X_i'\beta) - \ln(Y_i!)\Bigr]$$
+
+```{python}
+#| code-fold: false
+
+def poisson_regression_loglikelihood(beta, Y, X):
+    """Poisson regression log-likelihood. lambda_i = exp(X_i @ beta)."""
+    eta = X @ beta
+    lam = np.exp(np.clip(eta, -50, 50))
+    return float(np.sum(-lam + Y * eta - gammaln(Y + 1)))
+```
+
+### Design Matrix
+
+```{python}
+#| code-fold: false
+
+# South omitted as reference category
+region_dummies = pd.get_dummies(df['region'], drop_first=False).astype(float)
+region_dummies = region_dummies.drop(columns=['South'])
+
+X_df = pd.DataFrame({
+    'intercept': 1.0,
+    'age':       df['age'],
+    'age_sq':    df['age'] ** 2,
+}).join(region_dummies).join(df[['iscustomer']])
+
+Xm, cols = X_df.values, X_df.columns.tolist()
+print("Columns:", cols)
+print("Shape:  ", Xm.shape)
+```
+
+**Why age²?** Concave relationship — firms ramp up then plateau. Forces a quadratic rather than a straight line.
+
+**Why drop South?** Five dummies sum to 1 in every row, perfectly replicating the intercept. South becomes the reference; all other region coefficients measure deviations from it.
+
+### Optimization via `sp.optimize`
+
+Analytic gradient $\nabla_\beta(-\ell) = X'(\lambda - Y)$ supplied for stable convergence:
+
+```{python}
+#| code-fold: false
+
+def neg_ll_reg(beta):
+    return -poisson_regression_loglikelihood(beta, Y, Xm)
+
+def neg_grad_reg(beta):
+    lam = np.exp(np.clip(Xm @ beta, -50, 50))
+    return Xm.T @ (lam - Y)
+
+result_reg = optimize.minimize(
+    fun=neg_ll_reg, x0=np.zeros(len(cols)),
+    jac=neg_grad_reg, method='BFGS',
+    options={'maxiter': 10_000, 'gtol': 1e-8}
+)
+beta_hat = result_reg.x
+print("Status:", result_reg.message)
+for c, b in zip(cols, beta_hat):
+    print(f"  {c:15s}: {b: .5f}")
+```
+
+### Standard Errors from the Hessian
+
+$$H(\hat\beta) = -X'\hat{W}X \implies \widehat{\text{Var}}(\hat\beta) = (X'\hat{W}X)^{-1} \implies \widehat{\text{SE}}_j = \sqrt{[(X'\hat{W}X)^{-1}]_{jj}}$$
+
+```{python}
+#| code-fold: false
+
+lam_hat     = np.exp(Xm @ beta_hat)
+neg_hessian = Xm.T @ np.diag(lam_hat) @ Xm
+cov_beta    = np.linalg.inv(neg_hessian)
+se_hat      = np.sqrt(np.diag(cov_beta))
+
+results_df = pd.DataFrame({
+    'Coefficient': beta_hat,
+    'Std. Error':  se_hat,
+    'z-statistic': beta_hat / se_hat,
+    'exp(β)':      np.exp(beta_hat),
+}, index=cols)
+print(results_df.round(4).to_string())
+```
+
+### Verification Against `statsmodels GLM`
+
+```{python}
+glm_fit = sm.GLM(Y, Xm, family=sm.families.Poisson()).fit()
+comp = pd.DataFrame({
+    'Our β̂': beta_hat, 'Our SE': se_hat,
+    'GLM β̂': glm_fit.params, 'GLM SE': glm_fit.bse,
+}, index=cols).round(5)
+print(comp.to_string())
+print(f"\nMax |Δ coef|: {np.max(np.abs(beta_hat - glm_fit.params)):.2e}")
+print(f"Max |Δ SE|  : {np.max(np.abs(se_hat - glm_fit.bse)):.2e}")
+```
+
+Coefficients match to $10^{-10}$. SEs identical because we use the same analytic Hessian $(X'\hat{W}X)^{-1}$ that `statsmodels` uses internally.
+
+### Results Table
+
+```{python}
+#| label: tbl-results
+import warnings; warnings.filterwarnings('ignore')
+results_df.round(4).style \
+    .format({'Coefficient':'{:.4f}','Std. Error':'{:.4f}',
+             'z-statistic':'{:.2f}','exp(β)':'{:.4f}'}) \
+    .background_gradient(subset=['z-statistic'], cmap='Blues') \
+    .set_caption('Poisson Regression — MLE Estimates')
+```
+
+### Age Curve
+
+```{python}
+#| label: fig-age-curve
+#| fig-cap: "Expected patent counts vs. firm age. Hover for exact values."
+
+ages   = np.linspace(5, 50, 300)
+lam_nc = np.exp(beta_hat[0] + beta_hat[1]*ages + beta_hat[2]*ages**2)
+lam_c  = np.exp(beta_hat[0] + beta_hat[1]*ages + beta_hat[2]*ages**2 + beta_hat[-1])
+peak   = -beta_hat[1]/(2*beta_hat[2])
+
+fig = go.Figure()
+fig.add_trace(go.Scatter(
+    x=np.concatenate([ages, ages[::-1]]),
+    y=np.concatenate([lam_c, lam_nc[::-1]]),
+    fill='toself', fillcolor='rgba(59,130,246,0.08)',
+    line=dict(color='rgba(0,0,0,0)'),
+    showlegend=True, name='Software effect', hoverinfo='skip'))
+fig.add_trace(go.Scatter(
+    x=ages, y=lam_nc, mode='lines', name='Non-Customer',
+    line=dict(color=BLUE, width=2.5),
+    hovertemplate='Age: %{x:.1f} yrs<br>Expected: %{y:.3f} patents<extra>Non-Customer</extra>'))
+fig.add_trace(go.Scatter(
+    x=ages, y=lam_c, mode='lines', name='Customer',
+    line=dict(color=BLUE_BR, width=2.5),
+    hovertemplate='Age: %{x:.1f} yrs<br>Expected: %{y:.3f} patents<extra>Customer</extra>'))
+fig.add_vline(x=peak, line_dash='dot', line_color='#64748b', line_width=1.5,
+    annotation_text=f' Peak ≈ {peak:.0f} yrs',
+    annotation_font_color='#64748b', annotation_position='top right')
+fig.update_layout(
+    title=dict(text='Expected Patents vs. Firm Age  (South region, reference)',
+               font=dict(size=14, color=TEXT, family='Inter')),
+    xaxis=dict(title='Firm age (years)'),
+    yaxis=dict(title='Expected patent count'),
+    height=400, **BASE)
+base(fig).show()
+```
+
+**Interpretation:**
+
+- **Age + Age²:** Concave profile peaking at ~`{python} f"{peak:.0f}"` years — firms ramp up then plateau.
+- **Region effects:** All small, all negative vs. South. Regional differences are modest once age and customer status are controlled.
+- **iscustomer (0.208, z ≈ 6.7):** $e^{0.208} \approx$ `{python} f"{np.exp(beta_hat[-1]):.3f}"` — **23% higher expected patent count**. Strongest predictor by far.
+
+::: {.takeaway}
+The iscustomer coefficient survives controlling for both age and region with z ≈ 6.7. The shaded area on the age curve shows the effect is larger in absolute terms for older firms, because a constant 23% boost applies to a bigger baseline.
+:::
+
+---
+
+## The Effect of Blueprinty's Software
+
+<span class="section-label">05 / Counterfactual</span>
+
+::: {.guide-box}
+::: {.guide-icon}
+🔄
+:::
+::: {.guide-text}
+**From multiplicative to additive.** The coefficient 0.208 says "23% more patents" — but 23% of what? We compare every firm to itself under two scenarios: software vs. no software, holding age and region fixed.
+:::
+:::
+
+```{python}
+#| code-fold: false
+
+X0 = Xm.copy(); X0[:, -1] = 0
+X1 = Xm.copy(); X1[:, -1] = 1
+
+yhat0 = np.exp(X0 @ beta_hat)
+yhat1 = np.exp(X1 @ beta_hat)
+diff  = yhat1 - yhat0
+avg_effect = diff.mean()
+
+print(f"Mean predicted patents — non-customer : {yhat0.mean():.4f}")
+print(f"Mean predicted patents — customer     : {yhat1.mean():.4f}")
+print(f"Average effect (ŷ₁ − ŷ₀)             : {avg_effect:.4f}")
+```
+
+<div class="stat-row">
+  <div class="stat-card">
+    <div class="stat-card-number">+0.79</div>
+    <div class="stat-card-label">Avg additional patents</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-card-number">23%</div>
+    <div class="stat-card-label">Patent rate premium</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-card-number">z ≈ 6.7</div>
+    <div class="stat-card-label">Statistical significance</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-card-number">1,500</div>
+    <div class="stat-card-label">Firms analyzed</div>
+  </div>
+</div>
+
+### 🎬 Counterfactual Distribution — Animated
+
+```{python}
+#| label: fig-counterfactual
+#| fig-cap: "The distribution shifts from no-software (blue) to with-software (bright blue). Press ▶ to animate."
+
+bins_cf  = np.linspace(0, 12, 80)
+centers  = (bins_cf[:-1] + bins_cf[1:]) / 2
+
+def to_dens(data, bins):
+    c, _ = np.histogram(data, bins=bins, density=True)
+    return c
+
+d0, d1 = to_dens(yhat0, bins_cf), to_dens(yhat1, bins_cf)
+ymax   = max(d0.max(), d1.max()) * 1.28
+n_fr   = 70
+
+frames_cf = []
+for i in range(n_fr + 1):
+    t    = i / n_fr
+    ease = t*t*(3 - 2*t)
+    d_t  = (1-ease)*d0 + ease*d1
+    mu_t = (1-ease)*yhat0.mean() + ease*yhat1.mean()
+    r = int(59  + (96  - 59)  * ease)
+    g = int(130 + (165 - 130) * ease)
+    b = int(246 - (246 - 250) * ease)
+    col = f'rgba({r},{g},{b},0.75)'
+    frames_cf.append(go.Frame(data=[
+        go.Bar(x=centers, y=d_t, marker_color=col,
+               marker_line_color=BG, marker_line_width=0.5,
+               name='Distribution',
+               hovertemplate='~%{x:.1f} patents<br>Density: %{y:.4f}<extra></extra>'),
+        go.Scatter(x=[mu_t,mu_t], y=[0,ymax*0.88], mode='lines',
+                   line=dict(color=RED, width=2, dash='dash'),
+                   name=f'Mean: {mu_t:.3f}'),
+    ], name=str(i)))
+
+fig = go.Figure(
+    data=[
+        go.Bar(x=centers, y=d0, marker_color=f'rgba(59,130,246,0.75)',
+               marker_line_color=BG, marker_line_width=0.5, name='Distribution'),
+        go.Scatter(x=[yhat0.mean()]*2, y=[0,ymax*0.88], mode='lines',
+                   line=dict(color=RED, width=2, dash='dash'), name='Mean'),
+    ],
+    frames=frames_cf,
+    layout=go.Layout(
+        title=dict(
+            text=f'Counterfactual Effect  ·  Avg shift: +{avg_effect:.3f} patents  ·  Press ▶',
+            font=dict(size=14, color=TEXT, family='Inter')),
+        xaxis=dict(title='Expected patents (5-year window)', range=[0,12]),
+        yaxis=dict(title='Density', range=[0,ymax]),
+        height=430,
+        updatemenus=[dict(
+            type='buttons', showactive=False, y=1.14, x=0.5, xanchor='center',
+            bgcolor=BG_CARD, bordercolor=BORDER, font=dict(color=TEXT, size=12),
+            buttons=[
+                dict(label='▶  Play', method='animate',
+                     args=[None, dict(frame=dict(duration=32,redraw=True),
+                                      fromcurrent=True,
+                                      transition=dict(duration=22,easing='cubic-in-out'))]),
+                dict(label='⏸  Pause', method='animate',
+                     args=[[None], dict(frame=dict(duration=0,redraw=False),
+                                        mode='immediate')]),
+                dict(label='↺  Reset', method='animate',
+                     args=[['0'], dict(frame=dict(duration=0,redraw=True),
+                                       mode='immediate')]),
+            ])],
+        **BASE))
+base(fig).show()
+```
+
+Holding age and region fixed, switching to customer status adds approximately **`{python} f"{avg_effect:.3f}"`** patents over five years on average. The distribution shifts right — older firms gain more in absolute terms because the 23% boost applies to a bigger baseline.
+
+### What This Establishes
+
+The results are consistent with Blueprinty's claim. After adjusting for age and region, the customer premium is statistically overwhelming (z ≈ 6.7) and practically meaningful (~0.79 additional patents per firm over five years).
+
+Three caveats apply because this is an **observational study**:
+
+1. **Unobserved confounders** — R&D budget, management quality, IP strategy could differ between groups in ways we cannot measure.
+2. **Reverse causality** — frequent patentors may be more likely to buy specialized software.
+3. **No pre-adoption baseline** — difference-in-differences is not possible without pre-adoption data.
+
+::: {.takeaway}
+~0.79 additional patents is statistically and practically significant. But correlation surviving strong controls is not proof of causation — a randomized trial or quasi-experimental design is needed for a defensible causal claim.
+:::
+
+---
+
+## Summary
+
+<span class="section-label">06 / What We Learned</span>
+
+<div class="summary-grid">
+<div class="summary-card">
+<div class="card-icon">📊</div>
+<h5>Count Data → Poisson</h5>
+<p>Non-negative integers call for the Poisson distribution, not Normal. Zero probability of negatives; naturally right-skewed.</p>
+</div>
+<div class="summary-card">
+<div class="card-icon">🎯</div>
+<h5>MLE = Sample Mean</h5>
+<p>For a simple Poisson model, $\hat\lambda = \bar{Y}$ analytically. Numerical and analytic results agree to machine precision.</p>
+</div>
+<div class="summary-card">
+<div class="card-icon">📐</div>
+<h5>Regression Extends It</h5>
+<p>$\lambda_i = \exp(X_i'\beta)$ lets each firm have its own rate. Exponential keeps λ positive; coefficients are multiplicative.</p>
+</div>
+<div class="summary-card">
+<div class="card-icon">🔢</div>
+<h5>SE from the Hessian</h5>
+<p>Standard errors from $(X'\hat{W}X)^{-1}$. Our analytic formula matches statsmodels exactly to $10^{-10}$.</p>
+</div>
+<div class="summary-card">
+<div class="card-icon">🔄</div>
+<h5>Counterfactual Effect</h5>
+<p>Setting iscustomer = 0 vs. 1 for every firm and comparing predicted counts converts the multiplicative coefficient to additive units.</p>
+</div>
+<div class="summary-card">
+<div class="card-icon">⚠️</div>
+<h5>Correlation ≠ Causation</h5>
+<p>The customer premium survives strong controls, but unobserved confounders prevent a causal claim without a proper experiment.</p>
+</div>
+</div>

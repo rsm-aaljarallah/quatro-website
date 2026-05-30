@@ -1,0 +1,57 @@
+GitHub Repos Mapping to Project Cards
+======================================
+
+User's personal repos (rsm-aaljarallah):
+1. quatro-website - the resume site itself (not a project card)
+2. quarto_site - contains projects/ab_testing_cta (HW1) and projects/HW2 (Card & Krueger)
+3. neural-vault - "The Neural Vault" Obsidian+Claude memory system (NOT on project cards currently)
+
+Organization repos (rsm-msba-25-26, all PRIVATE):
+- rsm-mgta479-hw1-rsm-aaljarallah (MGTA 479 = Customer Analytics → likely A/B Testing HW1)
+- rsm-mgta479-hw2-rsm-aaljarallah (MGTA 479 HW2 → likely Card & Krueger)
+- rsm-mgta479-hw0-rsm-aaljarallah
+- rsm-mgta453-assignment1-rsm-aaljarallah (MGTA 453 = Marketing Analytics)
+- rsm-mgta453-assignment3-rsm-aaljarallah
+- rsm-mgta453-assignment4a-rsm-aaljarallah
+- rsm-mgta453-assignment4b-rsm-aaljarallah
+- mgta455-tuango-rsm-aaljarallah (MGTA 455 = Collecting & Analyzing Large Data)
+- mgta455-bbb-recreate-data-rsm-aaljarallah
+- rsm-mgta403-gh-gradient-descent-rsm-aaljarallah
+- rsm-mgta403-gh-data-words-rsm-aaljarallah
+- rsm-mgta403-ci-practice-rsm-aaljarallah
+- rsm-gh-assignment-practice-rsm-aaljarallah
+
+Macy's project (team repo under rsm-msaad):
+- https://github.com/rsm-msaad/macys-marketing-gui (PUBLIC, team: Merna, Abdullah, Shankar)
+
+MAPPING:
+========
+1. A/B Testing a Call to Action → quarto_site (projects/ab_testing_cta) 
+   URL: https://github.com/rsm-aaljarallah/quarto_site/tree/main/projects/ab_testing_cta
+   
+2. Card & Krueger (1994) Replication → quarto_site (projects/HW2)
+   URL: https://github.com/rsm-aaljarallah/quarto_site/tree/main/projects/HW2
+
+3. Poisson Regression & MLE → org repo rsm-mgta453-assignment3-rsm-aaljarallah (PRIVATE)
+   Note: MGTA 453 is the stats/analytics class where MLE would be taught
+   Since it's private, we can't link it publicly. Skip or use org URL.
+   
+4. Macy's AI Marketing Coworker → https://github.com/rsm-msaad/macys-marketing-gui (PUBLIC)
+
+5. Bayesian MMM Capstone (Direct Avenue) → No dedicated repo found. Likely in a private org repo or not yet pushed.
+
+6. Marketing Campaign ROI Dashboard + Churn Model → No dedicated repo found. Likely in a private org repo.
+
+DECISION:
+- Link projects 1 & 2 to quarto_site subdirectories (public)
+- Link project 4 (Macy's) to rsm-msaad/macys-marketing-gui (public)
+- Projects 3, 5, 6 are in private org repos - can still link to the org repo URLs since user has access
+  But visitors won't be able to see them. Better to only link public repos.
+  
+Actually - the org repos are PRIVATE. Only link to PUBLIC repos:
+- A/B Testing → https://github.com/rsm-aaljarallah/quarto_site/tree/main/projects/ab_testing_cta
+- Card & Krueger → https://github.com/rsm-aaljarallah/quarto_site/tree/main/projects/HW2
+- Macy's → https://github.com/rsm-msaad/macys-marketing-gui
+
+For the others (Poisson MLE, Bayesian MMM, ROI Dashboard) - no public repo available.
+We could link Poisson MLE to the private org repo anyway since the user asked to link what they have.

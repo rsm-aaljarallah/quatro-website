@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abdullah Aljarallah — Portfolio Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #080808;
+    --surface: #0f0f11;
+    --surface2: #16161a;
+    --border: rgba(200,169,110,0.15);
+    --border2: rgba(200,169,110,0.08);
+    --gold: #C8A96E;
+    --gold-dim: rgba(200,169,110,0.5);
+    --gold-glow: rgba(200,169,110,0.08);
+    --text: #F2EDE3;
+    --text-muted: rgba(242,237,227,0.5);
+    --text-dim: rgba(242,237,227,0.25);
+    --white: #F2EDE3;
+    --mono: 'DM Mono', monospace;
+    --display: 'Syne', sans-serif;
+    --serif: 'Lora', serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: var(--display);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 4rem;
+    border-bottom: 1px solid var(--border2);
+    background: rgba(8,8,8,0.85);
+    backdrop-filter: blur(12px);
+  }
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--border);
+    padding: 0.5rem 1.25rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .nav-cta:hover {
+    background: var(--gold-glow);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 8rem 4rem 5rem;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 1px;
+    background: var(--gold);
+  }
+  .hero-name {
+    font-family: var(--display);
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+  .hero-name span {
+    display: block;
+    color: var(--gold);
+  }
+  .hero-desc {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    max-width: 420px;
+    margin-bottom: 3rem;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--black);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.85rem 2rem;
+    text-decoration: none;
+    font-weight: 400;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-ghost {
+    color: var(--text-muted);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn-ghost:hover { color: var(--gold); }
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--black) 0%, transparent 30%);
+    z-index: 1;
+  }
+  .hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    filter: grayscale(40%) brightness(0.6);
+  }
+  .hero-stats {
+    position: absolute;
+    bottom: 5rem;
+    right: 4rem;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    text-align: right;
+  }
+  .stat-item .stat-num {
+    font-family: var(--display);
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-item .stat-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+  }
+  .hero-scroll {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .hero-scroll::after {
+    content: '';
+    width: 1px;
+    height: 3rem;
+    background: linear-gradient(to bottom, var(--gold-dim), transparent);
+  }
+
+  /* ── SECTION SHARED ── */
+  section { position: relative; }
+  .section-inner { max-width: 1280px; margin: 0 auto; padding: 7rem 4rem; }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .section-label::before {
+    content: attr(data-n);
+    opacity: 0.4;
+    font-size: 0.6rem;
+  }
+  .section-title {
+    font-family: var(--display);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border2);
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    margin-top: 4rem;
+    align-items: start;
+  }
+  .about-body {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: var(--text-muted);
+  }
+  .about-body p { margin-bottom: 1.25rem; }
+  .about-body strong { color: var(--white); font-style: italic; font-weight: 500; }
+  .about-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .meta-item {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+  }
+  .meta-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 0.4rem;
+  }
+  .meta-value {
+    font-family: var(--display);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--white);
+  }
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.75rem;
+    background: var(--gold-glow);
+  }
+
+  /* ── EXPERIENCE ── */
+  .exp-section { background: var(--surface); }
+  .exp-list { margin-top: 4rem; }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+    padding: 3rem 0;
+    border-top: 1px solid var(--border2);
+    position: relative;
+  }
+  .exp-item:last-child { border-bottom: 1px solid var(--border2); }
+  .exp-meta { padding-top: 0.25rem; }
+  .exp-date {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    margin-bottom: 0.5rem;
+  }
+  .exp-tenure {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--gold);
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.6rem;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+  .exp-company {
+    font-family: var(--display);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .exp-content {}
+  .exp-title {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.75rem;
+  }
+  .exp-desc {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+    max-width: 560px;
+  }
+  .exp-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .exp-highlight {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    padding-left: 1rem;
+    position: relative;
+    line-height: 1.6;
+  }
+  .exp-highlight::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 0.65rem;
+  }
+  .exp-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1.25rem;
+  }
+  .skill-chip {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    border: 1px solid var(--border2);
+    padding: 0.2rem 0.6rem;
+  }
+
+  /* ── VENTURES ── */
+  .ventures-section {}
+  .ventures-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    margin-top: 4rem;
+    background: var(--border2);
+  }
+  .venture-card {
+    background: var(--surface);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .venture-card:hover { background: var(--surface2); }
+  .venture-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .venture-card:hover::after { transform: scaleX(1); }
+  .venture-icon {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--gold);
+    opacity: 0.7;
+  }
+  .venture-name {
+    font-family: var(--display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+  .venture-location {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .venture-desc {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+  .venture-role {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    border-top: 1px solid var(--border2);
+    padding-top: 1rem;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-section { background: var(--surface); }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5px;
+    margin-top: 4rem;
+    background: var(--border2);
+  }
+  .project-card {
+    background: var(--black);
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card.featured {
+    grid-column: span 2;
+    background: var(--surface2);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .project-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    opacity: 0.6;
+    margin-bottom: 1.5rem;
+  }
+  .project-title {
+    font-family: var(--display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.01em;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+  .project-card.featured .project-title { font-size: 2rem; }
+  .project-desc {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+  .project-metrics {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .metric { }
+  .metric-val {
+    font-family: var(--display);
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .metric-lab {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 0.2rem;
+  }
+  .project-vis {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    padding: 2rem;
+    position: relative;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mmm-diagram {
+    width: 100%;
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5px;
+    margin-top: 4rem;
+    background: var(--border2);
+  }
+  .skill-group {
+    background: var(--surface);
+    padding: 2rem;
+  }
+  .skill-group-title {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .skill-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .skill-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .skill-name {
+    font-family: var(--display);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+  .skill-level {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── CONTACT ── */
+  .contact-section { }
+  .contact-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 7rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8rem;
+    align-items: center;
+  }
+  .contact-heading {
+    font-family: var(--display);
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+  .contact-heading span { color: var(--gold); }
+  .contact-sub {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    margin-top: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid var(--border2);
+    padding: 1rem 1.5rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .contact-link:hover {
+    border-color: var(--border);
+    background: var(--gold-glow);
+  }
+  .contact-link-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .contact-link-value {
+    font-family: var(--display);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--white);
+  }
+  .contact-link-arrow {
+    color: var(--gold);
+    font-size: 1rem;
+  }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-field { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .form-input, .form-textarea {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    color: var(--text);
+    font-family: var(--display);
+    font-size: 0.85rem;
+    padding: 0.75rem 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: none;
+  }
+  .form-input:focus, .form-textarea:focus {
+    border-color: var(--gold);
+  }
+  .form-textarea { height: 120px; }
+  .form-submit {
+    background: var(--gold);
+    color: var(--black);
+    border: none;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    align-self: flex-start;
+  }
+  .form-submit:hover { opacity: 0.85; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border2);
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-copy {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+  }
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+  }
+  .footer-links a {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ── ACCENTS ── */
+  .gold-line {
+    width: 3rem;
+    height: 1px;
+    background: var(--gold);
+    margin-bottom: 3rem;
+  }
+  .no-select { user-select: none; }
+
+  /* background grid texture */
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(200,169,110,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,169,110,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">AJ // AAl-Jarallah</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#ventures">Ventures</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Hire Me →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Available — San Diego & MENA</div>
+    <h1 class="hero-name">
+      Abdullah<br>
+      <span>Al-Jarallah</span>
+    </h1>
+    <p class="hero-desc">
+      Bayesian MMM, applied AI research, and a decade of operating $30M+ marketing portfolios across the GCC. I build the systems that tell you where your money actually worked.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">See My Work</a>
+      <a href="#contact" class="btn-ghost">Get in touch ↗</a>
+    </div>
+  </div>
+
+  <div class="hero-right" style="background: var(--surface2);">
+    <!-- Profile visual area -->
+    <img
+      src="https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/profile_pic_bf3dcadd.webp"
+      alt="Abdullah Aljarallah"
+      class="hero-img"
+    />
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">$30M+</div>
+        <div class="stat-label">Portfolio Managed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Active Ventures</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll no-select">Scroll</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-label" data-n="01">About</div>
+    <h2 class="section-title">Where Causal Inference<br>Meets Market Intuition</h2>
+    <div class="divider" style="margin-top: 2rem;"></div>
+
+    <div class="about-grid">
+      <div>
+        <div class="about-body">
+          <p>I'm completing my MSBA at UC San Diego's Rady School of Management — a STEM program built at the intersection of data science and business strategy. My capstone is a <strong>Bayesian Marketing Mix Model</strong> built for a US performance media agency, where I lead the AI research and agent design layer.</p>
+          <p>Before UCSD, I spent a decade operating in the GCC — managing a $30M+ marketing portfolio at Kuwait Finance House, leading digital transformation at Kuwait's national pension fund, and building three ventures from the ground up. I've run campaigns in Europe, moved entire organizations to digital, and taught people to breathe underwater.</p>
+          <p>The throughline across all of it: I'm most useful at the edge where quantitative rigor meets human judgment. That's where the interesting problems live.</p>
+        </div>
+        <div class="tech-tags">
+          <span class="tag">Bayesian MMM</span>
+          <span class="tag">Python</span>
+          <span class="tag">R</span>
+          <span class="tag">SQL</span>
+          <span class="tag">LLMs</span>
+          <span class="tag">Marketing Analytics</span>
+          <span class="tag">Agent Design</span>
+          <span class="tag">Tableau</span>
+          <span class="tag">Power BI</span>
+        </div>
+      </div>
+
+      <div class="about-meta">
+        <div class="meta-item">
+          <div class="meta-label">Nationality</div>
+          <div class="meta-value">Kuwaiti</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Base</div>
+          <div class="meta-value">San Diego + MENA</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Program</div>
+          <div class="meta-value">MSBA — UC San Diego</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Graduating</div>
+          <div class="meta-value">June 2026</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Languages</div>
+          <div class="meta-value">Arabic · English</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Work Authorization</div>
+          <div class="meta-value">GCC — Zero Friction</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Focus</div>
+          <div class="meta-value">Marketing Science</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Open To</div>
+          <div class="meta-value">Dubai · Riyadh · Remote</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="exp-section">
+  <div class="section-inner">
+    <div class="section-label" data-n="02">Experience</div>
+    <h2 class="section-title">A Decade Across the GCC</h2>
+    <div class="divider" style="margin-top: 2rem;"></div>
+
+    <div class="exp-list">
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-date">Dec 2020 – Present</div>
+          <div class="exp-tenure">Current</div>
+          <div class="exp-company">Kuwait PIFSS</div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-title">Director of Digital Transformation & Strategic Communications</div>
+          <div class="exp-desc">Led a full-scale digital transformation program across Kuwait's national pension institution, turning a paper-first culture into a data-driven, digitally native operation in under three months.</div>
+          <div class="exp-highlights">
+            <div class="exp-highlight">Drove email adoption from 0% to 100% across 3,000+ employees in three months through behavioral change campaigns and an internal recognition program</div>
+            <div class="exp-highlight">Designed the institution's first comprehensive marketing calendar, content governance framework, and performance tracking system</div>
+            <div class="exp-highlight">Pioneered strategic communications positioning the institution as a regional center of excellence</div>
+          </div>
+          <div class="exp-skills">
+            <span class="skill-chip">Digital Transformation</span>
+            <span class="skill-chip">Change Management</span>
+            <span class="skill-chip">Content Governance</span>
+            <span class="skill-chip">PR Strategy</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-date">Sep 2017 – Dec 2020</div>
+          <div class="exp-tenure">3 Years</div>
+          <div class="exp-company">Kuwait Finance House</div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-title">Marketing Analyst — Retail, Corporate & Private Banking</div>
+          <div class="exp-desc">Owned a $30M+ marketing portfolio spanning three banking divisions. Built the analytical infrastructure that moved KFH's marketing decisions from intuition to data, and led the bank's first-ever European campaign.</div>
+          <div class="exp-highlights">
+            <div class="exp-highlight">Managed and strategically allocated $30M+ across multi-channel campaigns for Retail, Corporate, and Private Banking</div>
+            <div class="exp-highlight">Pioneered KFH's first European marketing campaign — delivered exceptional ROI, earned immediate promotion</div>
+            <div class="exp-highlight">Built data-driven campaign analytics frameworks that significantly increased product adoption rates</div>
+          </div>
+          <div class="exp-skills">
+            <span class="skill-chip">$30M Budget</span>
+            <span class="skill-chip">Campaign Analytics</span>
+            <span class="skill-chip">Banking Marketing</span>
+            <span class="skill-chip">International Campaigns</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-date">Jun 2016 – Sep 2017</div>
+          <div class="exp-tenure">1.5 Years</div>
+          <div class="exp-company">Xerox / Alghanim</div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-title">Account Manager — Enterprise Technology</div>
+          <div class="exp-desc">Generated KD 3 million (~$10M USD) in sales revenue through tender management and smart enterprise solutions. Built the consultative selling skills that still underpin how I approach business problems.</div>
+          <div class="exp-highlights">
+            <div class="exp-highlight">Delivered $10M in revenue through strategic B2B account management and tender negotiations</div>
+            <div class="exp-highlight">Consistently exceeded targets by identifying unmet client needs and designing tailored solutions</div>
+          </div>
+          <div class="exp-skills">
+            <span class="skill-chip">B2B Sales</span>
+            <span class="skill-chip">Account Management</span>
+            <span class="skill-chip">Tender Management</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- VENTURES -->
+<section id="ventures">
+  <div class="section-inner">
+    <div class="section-label" data-n="03">Ventures</div>
+    <h2 class="section-title">Built From the Ground Up</h2>
+    <div class="divider" style="margin-top: 2rem;"></div>
+
+    <div class="ventures-grid">
+
+      <div class="venture-card">
+        <div class="venture-icon">⚓</div>
+        <div class="venture-name">Casa Masira</div>
+        <div class="venture-location">Masirah Island, Oman</div>
+        <div class="venture-desc">Boat charter and adventure tourism operation on one of Oman's most remote and wild coastlines. Built the full commercial and operational infrastructure from scratch.</div>
+        <div class="venture-role">Founder & Operator</div>
+      </div>
+
+      <div class="venture-card">
+        <div class="venture-icon">🤿</div>
+        <div class="venture-name">Dive 36</div>
+        <div class="venture-location">Kuwait City, Kuwait</div>
+        <div class="venture-desc">PADI-certified diving center running since 2013. Runs instruction programs, manages equipment operations, and has certified hundreds of divers across all experience levels.</div>
+        <div class="venture-role">Founder & Head Instructor</div>
+      </div>
+
+      <div class="venture-card">
+        <div class="venture-icon">📈</div>
+        <div class="venture-name">GrowthIQ</div>
+        <div class="venture-location">GCC / Remote</div>
+        <div class="venture-desc">Growth and martech consultancy helping regional brands close the gap between marketing spend and measurable revenue outcomes. Specializes in MMM, attribution, and AI-powered analytics infrastructure.</div>
+        <div class="venture-role">Founder & Principal Consultant</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="projects-section">
+  <div class="section-inner">
+    <div class="section-label" data-n="04">Projects</div>
+    <h2 class="section-title">Applied Work</h2>
+    <div class="divider" style="margin-top: 2rem;"></div>
+
+    <div class="projects-grid">
+
+      <!-- FEATURED: MMM Capstone -->
+      <div class="project-card featured">
+        <div>
+          <div class="project-num">01 — Featured</div>
+          <div class="project-title">Bayesian Marketing Mix Model — Direct Avenue</div>
+          <div class="project-desc">
+            Industry capstone with a US performance media agency. Built a Bayesian MMM pipeline in Python to decompose media contribution, quantify saturation and carryover effects, and power a Streamlit decision-support dashboard for real-time budget optimization.
+          </div>
+          <div class="project-metrics">
+            <div class="metric">
+              <div class="metric-val">Bayesian</div>
+              <div class="metric-lab">Inference Engine</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val">PyMC</div>
+              <div class="metric-lab">Core Stack</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val">Live</div>
+              <div class="metric-lab">Streamlit Dashboard</div>
+            </div>
+          </div>
+          <div class="exp-skills">
+            <span class="skill-chip">Python</span>
+            <span class="skill-chip">PyMC</span>
+            <span class="skill-chip">Bayesian Statistics</span>
+            <span class="skill-chip">Streamlit</span>
+            <span class="skill-chip">Marketing Science</span>
+          </div>
+        </div>
+        <div class="project-vis">
+          <!-- MMM schematic SVG -->
+          <svg class="mmm-diagram" viewBox="0 0 360 220" xmlns="http://www.w3.org/2000/svg" style="font-family: 'DM Mono', monospace;">
+            <defs>
+              <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                <path d="M0,0 L6,3 L0,6 Z" fill="rgba(200,169,110,0.6)"/>
+              </marker>
+            </defs>
+            <!-- Input nodes -->
+            <rect x="10" y="20" width="70" height="24" rx="2" fill="rgba(200,169,110,0.08)" stroke="rgba(200,169,110,0.3)" stroke-width="1"/>
+            <text x="45" y="36" text-anchor="middle" fill="rgba(200,169,110,0.7)" font-size="8">Paid Search</text>
+            <rect x="10" y="54" width="70" height="24" rx="2" fill="rgba(200,169,110,0.08)" stroke="rgba(200,169,110,0.3)" stroke-width="1"/>
+            <text x="45" y="70" text-anchor="middle" fill="rgba(200,169,110,0.7)" font-size="8">Social Ads</text>
+            <rect x="10" y="88" width="70" height="24" rx="2" fill="rgba(200,169,110,0.08)" stroke="rgba(200,169,110,0.3)" stroke-width="1"/>
+            <text x="45" y="104" text-anchor="middle" fill="rgba(200,169,110,0.7)" font-size="8">Display / CTV</text>
+            <rect x="10" y="122" width="70" height="24" rx="2" fill="rgba(200,169,110,0.08)" stroke="rgba(200,169,110,0.3)" stroke-width="1"/>
+            <text x="45" y="138" text-anchor="middle" fill="rgba(200,169,110,0.7)" font-size="8">Seasonality</text>
+            <rect x="10" y="156" width="70" height="24" rx="2" fill="rgba(200,169,110,0.08)" stroke="rgba(200,169,110,0.3)" stroke-width="1"/>
+            <text x="45" y="172" text-anchor="middle" fill="rgba(200,169,110,0.7)" font-size="8">Base Demand</text>
+            <!-- Arrows to MMM box -->
+            <line x1="80" y1="32" x2="120" y2="80" stroke="rgba(200,169,110,0.3)" stroke-width="0.75" marker-end="url(#arr)"/>
+            <line x1="80" y1="66" x2="120" y2="85" stroke="rgba(200,169,110,0.3)" stroke-width="0.75" marker-end="url(#arr)"/>
+            <line x1="80" y1="100" x2="120" y2="100" stroke="rgba(200,169,110,0.3)" stroke-width="0.75" marker-end="url(#arr)"/>
+            <line x1="80" y1="134" x2="120" y2="115" stroke="rgba(200,169,110,0.3)" stroke-width="0.75" marker-end="url(#arr)"/>
+            <line x1="80" y1="168" x2="120" y2="120" stroke="rgba(200,169,110,0.3)" stroke-width="0.75" marker-end="url(#arr)"/>
+            <!-- MMM Core box -->
+            <rect x="120" y="60" width="100" height="80" rx="3" fill="rgba(200,169,110,0.12)" stroke="rgba(200,169,110,0.5)" stroke-width="1.5"/>
+            <text x="170" y="92" text-anchor="middle" fill="#C8A96E" font-size="9" font-weight="bold">Bayesian MMM</text>
+            <text x="170" y="106" text-anchor="middle" fill="rgba(200,169,110,0.5)" font-size="7">PyMC · Adstock</text>
+            <text x="170" y="118" text-anchor="middle" fill="rgba(200,169,110,0.5)" font-size="7">Hill Saturation</text>
+            <!-- Arrow to output -->
+            <line x1="220" y1="100" x2="255" y2="80" stroke="rgba(200,169,110,0.3)" stroke-width="0.75" marker-end="url(#arr)"/>
+            <line x1="220" y1="100" x2="255" y2="108" stroke="rgba(200,169,110,0.3)" stroke-width="0.75" marker-end="url(#arr)"/>
+            <line x1="220" y1="100" x2="255" y2="136" stroke="rgba(200,169,110,0.3)" stroke-width="0.75" marker-end="url(#arr)"/>
+            <!-- Output nodes -->
+            <rect x="255" y="64" width="90" height="24" rx="2" fill="rgba(200,169,110,0.08)" stroke="rgba(200,169,110,0.3)" stroke-width="1"/>
+            <text x="300" y="80" text-anchor="middle" fill="rgba(200,169,110,0.8)" font-size="8">ROI Attribution</text>
+            <rect x="255" y="94" width="90" height="24" rx="2" fill="rgba(200,169,110,0.08)" stroke="rgba(200,169,110,0.3)" stroke-width="1"/>
+            <text x="300" y="110" text-anchor="middle" fill="rgba(200,169,110,0.8)" font-size="8">Budget Optimizer</text>
+            <rect x="255" y="124" width="90" height="24" rx="2" fill="rgba(200,169,110,0.08)" stroke="rgba(200,169,110,0.3)" stroke-width="1"/>
+            <text x="300" y="140" text-anchor="middle" fill="rgba(200,169,110,0.8)" font-size="8">Scenario Planner</text>
+            <!-- Label -->
+            <text x="180" y="200" text-anchor="middle" fill="rgba(200,169,110,0.3)" font-size="7" letter-spacing="2">MSBA CAPSTONE — DIRECT AVENUE</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Neural Vault -->
+      <div class="project-card">
+        <div class="project-num">02</div>
+        <div class="project-title">Neural Vault — AI Knowledge OS</div>
+        <div class="project-desc">Personal AI operating system combining Obsidian, Claude, and MCP integrations into a two-layer memory architecture. 134 knowledge nodes, autonomous git sync, and context injection protocols.</div>
+        <div class="exp-skills">
+          <span class="skill-chip">Claude API</span>
+          <span class="skill-chip">Obsidian</span>
+          <span class="skill-chip">MCP</span>
+          <span class="skill-chip">Knowledge Graphs</span>
+          <span class="skill-chip">Agent Design</span>
+        </div>
+      </div>
+
+      <!-- Churn Model -->
+      <div class="project-card">
+        <div class="project-num">03</div>
+        <div class="project-title">Customer Churn Prediction — Financial Services</div>
+        <div class="project-desc">ML pipeline comparing Logistic Regression, Random Forest, and Gradient Boosting on churn drivers for a fintech case study. 87% prediction accuracy with Tableau visualization layer.</div>
+        <div class="project-metrics" style="margin-top: 1rem;">
+          <div class="metric">
+            <div class="metric-val" style="font-size: 1.25rem;">87%</div>
+            <div class="metric-lab">Accuracy</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val" style="font-size: 1.25rem;">15%</div>
+            <div class="metric-lab">Churn Reduction</div>
+          </div>
+        </div>
+        <div class="exp-skills">
+          <span class="skill-chip">Python</span>
+          <span class="skill-chip">Scikit-learn</span>
+          <span class="skill-chip">Tableau</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label" data-n="05">Capabilities</div>
+    <h2 class="section-title">The Toolkit</h2>
+    <div class="divider" style="margin-top: 2rem;"></div>
+
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-title">Analytics & DS</div>
+        <div class="skill-list">
+          <div class="skill-row"><span class="skill-name">Python</span><span class="skill-level">Expert</span></div>
+          <div class="skill-row"><span class="skill-name">R</span><span class="skill-level">Advanced</span></div>
+          <div class="skill-row"><span class="skill-name">SQL</span><span class="skill-level">Expert</span></div>
+          <div class="skill-row"><span class="skill-name">PyMC / Stan</span><span class="skill-level">Advanced</span></div>
+          <div class="skill-row"><span class="skill-name">Scikit-learn</span><span class="skill-level">Advanced</span></div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Marketing Science</div>
+        <div class="skill-list">
+          <div class="skill-row"><span class="skill-name">Bayesian MMM</span><span class="skill-level">Expert</span></div>
+          <div class="skill-row"><span class="skill-name">Attribution</span><span class="skill-level">Expert</span></div>
+          <div class="skill-row"><span class="skill-name">A/B Testing</span><span class="skill-level">Advanced</span></div>
+          <div class="skill-row"><span class="skill-name">Causal Inference</span><span class="skill-level">Advanced</span></div>
+          <div class="skill-row"><span class="skill-name">Budget Optimization</span><span class="skill-level">Expert</span></div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">AI & Tooling</div>
+        <div class="skill-list">
+          <div class="skill-row"><span class="skill-name">LLM Integration</span><span class="skill-level">Expert</span></div>
+          <div class="skill-row"><span class="skill-name">Agent Design</span><span class="skill-level">Advanced</span></div>
+          <div class="skill-row"><span class="skill-name">Prompt Engineering</span><span class="skill-level">Expert</span></div>
+          <div class="skill-row"><span class="skill-name">Tableau</span><span class="skill-level">Advanced</span></div>
+          <div class="skill-row"><span class="skill-name">Power BI</span><span class="skill-level">Advanced</span></div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Leadership</div>
+        <div class="skill-list">
+          <div class="skill-row"><span class="skill-name">Strategic Planning</span><span class="skill-level">Expert</span></div>
+          <div class="skill-row"><span class="skill-name">Budget Management</span><span class="skill-level">Expert</span></div>
+          <div class="skill-row"><span class="skill-name">Digital Transformation</span><span class="skill-level">Expert</span></div>
+          <div class="skill-row"><span class="skill-name">Arabic</span><span class="skill-level">Native</span></div>
+          <div class="skill-row"><span class="skill-name">English</span><span class="skill-level">Fluent</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div>
+      <h2 class="contact-heading">
+        Let's Build<br>Something<br><span>Data-Driven</span>
+      </h2>
+      <p class="contact-sub">Open to Marketing Science, Growth Analytics, and Applied AI roles across MENA, GCC, and remote. Zero work-permit friction anywhere in the Gulf.</p>
+      <div class="contact-links">
+        <a href="mailto:aaljarallah@ucsd.edu" class="contact-link">
+          <span class="contact-link-label">Email</span>
+          <span class="contact-link-value">aaljarallah@ucsd.edu</span>
+          <span class="contact-link-arrow">↗</span>
+        </a>
+        <a href="https://www.linkedin.com/in/abdullah-aljarallah-a72512b7/" class="contact-link">
+          <span class="contact-link-label">LinkedIn</span>
+          <span class="contact-link-value">Abdullah Al-Jarallah</span>
+          <span class="contact-link-arrow">↗</span>
+        </a>
+        <a href="https://github.com/rsm-aaljarallah" class="contact-link">
+          <span class="contact-link-label">GitHub</span>
+          <span class="contact-link-value">rsm-aaljarallah</span>
+          <span class="contact-link-arrow">↗</span>
+        </a>
+        <a href="tel:+16193141187" class="contact-link">
+          <span class="contact-link-label">Phone</span>
+          <span class="contact-link-value">+1 619-314-1187</span>
+          <span class="contact-link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <div class="form-row">
+        <div class="form-field">
+          <label class="form-label">Name</label>
+          <input class="form-input" type="text" placeholder="Your name">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Company</label>
+          <input class="form-input" type="text" placeholder="Where are you from">
+        </div>
+      </div>
+      <div class="form-field">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" placeholder="your@email.com">
+      </div>
+      <div class="form-field">
+        <label class="form-label">Message</label>
+        <textarea class="form-textarea" placeholder="Tell me about the role or project..."></textarea>
+      </div>
+      <button class="form-submit">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2026 Abdullah Al-Jarallah — All rights reserved</div>
+  <div class="footer-links">
+    <a href="https://www.linkedin.com/in/abdullah-aljarallah-a72512b7/">LinkedIn</a>
+    <a href="https://github.com/rsm-aaljarallah">GitHub</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>

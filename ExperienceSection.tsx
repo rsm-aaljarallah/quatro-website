@@ -1,0 +1,266 @@
+/*
+ * DESIGN: Cyber-Dark Experience Section
+ * Vertical timeline with animated cards, achievement bullets
+ * Alternating left/right layout on desktop
+ * Includes volunteer experience from Quarto site
+ */
+
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+import { Briefcase, TrendingUp, Award, Heart, ChevronRight } from "lucide-react";
+
+const experiences = [
+  {
+    id: 1,
+    role: "Public Relations Specialist",
+    company: "Public Institution for Social Security (PIFSS)",
+    period: "December 2020 – Present",
+    type: "Current",
+    color: "#B8C8DC",
+    icon: Briefcase,
+    description:
+      "Designed and led digital transformation and strategic communications for Kuwait's social security institution.",
+    achievements: [
+      "Designed and led the digital transformation strategy that drove email adoption from 0% to 100% across 3,000+ employees in three months, tracked across 20+ departments",
+      "Built the institution's first comprehensive marketing calendar, content guidelines, and measurement framework for internal and external communications",
+      "Created and launched an internal high-performance recognition program with HR, increasing measurable employee engagement",
+    ],
+    tags: ["Power BI", "Tableau", "Change Management", "Content Operations"],
+  },
+  {
+    id: 2,
+    role: "Marketing Analyst",
+    company: "Kuwait Finance House (KFH)",
+    period: "September 2017 – December 2020",
+    type: "3 Years",
+    color: "#7A8FA8",
+    icon: TrendingUp,
+    description:
+      "Managed a $30M+ annual marketing portfolio across Group Retail Banking, Group Corporate Banking, and Private Banking divisions.",
+    achievements: [
+      "Pioneered KFH's first-ever European marketing campaign — delivered measurable ROI lift and earned an early promotion",
+     "Allocated budgets across digital, OOH, print, sponsorships, and events using campaign performance data and post-buy analysis \u2014 the operational foundation for the later move into Marketing Mix Modeling",   "Developed segmentation-driven strategies that increased product adoption and customer engagement across multiple banking products",
+    ],
+    tags: ["Excel", "Agency Reporting", "Campaign Analytics", "Adobe Analytics"],
+  },
+  {
+    id: 3,
+    role: "Account Manager",
+    company: "Xerox — Alghanim Industries",
+    period: "June 2016 – September 2017",
+    type: "1.5 Years",
+    color: "#6A8AA8",
+    icon: Award,
+    description:
+      "Generated KD 3M (~$10M USD) in revenue through tender management, smart workflow solutions, and B2B account expansion.",
+    achievements: [
+      "Consistently exceeded sales targets by identifying customer needs and delivering tailored proposals",
+      "Built C-suite relationships across Kuwaiti corporates, ministries, and family offices",
+    ],
+    tags: ["B2B Sales", "Tender Management", "Account Management", "Smart Workflows"],
+  },
+  {
+    id: 4,
+    role: "Volunteer Guide",
+    company: "Kuwait Scientific Center",
+    period: "June 2007",
+    type: "Volunteer",
+    color: "#1A5A7A",
+    icon: Heart,
+    description:
+      "Provided educational guidance to visitors through the aquarium's three distinct environmental zones.",
+    achievements: [
+      "Guided visitors through three distinct aquarium environmental zones",
+      "Delivered engaging educational descriptions of marine and wildlife",
+    ],
+    tags: ["Education", "Public Engagement", "Marine Life"],
+  },
+];
+
+function ExperienceCard({
+  exp,
+  index,
+}: {
+  exp: (typeof experiences)[0];
+  index: number;
+}) {
+  return (
+    <div
+      className={`relative ${index % 2 === 0 ? 'scroll-reveal-left' : 'scroll-reveal-right'}`}
+    >
+      {/* Timeline dot */}
+      <div
+        className="absolute left-0 lg:left-1/2 top-8 w-4 h-4 rounded-full border-2 z-10 -translate-x-1/2 hidden lg:block"
+        style={{
+          borderColor: exp.color,
+          backgroundColor: "#0A0E1A",
+          boxShadow: `0 0 12px ${exp.color}60`,
+        }}
+      />
+
+      {/* Card */}
+      <div
+        className={`lg:w-[calc(50%-2rem)] ${
+          index % 2 === 0 ? "lg:mr-auto lg:pr-8" : "lg:ml-auto lg:pl-8"
+        }`}
+      >
+        <div
+          className="card-cyber rounded-lg p-6 group"
+          style={{ borderColor: `${exp.color}20` }}
+        >
+          {/* Header */}
+          <div className="flex items-start justify-between mb-4">
+            <div className="flex items-center gap-3">
+              <div
+                className="w-10 h-10 rounded-sm flex items-center justify-center flex-shrink-0"
+                style={{
+                  background: `${exp.color}15`,
+                  border: `1px solid ${exp.color}30`,
+                }}
+              >
+                <exp.icon size={18} style={{ color: exp.color }} />
+              </div>
+              <div>
+                <h3 className="font-['Playfair_Display'] font-bold text-white text-lg leading-tight">
+                  {exp.role}
+                </h3>
+                <p
+                  className="font-['Lato'] text-sm mt-0.5"
+                  style={{ color: exp.color }}
+                >
+                  {exp.company}
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-col items-end gap-1 flex-shrink-0 ml-4">
+              <span
+                className="text-xs font-['JetBrains_Mono'] px-2 py-0.5 rounded-sm"
+                style={{
+                  color: exp.color,
+                  background: `${exp.color}15`,
+                  border: `1px solid ${exp.color}30`,
+                }}
+              >
+                {exp.type}
+              </span>
+              <span className="text-xs font-['Lato'] text-[#4A5A6A]">
+                {exp.period}
+              </span>
+            </div>
+          </div>
+
+          {/* Description */}
+          <p className="font-['Lato'] text-[#7A8FA8] text-sm leading-relaxed mb-4">
+            {exp.description}
+          </p>
+
+          {/* Achievements */}
+          <div className="space-y-2 mb-4">
+            {exp.achievements.map((ach, i) => (
+              <div key={i} className="flex items-start gap-2">
+                <ChevronRight
+                  size={14}
+                  className="mt-0.5 flex-shrink-0"
+                  style={{ color: exp.color }}
+                />
+                <span className="font-['Lato'] text-[#94A8C0] text-sm">
+                  {ach}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          {/* Tags */}
+          <div className="flex flex-wrap gap-1.5">
+            {exp.tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-xs font-['JetBrains_Mono'] px-2 py-0.5 rounded-sm"
+                style={{
+                  color: `${exp.color}CC`,
+                  background: `${exp.color}08`,
+                  border: `1px solid ${exp.color}20`,
+                }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function ExperienceSection() {
+  const headerRef = useRef(null);
+  const headerInView = useInView(headerRef, { once: true });
+
+  return (
+    <section
+      id="experience"
+      className="py-24 relative"
+      style={{
+        background: "linear-gradient(180deg, #0A0E1A 0%, #0D1525 100%)",
+      }}
+    >
+      {/* Background accent */}
+      <div
+        className="absolute bottom-0 left-0 w-80 h-80 rounded-full opacity-5 pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, #7A8FA8 0%, transparent 70%)",
+          transform: "translate(-30%, 30%)",
+        }}
+      />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section header */}
+        <motion.div
+          ref={headerRef}
+          initial={{ opacity: 0, y: 20 }}
+          animate={headerInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="flex items-center gap-4 mb-16"
+        >
+          <div className="mono-label">02 / Experience</div>
+          <div className="flex-1 section-divider" />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-center mb-16"
+        >
+          <h2 className="font-['Playfair_Display'] font-extrabold text-4xl lg:text-5xl text-white mb-4">
+            Professional{" "}
+            <span className="text-gradient-cyan">Journey</span>
+          </h2>
+          <p className="font-['Lato'] text-[#7A8FA8] text-lg max-w-2xl mx-auto">
+            Over a decade of experience across public relations, banking,
+            enterprise technology, and entrepreneurship.
+          </p>
+        </motion.div>
+
+        {/* Timeline */}
+        <div className="relative">
+          {/* Center line (desktop) */}
+          <div
+            className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2"
+            style={{
+              background:
+                "linear-gradient(180deg, transparent, rgba(184,200,220,0.3), rgba(122,143,168,0.3), transparent)",
+            }}
+          />
+
+          <div className="space-y-10">
+            {experiences.map((exp, i) => (
+              <ExperienceCard key={exp.id} exp={exp} index={i} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
