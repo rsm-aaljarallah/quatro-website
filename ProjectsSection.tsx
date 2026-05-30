@@ -1,7 +1,7 @@
 /*
- * DESIGN: Visual Gallery Projects Section (Merna Inspired)
+ * DESIGN: Visual Gallery Projects Section (Cinematic)
  * Strips away text clutter in favor of a beautiful, image-first grid
- * Projects display their title dynamically only upon hover
+ * Projects display their title and dynamic tags upon hover using staggered animations
  */
 
 import { motion, useInView } from "framer-motion";
@@ -14,38 +14,58 @@ const projects = [
     title: "Macy's AI Marketing Coworker",
     type: "Team Project",
     coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_macys_dark-YCoRpRaiXXvckqiTxdGxXu.webp",
+    tags: ["Next.js", "Python", "LLMs", "RAG"],
   },
   {
     id: "bayesian-mmm",
     title: "Bayesian MMM Capstone",
     type: "Capstone",
     coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_bayesian_mmm_dark-8h6Z9jLEykDH87WB3DNfaJ.webp",
+    tags: ["Bayesian MMM", "PyMC", "Streamlit"],
   },
   {
     id: "neural-vault",
     title: "Neural Vault",
     type: "Personal",
     coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_neural_vault_dark-2mhf8LzFiG7ZVxkooSr2up.webp",
+    tags: ["Claude MCP", "Obsidian", "Agent Design"],
   },
   {
     id: "ab-testing",
     title: "A/B Testing a CTA",
     type: "Academic",
     coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_ab_testing_dark-aVeFLTSn9xgTBaEjfKywrK.webp",
+    tags: ["A/B Testing", "Statistics", "Python"],
   },
   {
     id: "card-krueger",
     title: "Card & Krueger Replication",
     type: "Academic",
     coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_card_krueger_dark-EasqFTyftE8hLKBDYy6gKm.webp",
+    tags: ["Causal Inference", "DiD", "Economics"],
   },
   {
     id: "poisson-mle",
     title: "Poisson MLE",
     type: "Academic",
     coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_poisson_mle_themed-TXwTh4uFv8vjdn64XEY6sb.webp",
+    tags: ["MLE", "Optimization", "Plotly"],
   },
 ];
+
+// Variants for staggered children
+const overlayVariants = {
+  initial: { opacity: 0 },
+  hover: {
+    opacity: 1,
+    transition: { staggerChildren: 0.05, delayChildren: 0.1 },
+  },
+};
+
+const itemVariants = {
+  initial: { opacity: 0, y: 15 },
+  hover: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 20 } },
+};
 
 export default function ProjectsSection() {
   const headerRef = useRef(null);
@@ -80,44 +100,57 @@ export default function ProjectsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ scale: 1.03, y: -5 }}
+              whileHover="hover"
+              initial="initial"
               className="relative group rounded-[1rem] overflow-hidden cursor-pointer"
               style={{
                 aspectRatio: "4/3",
                 boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
               }}
               onClick={() => {
-                // Navigate to projects page or trigger a modal
                 window.location.href = "/projects";
               }}
             >
               {/* Cover Image */}
-              <img
+              <motion.img
                 src={project.coverImage}
                 alt={project.title}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-full object-cover"
+                variants={{
+                  initial: { scale: 1 },
+                  hover: { scale: 1.05, transition: { duration: 0.7, ease: "easeOut" } },
+                }}
               />
 
               {/* Hover Overlay (Frosted Glass) */}
-              <div
-                className="absolute inset-0 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              <motion.div
+                variants={overlayVariants}
+                className="absolute inset-0 flex flex-col justify-end p-6"
                 style={{
-                  background: "linear-gradient(to top, rgba(10,14,26,0.95) 0%, rgba(10,14,26,0.4) 50%, transparent 100%)",
+                  background: "linear-gradient(to top, rgba(10,14,26,0.95) 0%, rgba(10,14,26,0.5) 50%, transparent 100%)",
                 }}
               >
-                <motion.div
-                  initial={{ y: 10 }}
-                  whileInView={{ y: 0 }}
-                  className="translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
-                >
-                  <span className="text-[10px] font-['JetBrains_Mono'] uppercase tracking-widest text-cyan-400 mb-1 block">
-                    {project.type}
-                  </span>
-                  <h3 className="font-['Playfair_Display'] font-bold text-white text-xl leading-tight">
-                    {project.title}
-                  </h3>
-                </motion.div>
-              </div>
+                <motion.span variants={itemVariants} className="text-[10px] font-['JetBrains_Mono'] uppercase tracking-widest text-cyan-400 mb-2 block">
+                  {project.type}
+                </motion.span>
+                
+                <motion.h3 variants={itemVariants} className="font-['Playfair_Display'] font-bold text-white text-xl leading-tight mb-4">
+                  {project.title}
+                </motion.h3>
+
+                {/* Dynamic Tags */}
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map((tag) => (
+                    <motion.span
+                      key={tag}
+                      variants={itemVariants}
+                      className="px-2.5 py-1 text-[10px] font-['JetBrains_Mono'] text-[#B8C8DC] bg-[rgba(232,237,245,0.06)] border border-[rgba(232,237,245,0.15)] rounded-sm backdrop-blur-md"
+                    >
+                      {tag}
+                    </motion.span>
+                  ))}
+                </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>

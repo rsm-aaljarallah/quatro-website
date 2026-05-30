@@ -1,103 +1,70 @@
 /*
  * DESIGN: Cinematic Glass Hero Section
- * Central frosted glass card over dynamic particle background
+ * Central frosted glass card over a fluid, slow-moving cinematic background
  * Minimalist, high-impact typography inspired by merna.org
  */
 
-import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronDown, ArrowRight } from "lucide-react";
 
-const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/hero_bg-QFyRfnQn3Ak7Ux6DgUzGdx.webp";
-
-// Particle canvas background
-function ParticleCanvas() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let animId: number;
-    const particles: Array<{
-      x: number; y: number; vx: number; vy: number;
-      size: number; alpha: number; color: string;
-    }> = [];
-
-    const resize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    };
-    resize();
-    window.addEventListener("resize", resize);
-
-    for (let i = 0; i < 80; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        size: Math.random() * 2 + 0.5,
-        alpha: Math.random() * 0.6 + 0.1,
-        color: Math.random() > 0.5 ? "#B8C8DC" : "#7A8FA8",
-      });
-    }
-
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 120) {
-            ctx.beginPath();
-            ctx.strokeStyle = `rgba(184, 200, 220, ${0.08 * (1 - dist / 120)})`;
-            ctx.lineWidth = 0.5;
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-          }
-        }
-      }
-
-      particles.forEach(p => {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = p.color + Math.round(p.alpha * 255).toString(16).padStart(2, "0");
-        ctx.fill();
-      });
-
-      animId = requestAnimationFrame(draw);
-    };
-    draw();
-
-    return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
+// Cinematic fluid background using CSS animations on blurred orbs
+function CinematicBackground() {
+  const { scrollY } = useScroll();
+  // Deep parallax: the background moves down 300px as user scrolls 1000px
+  const bgY = useTransform(scrollY, [0, 1000], [0, 300]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full pointer-events-none"
-      style={{ opacity: 0.6 }}
-    />
+    <motion.div 
+      className="absolute inset-0 overflow-hidden pointer-events-none" 
+      style={{ background: "#050810", y: bgY }}
+    >
+      {/* Orb 1 - Deep Blue */}
+      <motion.div
+        className="absolute w-[80vw] h-[80vw] rounded-full mix-blend-screen filter blur-[100px] opacity-30"
+        style={{ background: "radial-gradient(circle, #0F2027 0%, transparent 70%)" }}
+        animate={{
+          x: ["-20%", "20%", "-20%"],
+          y: ["-20%", "20%", "-20%"],
+        }}
+        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+      />
+      {/* Orb 2 - Cyan/Teal */}
+      <motion.div
+        className="absolute right-0 w-[60vw] h-[60vw] rounded-full mix-blend-screen filter blur-[120px] opacity-20"
+        style={{ background: "radial-gradient(circle, #203A43 0%, transparent 70%)" }}
+        animate={{
+          x: ["20%", "-20%", "20%"],
+          y: ["20%", "-20%", "20%"],
+        }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+      />
+      {/* Orb 3 - Soft Blue highlight */}
+      <motion.div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] h-[70vw] rounded-full mix-blend-screen filter blur-[150px] opacity-10"
+        style={{ background: "radial-gradient(circle, #2C5364 0%, transparent 70%)" }}
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.1, 0.2, 0.1],
+        }}
+        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+      />
+      {/* Noise overlay to give it a film grain cinematic feel */}
+      <div
+        className="absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+        }}
+      />
+    </motion.div>
   );
 }
 
 export default function HeroSection() {
+  const { scrollY } = useScroll();
+  // Card moves UP slightly faster than the background when scrolling down
+  const cardY = useTransform(scrollY, [0, 800], [0, -150]);
+  const cardOpacity = useTransform(scrollY, [0, 600], [1, 0]);
+
   const handleScrollDown = () => {
     const el = document.getElementById("projects");
     if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -107,31 +74,12 @@ export default function HeroSection() {
     <section
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      style={{ background: "linear-gradient(135deg, #0A0E1A 0%, #111827 50%, #0A0E1A 100%)" }}
     >
-      {/* Hero background image */}
+      <CinematicBackground />
+
+      {/* Grid overlay (static over the moving background) */}
       <div
-        className="absolute inset-0 opacity-20"
-        style={{
-          backgroundImage: `url(${HERO_BG})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      />
-
-      <ParticleCanvas />
-
-      {/* Radial glow for the center */}
-      <div className="absolute inset-0 pointer-events-none flex justify-center items-center">
-        <div
-          className="w-[800px] h-[800px] rounded-full opacity-20"
-          style={{ background: "radial-gradient(circle, #4A7A9A 0%, transparent 60%)" }}
-        />
-      </div>
-
-      {/* Grid overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0 opacity-[0.02]"
         style={{
           backgroundImage: `
             linear-gradient(rgba(184,200,220,1) 1px, transparent 1px),
@@ -141,19 +89,22 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Central Glass Card */}
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 py-24 flex justify-center">
+      {/* Central Glass Card with Parallax */}
+      <motion.div 
+        className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 py-24 flex justify-center"
+        style={{ y: cardY, opacity: cardOpacity }}
+      >
         <motion.div
           initial={{ opacity: 0, y: 30, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="flex flex-col items-center text-center p-10 md:p-16 rounded-[2rem]"
+          className="flex flex-col items-center text-center p-10 md:p-16 rounded-[2rem] w-full"
           style={{
-            background: "rgba(15, 22, 40, 0.4)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            border: "1px solid rgba(232, 237, 245, 0.1)",
-            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255,255,255,0.02)",
+            background: "rgba(10, 14, 26, 0.45)",
+            backdropFilter: "blur(24px)",
+            WebkitBackdropFilter: "blur(24px)",
+            border: "1px solid rgba(232, 237, 245, 0.08)",
+            boxShadow: "0 30px 60px -15px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255,255,255,0.03)",
           }}
         >
           {/* Status badge */}
@@ -174,6 +125,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.7 }}
             className="font-['Playfair_Display'] font-extrabold text-5xl md:text-7xl lg:text-8xl text-white leading-tight mb-4"
+            style={{ textShadow: "0 10px 30px rgba(0,0,0,0.5)" }}
           >
             Abdullah Aljarallah
           </motion.h1>
@@ -227,13 +179,14 @@ export default function HeroSection() {
             </a>
           </motion.div>
         </motion.div>
-      </div>
+      </motion.div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator (fades out on scroll) */}
       <motion.button
         onClick={handleScrollDown}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
+        style={{ opacity: cardOpacity }}
         transition={{ delay: 1.2 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[#4A5A6A] hover:text-[#B8C8DC] transition-colors"
       >
