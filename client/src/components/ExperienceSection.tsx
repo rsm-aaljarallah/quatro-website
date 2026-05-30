@@ -84,16 +84,9 @@ function ExperienceCard({
   exp: (typeof experiences)[0];
   index: number;
 }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
-
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
-      animate={inView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
-      className="relative"
+    <div
+      className={`relative ${index % 2 === 0 ? 'scroll-reveal-left' : 'scroll-reveal-right'}`}
     >
       {/* Timeline dot */}
       <div
@@ -195,7 +188,7 @@ function ExperienceCard({
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 

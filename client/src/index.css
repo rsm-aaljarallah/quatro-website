@@ -269,3 +269,105 @@
   background-size: 200% auto;
   animation: shimmer 3s linear infinite;
 }
+
+/* 
+ * BENTO GRID 
+ */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.5rem;
+  grid-auto-flow: dense;
+}
+
+.bento-col-4 { grid-column: span 12; }
+.bento-col-6 { grid-column: span 12; }
+.bento-col-8 { grid-column: span 12; }
+
+@media (min-width: 768px) {
+  .bento-col-4 { grid-column: span 4; }
+  .bento-col-6 { grid-column: span 6; }
+  .bento-col-8 { grid-column: span 8; }
+}
+
+.bento-row-2 { grid-row: span 2; }
+
+.bento-card {
+  background: rgba(15, 22, 40, 0.6);
+  border: 1px solid rgba(232, 237, 245, 0.07);
+  border-radius: 1rem;
+  padding: 1.75rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+}
+
+.bento-card:hover {
+  background: rgba(15, 22, 40, 0.8);
+  border-color: rgba(232, 237, 245, 0.15);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(232, 237, 245, 0.04) inset;
+  transform: translateY(-2px);
+}
+
+/* 
+ * NATIVE SCROLL ANIMATIONS 
+ */
+@supports ((animation-timeline: view()) and (animation-range: entry)) {
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-in-left {
+    from {
+      opacity: 0;
+      transform: translateX(-40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slide-in-right {
+    from {
+      opacity: 0;
+      transform: translateX(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .scroll-reveal {
+    animation: fade-in-up auto ease-out backwards;
+    animation-timeline: view(block);
+    animation-range: entry 5% cover 25%;
+  }
+
+  .scroll-reveal-left {
+    animation: slide-in-left auto ease-out backwards;
+    animation-timeline: view(block);
+    animation-range: entry 5% cover 25%;
+  }
+
+  .scroll-reveal-right {
+    animation: slide-in-right auto ease-out backwards;
+    animation-timeline: view(block);
+    animation-range: entry 5% cover 25%;
+  }
+}
+
+@supports not ((animation-timeline: view()) and (animation-range: entry)) {
+  .scroll-reveal, .scroll-reveal-left, .scroll-reveal-right {
+    opacity: 1;
+    transform: none;
+  }
+}
