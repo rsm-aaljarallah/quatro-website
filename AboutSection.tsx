@@ -1,22 +1,14 @@
 /*
- * DESIGN: Cyber-Dark About Section
- * Two-column layout with personal info grid and bio
- * Animated entry on scroll
+ * DESIGN: Clean 2-Column About Section
+ * Inspired by Merna's About page — prominent circular profile image on left,
+ * clean structured text on right.
  */
 
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { User, Globe, Calendar, Heart, Flag, BookOpen } from "lucide-react";
+import { Mail, Linkedin, Github } from "lucide-react";
 
-const personalInfo = [
-  { icon: Flag, label: "Nationality", value: "Kuwaiti" },
-  { icon: Calendar, label: "Date of Birth", value: "January 5, 1992" },
-  { icon: Globe, label: "Languages", value: "English & Arabic" },
-  { icon: Heart, label: "Status", value: "Single" },
-  { icon: BookOpen, label: "Current Study", value: "MSBA @ UC San Diego" },
-  { icon: User, label: "Gender", value: "Male" },
-];
+const PROFILE_PIC = "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/profile_pic_bf3dcadd.webp";
 
 function AnimatedSection({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null);
@@ -36,114 +28,135 @@ function AnimatedSection({ children, delay = 0 }: { children: React.ReactNode; d
 
 export default function AboutSection() {
   return (
-    <section id="about" className="py-24 relative overflow-hidden" style={{ background: "#0A0E1A" }}>
-      {/* Background accent */}
-      <div className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-5 pointer-events-none"
-        style={{ background: "radial-gradient(circle, #B8C8DC 0%, transparent 70%)", transform: "translate(30%, -30%)" }}
-      />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" className="py-24 relative overflow-hidden" style={{ background: "#050810" }}>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        
         {/* Section header */}
         <AnimatedSection>
-          <div className="flex items-center gap-4 mb-16">
-            <div className="mono-label">01 / About</div>
+          <div className="flex items-center gap-4 mb-20">
+            <div className="mono-label tracking-[0.2em]">01 / About</div>
             <div className="flex-1 section-divider" />
           </div>
         </AnimatedSection>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
-          {/* Left: Bio */}
-          <div>
+        <div className="grid lg:grid-cols-[1fr_2fr] gap-16 items-start">
+          
+          {/* LEFT: Entity Profile (Pic, Title, Links) */}
+          <div className="flex flex-col items-center lg:items-center text-center">
             <AnimatedSection delay={0.1}>
-              <h2 className="font-['Playfair_Display'] font-extrabold text-4xl lg:text-5xl text-white mb-6 leading-tight">
-                Marketing Operator
-                <br />
-                <span className="text-gradient-cyan">Turned Measurement Specialist</span>
+              <div className="relative mb-8">
+                {/* Glow behind image */}
+                <div className="absolute -inset-4 rounded-full opacity-20 blur-xl"
+                  style={{ background: "radial-gradient(circle, #B8C8DC 0%, transparent 70%)" }}
+                />
+                <img
+                  src={PROFILE_PIC}
+                  alt="Abdullah Aljarallah"
+                  className="relative w-64 h-64 lg:w-72 lg:h-72 rounded-full object-cover object-top border border-[rgba(232,237,245,0.1)] shadow-[0_0_40px_rgba(0,0,0,0.5)]"
+                />
+              </div>
+
+              <h2 className="font-['Playfair_Display'] font-bold text-3xl text-white mb-2">
+                Abdullah Aljarallah
               </h2>
-            </AnimatedSection>
-
-            <AnimatedSection delay={0.2}>
-              <p className="font-['Lato'] text-[#7A8FA8] text-base leading-relaxed mb-6">
-                Marketing operator turned measurement specialist. Over ten years across the GCC, including a $30M+ marketing portfolio at Kuwait Finance House and roles across banking, government, and enterprise tech. Now finishing my MSBA at UC San Diego's Rady School of Management — STEM-designated — with a capstone in Bayesian Marketing Mix Modeling at Direct Avenue, a US performance media agency.
+              <p className="font-['Lato'] text-[#7A8FA8] text-sm tracking-wide mb-8">
+                MSBA Candidate @ UC San Diego
               </p>
-            </AnimatedSection>
 
-            <AnimatedSection delay={0.3}>
-              <p className="font-['Lato'] text-[#7A8FA8] text-base leading-relaxed mb-8">
-                I led Kuwait Finance House's first European campaign, drove email adoption from 0% to 100% across 3,000+ employees at Kuwait's social security institution, and run three side ventures in tourism, diving, and growth consulting. I am comfortable both running campaigns and building the agent systems that measure them — my Neural Vault project integrates Claude, Obsidian, and MCP to manage knowledge work end-to-end. Targeting Marketing Science, Measurement, and Applied AI roles across MENA.
-              </p>
-            </AnimatedSection>
-
-            <AnimatedSection delay={0.4}>
-              <div className="flex flex-wrap gap-2">
-                {["Python", "PyMC", "SQL", "Tableau", "Power BI", "Bayesian MMM", "Claude / MCP", "Marketing Science", "Streamlit", "Quarto"].map(tag => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1 text-xs font-['JetBrains_Mono'] text-[#B8C8DC] bg-[rgba(184,200,220,0.06)] border border-[rgba(184,200,220,0.15)] rounded-sm"
-                  >
-                    {tag}
-                  </span>
-                ))}
+              {/* Social Links */}
+              <div className="flex flex-col gap-3 w-full max-w-[200px]">
+                <a
+                  href="mailto:mr.a.aljarallah@gmail.com"
+                  className="flex items-center justify-center gap-3 px-4 py-2.5 rounded-full border border-[rgba(232,237,245,0.1)] text-[#B8C8DC] text-sm hover:bg-[rgba(232,237,245,0.05)] transition-colors"
+                >
+                  <Mail size={16} />
+                  Email Me
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/abdullah-aljarallah-a72512b7/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-3 px-4 py-2.5 rounded-full border border-[rgba(232,237,245,0.1)] text-[#B8C8DC] text-sm hover:bg-[rgba(232,237,245,0.05)] transition-colors"
+                >
+                  <Linkedin size={16} />
+                  LinkedIn
+                </a>
+                <a
+                  href="https://github.com/rsm-aaljarallah"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-3 px-4 py-2.5 rounded-full border border-[rgba(232,237,245,0.1)] text-[#B8C8DC] text-sm hover:bg-[rgba(232,237,245,0.05)] transition-colors"
+                >
+                  <Github size={16} />
+                  GitHub
+                </a>
               </div>
             </AnimatedSection>
           </div>
 
-          {/* Right: Personal Info Grid */}
-          <div>
+          {/* RIGHT: Content (Bio, Work History) */}
+          <div className="flex flex-col gap-12">
+            
             <AnimatedSection delay={0.2}>
-              <div className="card-cyber rounded-lg p-6 mb-6">
-                <h3 className="font-['Playfair_Display'] font-bold text-white text-lg mb-6 flex items-center gap-2">
-                  <span className="w-1 h-5 bg-gradient-to-b from-[#B8C8DC] to-[#7A8FA8] rounded-full" />
-                  Personal Information
+              <div>
+                <h3 className="font-['JetBrains_Mono'] uppercase tracking-widest text-xs text-[#4A5A6A] mb-4">
+                  Overview
                 </h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {personalInfo.map(({ icon: Icon, label, value }) => (
-                    <div key={label} className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-sm bg-[rgba(184,200,220,0.08)] border border-[rgba(184,200,220,0.15)] flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Icon size={14} className="text-[#B8C8DC]" />
-                      </div>
-                      <div>
-                        <div className="text-xs font-['JetBrains_Mono'] text-[#4A5A6A] uppercase tracking-wider">{label}</div>
-                        <div className="text-sm font-['Lato'] text-[#D8E4F0] mt-0.5">{value}</div>
-                      </div>
-                    </div>
+                <div className="h-px w-full bg-[rgba(232,237,245,0.05)] mb-6" />
+                <p className="font-['Lato'] text-[#B8C8DC] text-base lg:text-lg leading-relaxed mb-6">
+                  Marketing operator turned measurement specialist. Over ten years across the GCC, including a $30M+ marketing portfolio at Kuwait Finance House and roles across banking, government, and enterprise tech. Now finishing my STEM-designated MSBA at UC San Diego with a capstone in Bayesian Marketing Mix Modeling at Direct Avenue.
+                </p>
+                <p className="font-['Lato'] text-[#7A8FA8] text-base leading-relaxed">
+                  I led KFH's first European campaign, drove digital adoption from 0% to 100% across 3,000+ employees at Kuwait's social security institution, and run three side ventures in tourism, diving, and growth consulting. I'm comfortable both running campaigns and building the agent systems that measure them.
+                </p>
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection delay={0.3}>
+              <div>
+                <h3 className="font-['JetBrains_Mono'] uppercase tracking-widest text-xs text-[#4A5A6A] mb-4">
+                  Core Competencies
+                </h3>
+                <div className="h-px w-full bg-[rgba(232,237,245,0.05)] mb-6" />
+                <div className="flex flex-wrap gap-2">
+                  {["Bayesian MMM", "Python", "PyMC", "Marketing Science", "SQL", "Tableau", "Power BI", "Claude / MCP", "Streamlit", "Quarto"].map(tag => (
+                    <span
+                      key={tag}
+                      className="px-4 py-1.5 text-xs font-['JetBrains_Mono'] text-[#B8C8DC] bg-[rgba(232,237,245,0.03)] border border-[rgba(232,237,245,0.1)] rounded-full hover:bg-[rgba(232,237,245,0.08)] transition-colors cursor-default"
+                    >
+                      {tag}
+                    </span>
                   ))}
                 </div>
               </div>
             </AnimatedSection>
 
-            <AnimatedSection delay={0.3}>
-              <div className="card-cyber rounded-lg p-6">
-                <h3 className="font-['Playfair_Display'] font-bold text-white text-lg mb-4 flex items-center gap-2">
-                  <span className="w-1 h-5 bg-gradient-to-b from-[#B8C8DC] to-[#7A8FA8] rounded-full" />
-                  Current Focus
+            <AnimatedSection delay={0.4}>
+              <div>
+                <h3 className="font-['JetBrains_Mono'] uppercase tracking-widest text-xs text-[#4A5A6A] mb-4">
+                  Selected Work History
                 </h3>
-                <div className="space-y-3">
+                <div className="h-px w-full bg-[rgba(232,237,245,0.05)] mb-6" />
+                <ul className="space-y-6">
                   {[
-                    { label: "Bayesian MMM & Measurement", pct: 92 },
-                    { label: "Marketing Science & Strategy", pct: 95 },
-                    { label: "Applied AI & Agent Design", pct: 88 },
-                    { label: "Python / Data Engineering", pct: 85 },
-                  ].map(({ label, pct }) => (
-                    <div key={label}>
-                      <div className="flex justify-between mb-1">
-                        <span className="text-xs font-['Lato'] text-[#7A8FA8]">{label}</span>
-                        <span className="text-xs font-['JetBrains_Mono'] text-[#B8C8DC]">{pct}%</span>
+                    { title: "SVP, Strategic Venture Manager", company: "Banque Misr", year: "2020 - 2023" },
+                    { title: "Manager, Corporate & Credit", company: "Corplease S.A.E", year: "2018 - 2020" },
+                    { title: "Senior Officer, Corporate & Credit", company: "Corplease S.A.E", year: "2016 - 2018" },
+                  ].map((job) => (
+                    <li key={job.title} className="flex justify-between items-start gap-4 border-b border-[rgba(232,237,245,0.03)] pb-6 last:border-0 last:pb-0">
+                      <div>
+                        <div className="font-['Playfair_Display'] font-bold text-[#E8EDF5] text-lg">{job.company}</div>
+                        <div className="font-['Lato'] text-[#7A8FA8] text-sm mt-1">{job.title}</div>
                       </div>
-                      <div className="skill-bar-track h-1">
-                        <motion.div
-                          className="skill-bar-fill"
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${pct}%` }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
-                        />
+                      <div className="font-['JetBrains_Mono'] text-xs text-cyan-400 mt-1 whitespace-nowrap">
+                        {job.year}
                       </div>
-                    </div>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
             </AnimatedSection>
+            
           </div>
         </div>
       </div>

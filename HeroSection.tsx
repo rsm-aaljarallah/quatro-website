@@ -1,51 +1,14 @@
 /*
- * DESIGN: Cyber-Dark Hero Section
- * Full-screen hero with tech background, profile photo, animated text
- * Floating particles, glowing profile ring, typed role text
- * LinkedIn + GitHub social links from Quarto site
+ * DESIGN: Cinematic Glass Hero Section
+ * Central frosted glass card over dynamic particle background
+ * Minimalist, high-impact typography inspired by merna.org
  */
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Mail, Phone, ChevronDown, Github, Linkedin, Download } from "lucide-react";
+import { ChevronDown, ArrowRight } from "lucide-react";
 
-const PROFILE_PIC = "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/profile_pic_bf3dcadd.webp";
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/hero_bg-QFyRfnQn3Ak7Ux6DgUzGdx.webp";
-
-const roles = [
-  "Marketing Science Specialist",
-  "Bayesian MMM Practitioner",
-  "Applied AI & Agent Builder",
-  "Digital Transformation Leader",
-];
-
-function useTypingEffect(texts: string[], speed = 60, pause = 2000) {
-  const [displayed, setDisplayed] = useState("");
-  const [roleIdx, setRoleIdx] = useState(0);
-  const [charIdx, setCharIdx] = useState(0);
-  const [deleting, setDeleting] = useState(false);
-
-  useEffect(() => {
-    const current = texts[roleIdx];
-    let timeout: ReturnType<typeof setTimeout>;
-
-    if (!deleting && charIdx < current.length) {
-      timeout = setTimeout(() => setCharIdx(c => c + 1), speed);
-    } else if (!deleting && charIdx === current.length) {
-      timeout = setTimeout(() => setDeleting(true), pause);
-    } else if (deleting && charIdx > 0) {
-      timeout = setTimeout(() => setCharIdx(c => c - 1), speed / 2);
-    } else if (deleting && charIdx === 0) {
-      setDeleting(false);
-      setRoleIdx(r => (r + 1) % texts.length);
-    }
-
-    setDisplayed(current.slice(0, charIdx));
-    return () => clearTimeout(timeout);
-  }, [charIdx, deleting, roleIdx, texts, speed, pause]);
-
-  return displayed;
-}
 
 // Particle canvas background
 function ParticleCanvas() {
@@ -135,22 +98,20 @@ function ParticleCanvas() {
 }
 
 export default function HeroSection() {
-  const typedRole = useTypingEffect(roles);
-
   const handleScrollDown = () => {
-    const el = document.getElementById("about");
+    const el = document.getElementById("projects");
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
       style={{ background: "linear-gradient(135deg, #0A0E1A 0%, #111827 50%, #0A0E1A 100%)" }}
     >
       {/* Hero background image */}
       <div
-        className="absolute inset-0 opacity-30"
+        className="absolute inset-0 opacity-20"
         style={{
           backgroundImage: `url(${HERO_BG})`,
           backgroundSize: "cover",
@@ -160,11 +121,11 @@ export default function HeroSection() {
 
       <ParticleCanvas />
 
-      {/* Radial glow */}
-      <div className="absolute inset-0 pointer-events-none">
+      {/* Radial glow for the center */}
+      <div className="absolute inset-0 pointer-events-none flex justify-center items-center">
         <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-5"
-          style={{ background: "radial-gradient(circle, #B8C8DC 0%, transparent 70%)" }}
+          className="w-[800px] h-[800px] rounded-full opacity-20"
+          style={{ background: "radial-gradient(circle, #4A7A9A 0%, transparent 60%)" }}
         />
       </div>
 
@@ -180,196 +141,92 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-24">
-        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-12 lg:gap-20">
-
-          {/* Profile Photo */}
+      {/* Central Glass Card */}
+      <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 py-24 flex justify-center">
+        <motion.div
+          initial={{ opacity: 0, y: 30, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="flex flex-col items-center text-center p-10 md:p-16 rounded-[2rem]"
+          style={{
+            background: "rgba(15, 22, 40, 0.4)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            border: "1px solid rgba(232, 237, 245, 0.1)",
+            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255,255,255,0.02)",
+          }}
+        >
+          {/* Status badge */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="flex-shrink-0 relative"
+            transition={{ delay: 0.5 }}
+            className="flex items-center gap-2 px-4 py-1.5 rounded-full mb-8"
+            style={{ background: "rgba(232, 237, 245, 0.05)", border: "1px solid rgba(232, 237, 245, 0.1)" }}
           >
-            <div className="absolute -inset-4 rounded-full opacity-15"
-              style={{ background: "radial-gradient(circle, rgba(184,200,220,0.2) 0%, transparent 70%)" }}
-            />
-            <div className="absolute -inset-1 rounded-full"
-              style={{
-                background: "conic-gradient(from 0deg, #B8C8DC, #7A8FA8, transparent, #B8C8DC)",
-                animation: "spin 4s linear infinite",
-              }}
-            />
-            <style>{`@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
-            <div className="relative w-48 h-48 lg:w-56 lg:h-56 rounded-full overflow-hidden border-2 border-[rgba(184,200,220,0.3)]">
-              <img
-                src={PROFILE_PIC}
-                alt="Abdullah Aljarallah"
-                className="w-full h-full object-cover object-top"
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[rgba(122,143,168,0.1)]" />
-            </div>
-            {/* Status badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-              className="absolute -bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#111827] border border-[rgba(184,200,220,0.3)] whitespace-nowrap"
-            >
-              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              <span className="text-xs font-['JetBrains_Mono'] text-[#B8C8DC]">Open to Work</span>
-            </motion.div>
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
+            <span className="text-xs font-['JetBrains_Mono'] tracking-wide text-[#B8C8DC] uppercase">Available for work</span>
           </motion.div>
 
-          {/* Text Content */}
-          <div className="flex-1 text-center lg:text-left">
-            {/* Mono label */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 }}
-              className="mono-label mb-4 inline-flex items-center gap-2"
-            >
-              <span className="w-8 h-px bg-[#B8C8DC]" />
-              MSBA Candidate @ UC San Diego
-              <span className="w-8 h-px bg-[#B8C8DC]" />
-            </motion.div>
+          {/* Name */}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.7 }}
+            className="font-['Playfair_Display'] font-extrabold text-5xl md:text-7xl lg:text-8xl text-white leading-tight mb-4"
+          >
+            Abdullah Aljarallah
+          </motion.h1>
 
-            {/* Name */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.7 }}
-              className="font-['Playfair_Display'] font-extrabold text-5xl lg:text-7xl text-white leading-none mb-4"
-            >
-              Abdullah
-              <br />
-              <span className="text-gradient-cyan">Aljarallah</span>
-            </motion.h1>
+          {/* Punchy Tagline */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4, duration: 0.7 }}
+            className="font-['Playfair_Display'] text-xl md:text-3xl italic text-[#B8C8DC] mb-10"
+          >
+            I uncover value with data.
+          </motion.p>
 
-            {/* Typed role */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="h-8 mb-6"
-            >
-              <span className="font-['Lato'] text-xl text-[#7A8FA8]">
-                {typedRole}
-                <span className="animate-blink text-[#B8C8DC]">|</span>
-              </span>
-            </motion.div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="text-sm font-['Lato'] text-[#7A8FA8] uppercase tracking-[0.2em] mb-12"
+          >
+            MSBA Candidate @ UC San Diego
+          </motion.div>
 
-            {/* Brief bio */}
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="font-['Lato'] text-[#7A8FA8] text-base lg:text-lg max-w-2xl leading-relaxed mb-8"
+          {/* Button Row */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="flex flex-wrap justify-center gap-4"
+          >
+            <button
+              onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
+              className="flex items-center gap-2 px-8 py-3.5 rounded-full bg-white text-[#0A0E1A] font-bold text-sm hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.15)]"
             >
-              Marketing operator turned measurement specialist. Over ten years across the GCC, including a $30M+ marketing portfolio at Kuwait Finance House and roles across banking, government, and enterprise tech. Now finishing my MSBA at UC San Diego with a capstone in Bayesian MMM. I build the campaigns and the agent systems that measure them.
-            </motion.p>
-
-            {/* Contact pills */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-              className="flex flex-wrap justify-center lg:justify-start gap-3 mb-6"
+              See my work
+              <ArrowRight size={16} />
+            </button>
+            <button
+              onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
+              className="px-8 py-3.5 rounded-full border border-[rgba(232,237,245,0.2)] text-[#B8C8DC] font-bold text-sm hover:bg-[rgba(232,237,245,0.05)] hover:border-[rgba(232,237,245,0.4)] transition-all duration-300"
             >
-              {[
-                { icon: MapPin, text: "San Diego, CA" },
-                { icon: Mail, text: "mr.a.aljarallah@gmail.com", href: "mailto:mr.a.aljarallah@gmail.com" },
-                { icon: Phone, text: "+1 619-314-1187", href: "tel:+16193141187" },
-              ].map(({ icon: Icon, text, href }) => (
-                <a
-                  key={text}
-                  href={href || "#"}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-[rgba(184,200,220,0.05)] border border-[rgba(184,200,220,0.15)] text-[#7A8FA8] text-sm font-['Lato'] hover:border-[rgba(184,200,220,0.4)] hover:text-[#B8C8DC] transition-all duration-200"
-                >
-                  <Icon size={13} className="text-[#B8C8DC]" />
-                  {text}
-                </a>
-              ))}
-            </motion.div>
-
-            {/* Social links */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.75 }}
-              className="flex justify-center lg:justify-start gap-3 mb-8"
+              About me
+            </button>
+            <a
+              href="/Abdullah_Aljarallah_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-3.5 rounded-full border border-[rgba(232,237,245,0.2)] text-[#B8C8DC] font-bold text-sm hover:bg-[rgba(232,237,245,0.05)] hover:border-[rgba(232,237,245,0.4)] transition-all duration-300"
             >
-              <a
-                href="https://www.linkedin.com/in/abdullah-aljarallah-a72512b7/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-[rgba(90,138,176,0.1)] border border-[rgba(90,138,176,0.25)] text-[#7A8FA8] text-sm font-['Lato'] hover:border-[rgba(10,102,194,0.6)] hover:text-[#0A66C2] transition-all duration-200"
-              >
-                <Linkedin size={13} className="text-[#0A66C2]" />
-                LinkedIn
-              </a>
-              <a
-                href="https://github.com/rsm-aaljarallah"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-[rgba(139,168,204,0.08)] border border-[rgba(139,168,204,0.2)] text-[#7A8FA8] text-sm font-['Lato'] hover:border-[rgba(139,168,204,0.5)] hover:text-white transition-all duration-200"
-              >
-                <Github size={13} className="text-[#7A8FA8]" />
-                GitHub
-              </a>
-            </motion.div>
-
-            {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-              className="flex flex-wrap justify-center lg:justify-start gap-4"
-            >
-              <button
-                onClick={() => document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" })}
-                className="px-6 py-3 rounded-sm bg-gradient-to-r from-[#7A8FA8] to-[#B8C8DC] text-[#0A0E1A] font-['Playfair_Display'] font-bold text-sm hover:shadow-[0_0_30px_rgba(184,200,220,0.5)] hover:scale-105 transition-all duration-200"
-              >
-                View My Work
-              </button>
-              <a
-                href="mailto:mr.a.aljarallah@gmail.com"
-                className="px-6 py-3 rounded-sm border border-[rgba(184,200,220,0.3)] text-[#B8C8DC] font-['Playfair_Display'] font-bold text-sm hover:bg-[rgba(184,200,220,0.08)] hover:border-[rgba(184,200,220,0.6)] transition-all duration-200"
-              >
-                Get In Touch
-              </a>
-              <a
-                href="/Abdullah_Aljarallah_Resume.pdf"
-                download="AJ_AlJarallah_CV.pdf"
-                className="flex items-center gap-2 px-6 py-3 rounded-sm border border-[rgba(184,200,220,0.2)] text-[#7A8FA8] font-['Playfair_Display'] font-bold text-sm hover:bg-[rgba(184,200,220,0.06)] hover:border-[rgba(184,200,220,0.4)] hover:text-[#B8C8DC] transition-all duration-200"
-              >
-                <Download size={14} />
-                Download CV
-              </a>
-            </motion.div>
-
-            {/* Stats row */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.0 }}
-              className="mt-12 flex flex-wrap justify-center lg:justify-start gap-8"
-            >
-              {[
-                { value: "$30M+", label: "Portfolio Managed" },
-                { value: "10+", label: "Years Experience" },
-                { value: "3", label: "Ventures Founded" },
-                { value: "MMM", label: "Capstone Focus" },
-              ].map(({ value, label }) => (
-                <div key={label} className="text-center lg:text-left">
-                  <div className="font-['Playfair_Display'] font-extrabold text-2xl text-gradient-cyan">{value}</div>
-                  <div className="font-['Lato'] text-xs text-[#4A5A6A] uppercase tracking-wider mt-0.5">{label}</div>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-        </div>
+              Resume
+            </a>
+          </motion.div>
+        </motion.div>
       </div>
 
       {/* Scroll indicator */}
@@ -378,14 +235,14 @@ export default function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-[#4A5A6A] hover:text-[#B8C8DC] transition-colors"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[#4A5A6A] hover:text-[#B8C8DC] transition-colors"
       >
-        <span className="text-xs font-['JetBrains_Mono'] tracking-widest uppercase">Scroll</span>
+        <span className="text-[10px] font-['JetBrains_Mono'] tracking-[0.3em] uppercase">Scroll</span>
         <motion.div
-          animate={{ y: [0, 6, 0] }}
+          animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
         >
-          <ChevronDown size={18} />
+          <ChevronDown size={20} strokeWidth={1.5} />
         </motion.div>
       </motion.button>
     </section>
