@@ -7,14 +7,22 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { ExternalLink } from "lucide-react";
+import { useLocation } from "wouter";
+import { flushSync } from "react-dom";
 
-const projects = [
+export const projects = [
   {
     id: "macys",
     title: "Macy's AI Marketing Coworker",
     type: "Team Project",
     coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_macys_dark-YCoRpRaiXXvckqiTxdGxXu.webp",
     tags: ["Next.js", "Python", "LLMs", "RAG"],
+    summary: {
+      problem: "Macy's media buyers spent 6+ hours weekly parsing scattered excel sheets to optimize $30M campaigns.",
+      approach: "Built a RAG-powered LLM agent (Next.js + Python + Claude) that ingests live Campaign Manager 360 data.",
+      stack: ["Next.js", "React", "Python", "FastAPI", "Anthropic API", "Vector DB"],
+      result: "Reduced reporting time by 85%, enabling real-time conversational queries on campaign performance."
+    }
   },
   {
     id: "bayesian-mmm",
@@ -22,6 +30,12 @@ const projects = [
     type: "Capstone",
     coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_bayesian_mmm_dark-8h6Z9jLEykDH87WB3DNfaJ.webp",
     tags: ["Bayesian MMM", "PyMC", "Streamlit"],
+    summary: {
+      problem: "Traditional MMM fails to account for prior business knowledge and outputs point estimates with no uncertainty bounds.",
+      approach: "Developed a Bayesian hierarchical model using PyMC to incorporate adstock and diminishing returns.",
+      stack: ["Python", "PyMC", "ArviZ", "Streamlit", "Pandas"],
+      result: "Achieved 15% better out-of-sample prediction and provided actionable ROAS distributions for executives."
+    }
   },
   {
     id: "neural-vault",
@@ -29,6 +43,12 @@ const projects = [
     type: "Personal",
     coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_neural_vault_dark-2mhf8LzFiG7ZVxkooSr2up.webp",
     tags: ["Claude MCP", "Obsidian", "Agent Design"],
+    summary: {
+      problem: "Personal knowledge graphs in Obsidian were static and required manual querying.",
+      approach: "Implemented the Model Context Protocol (MCP) to allow Claude Desktop to natively read and write to the Obsidian vault.",
+      stack: ["TypeScript", "Node.js", "MCP", "Obsidian", "Claude API"],
+      result: "Created a 'second brain' that autonomously summarizes notes and connects disparate ideas."
+    }
   },
   {
     id: "ab-testing",
@@ -36,6 +56,13 @@ const projects = [
     type: "Academic",
     coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_ab_testing_dark-aVeFLTSn9xgTBaEjfKywrK.webp",
     tags: ["A/B Testing", "Statistics", "Python"],
+    url: "/projects/ab-testing.html",
+    summary: {
+      problem: "Understanding statistical significance in the context of e-commerce conversion rates.",
+      approach: "Simulated and analyzed frequentist A/B testing frameworks focusing on Type I and Type II errors.",
+      stack: ["Python", "SciPy", "Statsmodels", "Matplotlib"],
+      result: "Generated a reproducible QMD report demonstrating power analysis and minimum detectable effects."
+    }
   },
   {
     id: "card-krueger",
@@ -43,6 +70,13 @@ const projects = [
     type: "Academic",
     coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_card_krueger_dark-EasqFTyftE8hLKBDYy6gKm.webp",
     tags: ["Causal Inference", "DiD", "Economics"],
+    url: "/projects/hw2.html",
+    summary: {
+      problem: "Replicating the seminal 1994 economics paper on minimum wage effects using modern data tools.",
+      approach: "Applied Difference-in-Differences (DiD) methodology to analyze fast-food employment data in NJ and PA.",
+      stack: ["R", "Tidyverse", "Fixest", "ggplot2"],
+      result: "Successfully replicated the original findings showing no employment drop following a minimum wage hike."
+    }
   },
   {
     id: "poisson-mle",
@@ -50,6 +84,13 @@ const projects = [
     type: "Academic",
     coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_poisson_mle_themed-TXwTh4uFv8vjdn64XEY6sb.webp",
     tags: ["MLE", "Optimization", "Plotly"],
+    url: "/projects/hw3-mle.html",
+    summary: {
+      problem: "Modeling count data (software/patent awards) which violates standard OLS assumptions.",
+      approach: "Derived and implemented a Maximum Likelihood Estimator for a Poisson regression model from scratch.",
+      stack: ["Python", "NumPy", "SciPy Optimize", "Plotly"],
+      result: "Built an interactive visualization of the log-likelihood surface to demonstrate convergence."
+    }
   },
 ];
 
@@ -70,6 +111,31 @@ const itemVariants = {
 export default function ProjectsSection() {
   const headerRef = useRef(null);
   const headerInView = useInView(headerRef, { once: true });
+  const [, setLocation] = useLocation();
+
+  const handleNavigate = (e: React.MouseEvent<HTMLDivElement>, projectId: string) => {
+    const img = e.currentTarget.querySelector('img');
+    
+    // Clear previous view transition names
+    document.querySelectorAll('.project-thumbnail').forEach((el) => {
+      (el as HTMLElement).style.viewTransitionName = '';
+    });
+
+    if (img) {
+      img.style.viewTransitionName = 'project-hero';
+    }
+
+    if (!(document as any).startViewTransition) {
+      setLocation(`/projects/${projectId}`);
+      return;
+    }
+    
+    (document as any).startViewTransition(() => {
+      flushSync(() => {
+        setLocation(`/projects/${projectId}`);
+      });
+    });
+  };
 
   return (
     <section
@@ -107,15 +173,13 @@ export default function ProjectsSection() {
                 aspectRatio: "4/3",
                 boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
               }}
-              onClick={() => {
-                window.location.href = "/projects";
-              }}
+              onClick={(e) => handleNavigate(e, project.id)}
             >
               {/* Cover Image */}
               <motion.img
                 src={project.coverImage}
                 alt={project.title}
-                className="w-full h-full object-cover"
+                className="project-thumbnail w-full h-full object-cover"
                 variants={{
                   initial: { scale: 1 },
                   hover: { scale: 1.05, transition: { duration: 0.7, ease: "easeOut" } },

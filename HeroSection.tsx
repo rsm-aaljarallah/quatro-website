@@ -1,16 +1,134 @@
 /*
- * DESIGN: Cinematic Glass Hero Section
- * Central frosted glass card over a fluid, slow-moving cinematic background
+ * DESIGN: Cinematic Glass Hero Section with Interactive Node Graph
+ * Central frosted glass card over an interactive WebGL-like canvas
  * Minimalist, high-impact typography inspired by merna.org
  */
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronDown, ArrowRight } from "lucide-react";
+import { useEffect, useRef } from "react";
 
-// Cinematic fluid background using CSS animations on blurred orbs
+// Interactive Data Network (Canvas)
+function NodeGraphCanvas() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+
+    const nodes: { x: number, y: number, vx: number, vy: number, radius: number }[] = [];
+    const numNodes = Math.floor((width * height) / 15000); // Responsive node count
+    const maxDistance = 150;
+    
+    let mouse = { x: -1000, y: -1000 };
+
+    for (let i = 0; i < numNodes; i++) {
+      nodes.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        radius: Math.random() * 1.5 + 0.5
+      });
+    }
+
+    const handleResize = () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    };
+
+    const handleMouseLeave = () => {
+      mouse.x = -1000;
+      mouse.y = -1000;
+    };
+
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseleave", handleMouseLeave);
+
+    let animationFrameId: number;
+
+    const draw = () => {
+      ctx.clearRect(0, 0, width, height);
+      
+      // Update and draw nodes
+      for (let i = 0; i < nodes.length; i++) {
+        const node = nodes[i];
+        
+        node.x += node.vx;
+        node.y += node.vy;
+
+        if (node.x < 0 || node.x > width) node.vx *= -1;
+        if (node.y < 0 || node.y > height) node.vy *= -1;
+
+        // Interaction with mouse (repel/attract)
+        const dx = mouse.x - node.x;
+        const dy = mouse.y - node.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        
+        if (dist < 200) {
+          // Attract slowly
+          node.x += dx * 0.01;
+          node.y += dy * 0.01;
+        }
+
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(184, 200, 220, 0.5)";
+        ctx.fill();
+
+        // Connect nodes
+        for (let j = i + 1; j < nodes.length; j++) {
+          const other = nodes[j];
+          const dx2 = other.x - node.x;
+          const dy2 = other.y - node.y;
+          const dist2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
+
+          if (dist2 < maxDistance) {
+            ctx.beginPath();
+            ctx.moveTo(node.x, node.y);
+            ctx.lineTo(other.x, other.y);
+            const alpha = 1 - dist2 / maxDistance;
+            ctx.strokeStyle = `rgba(184, 200, 220, ${alpha * 0.15})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+      
+      animationFrameId = requestAnimationFrame(draw);
+    };
+
+    draw();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseleave", handleMouseLeave);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full opacity-60 mix-blend-screen" />;
+}
+
+// Cinematic fluid background 
 function CinematicBackground() {
   const { scrollY } = useScroll();
-  // Deep parallax: the background moves down 300px as user scrolls 1000px
   const bgY = useTransform(scrollY, [0, 1000], [0, 300]);
 
   return (
@@ -18,6 +136,8 @@ function CinematicBackground() {
       className="absolute inset-0 overflow-hidden pointer-events-none" 
       style={{ background: "#050810", y: bgY }}
     >
+      <NodeGraphCanvas />
+      
       {/* Orb 1 - Deep Blue */}
       <motion.div
         className="absolute w-[80vw] h-[80vw] rounded-full mix-blend-screen filter blur-[100px] opacity-30"
@@ -48,11 +168,16 @@ function CinematicBackground() {
         }}
         transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
       />
-      {/* Noise overlay to give it a film grain cinematic feel */}
+      
+      {/* Grid overlay */}
       <div
-        className="absolute inset-0 opacity-[0.04]"
+        className="absolute inset-0 opacity-[0.02]"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+          backgroundImage: `
+            linear-gradient(rgba(184,200,220,1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(184,200,220,1) 1px, transparent 1px)
+          `,
+          backgroundSize: "60px 60px",
         }}
       />
     </motion.div>
@@ -61,7 +186,6 @@ function CinematicBackground() {
 
 export default function HeroSection() {
   const { scrollY } = useScroll();
-  // Card moves UP slightly faster than the background when scrolling down
   const cardY = useTransform(scrollY, [0, 800], [0, -150]);
   const cardOpacity = useTransform(scrollY, [0, 600], [1, 0]);
 
@@ -76,18 +200,6 @@ export default function HeroSection() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       <CinematicBackground />
-
-      {/* Grid overlay (static over the moving background) */}
-      <div
-        className="absolute inset-0 opacity-[0.02]"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(184,200,220,1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(184,200,220,1) 1px, transparent 1px)
-          `,
-          backgroundSize: "60px 60px",
-        }}
-      />
 
       {/* Central Glass Card with Parallax */}
       <motion.div 
@@ -107,7 +219,6 @@ export default function HeroSection() {
             boxShadow: "0 30px 60px -15px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255,255,255,0.03)",
           }}
         >
-          {/* Status badge */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -119,7 +230,6 @@ export default function HeroSection() {
             <span className="text-xs font-['JetBrains_Mono'] tracking-wide text-[#B8C8DC] uppercase">Available for work</span>
           </motion.div>
 
-          {/* Name */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -130,7 +240,6 @@ export default function HeroSection() {
             Abdullah Aljarallah
           </motion.h1>
 
-          {/* Punchy Tagline */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -149,7 +258,6 @@ export default function HeroSection() {
             MSBA Candidate @ UC San Diego
           </motion.div>
 
-          {/* Button Row */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -181,7 +289,6 @@ export default function HeroSection() {
         </motion.div>
       </motion.div>
 
-      {/* Scroll indicator (fades out on scroll) */}
       <motion.button
         onClick={handleScrollDown}
         initial={{ opacity: 0 }}
