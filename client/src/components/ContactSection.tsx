@@ -1,43 +1,12 @@
 /*
- * DESIGN: Cyber-Dark Contact Section + Footer
- * Clean contact card with email, phone, location
- * Glowing CTA button, social links (LinkedIn + GitHub from Quarto site)
+ * DESIGN: Cyber-Dark Contact Section with "Ask My Agent" Terminal
+ * Left: Standard contact text and availability
+ * Right: Interactive simulated LLM terminal window answering FAQs
  */
 
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
-import { Mail, Phone, MapPin, Send, Linkedin, Github, ExternalLink, MessageCircle } from "lucide-react";
-
-const contactItems = [
-  {
-    icon: Mail,
-    label: "Email",
-    value: "mr.a.aljarallah@gmail.com",
-    href: "mailto:mr.a.aljarallah@gmail.com",
-    color: "#B8C8DC",
-  },
-  {
-    icon: Phone,
-    label: "Phone",
-    value: "+1 619-314-1187",
-    href: "tel:+16193141187",
-    color: "#7A8FA8",
-  },
-  {
-    icon: MapPin,
-    label: "Location",
-    value: "San Diego, CA",
-    href: "#",
-    color: "#6A8AA8",
-  },
-  {
-    icon: MessageCircle,
-    label: "WhatsApp",
-    value: "+1 619-314-1187",
-    href: "https://wa.me/16193141187",
-    color: "#25D366",
-  },
-];
+import { useRef, useState, useEffect } from "react";
+import { Mail, Phone, MapPin, Send, Linkedin, Github, MessageCircle, Terminal, Cpu } from "lucide-react";
 
 const socialLinks = [
   {
@@ -56,15 +25,97 @@ const socialLinks = [
     bg: "rgba(255,255,255,0.06)",
     border: "rgba(255,255,255,0.15)",
   },
-  {
-    icon: MessageCircle,
-    label: "WhatsApp",
-    href: "https://wa.me/16193141187",
-    color: "#25D366",
-    bg: "rgba(37,211,102,0.08)",
-    border: "rgba(37,211,102,0.3)",
-  },
 ];
+
+const agentResponses: Record<string, string> = {
+  "What is your core expertise?": "Abdullah bridges the gap between Marketing Strategy and Data Science. His core expertise lies in Bayesian Marketing Mix Modeling (MMM), causal inference, and building agentic systems using LLMs and MCP to measure and optimize $30M+ media portfolios.",
+  "What tools do you use?": "His primary stack includes Python, PyMC for probabilistic programming, SQL, Next.js for agentic frontends, and the Model Context Protocol (MCP) for LLM integrations.",
+  "Are you open to work?": "Yes. Abdullah is currently completing his MSBA at UC San Diego (STEM-designated) and is actively targeting Marketing Science, Measurement, and Applied AI roles across the US and MENA regions."
+};
+
+function AgentTerminal() {
+  const [activeQuestion, setActiveQuestion] = useState<string | null>(null);
+  const [displayedText, setDisplayedText] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+
+  useEffect(() => {
+    if (!activeQuestion) return;
+    
+    setIsTyping(true);
+    setDisplayedText("");
+    
+    const targetText = agentResponses[activeQuestion];
+    let i = 0;
+    
+    const interval = setInterval(() => {
+      setDisplayedText((prev) => prev + targetText.charAt(i));
+      i++;
+      if (i >= targetText.length) {
+        clearInterval(interval);
+        setIsTyping(false);
+      }
+    }, 20); // Typing speed
+    
+    return () => clearInterval(interval);
+  }, [activeQuestion]);
+
+  return (
+    <div
+      className="rounded-lg overflow-hidden flex flex-col h-full min-h-[400px]"
+      style={{
+        background: "rgba(10, 14, 26, 0.6)",
+        backdropFilter: "blur(20px)",
+        border: "1px solid rgba(232, 237, 245, 0.15)",
+        boxShadow: "0 20px 40px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.02)",
+      }}
+    >
+      {/* Terminal Header */}
+      <div className="flex items-center gap-2 px-4 py-3 border-b border-[rgba(232,237,245,0.1)] bg-[rgba(0,0,0,0.2)]">
+        <div className="flex gap-1.5">
+          <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
+          <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
+          <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
+        </div>
+        <div className="flex-1 text-center font-['JetBrains_Mono'] text-xs text-[#7A8FA8] flex items-center justify-center gap-2">
+          <Cpu size={14} className="text-cyan-400" />
+          agent@ajq8: ~
+        </div>
+      </div>
+
+      {/* Terminal Body */}
+      <div className="flex-1 p-6 font-['JetBrains_Mono'] text-sm overflow-y-auto">
+        <div className="text-[#7A8FA8] mb-4">
+          $ init profile --agent<br/>
+          <span className="text-green-400">Loading candidate data... [OK]</span><br/>
+          Ask the agent a question below:
+        </div>
+
+        <div className="flex flex-col gap-2 mb-6">
+          {Object.keys(agentResponses).map((q) => (
+            <button
+              key={q}
+              onClick={() => setActiveQuestion(q)}
+              disabled={isTyping}
+              className="text-left px-4 py-2 rounded-sm border border-[rgba(232,237,245,0.1)] text-[#B8C8DC] hover:bg-[rgba(232,237,245,0.05)] hover:border-cyan-400/50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <span className="text-cyan-400 mr-2">&gt;</span>{q}
+            </button>
+          ))}
+        </div>
+
+        {activeQuestion && (
+          <div className="mt-6 border-t border-[rgba(232,237,245,0.1)] pt-4">
+            <div className="text-[#4A5A6A] text-xs uppercase mb-2">Agent Response</div>
+            <p className="text-[#E8EDF5] leading-relaxed">
+              {displayedText}
+              {isTyping && <span className="inline-block w-2 h-4 ml-1 bg-cyan-400 animate-pulse align-middle" />}
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default function ContactSection() {
   const headerRef = useRef(null);
@@ -76,7 +127,7 @@ export default function ContactSection() {
         id="contact"
         className="py-24 relative"
         style={{
-          background: "linear-gradient(180deg, #0A0E1A 0%, #0D1525 100%)",
+          background: "linear-gradient(180deg, #0A0E1A 0%, #050810 100%)",
         }}
       >
         {/* Decorative top line */}
@@ -84,7 +135,7 @@ export default function ContactSection() {
           className="absolute top-0 left-0 right-0 h-px"
           style={{
             background:
-              "linear-gradient(90deg, transparent, rgba(184,200,220,0.3), transparent)",
+              "linear-gradient(90deg, transparent, rgba(184,200,220,0.2), transparent)",
           }}
         />
 
@@ -97,11 +148,11 @@ export default function ContactSection() {
             transition={{ duration: 0.6 }}
             className="flex items-center gap-4 mb-16"
           >
-            <div className="mono-label">09 / Contact</div>
+            <div className="mono-label tracking-[0.2em]">09 / Contact</div>
             <div className="flex-1 section-divider" />
           </motion.div>
 
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-16 items-start">
             {/* Left: CTA text */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -112,7 +163,7 @@ export default function ContactSection() {
               <h2 className="font-['Playfair_Display'] font-extrabold text-4xl lg:text-5xl text-white mb-6 leading-tight">
                 Let's Build Something
                 <br />
-                <span className="text-gradient-cyan">Data-Driven</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Data-Driven</span>
               </h2>
               <p className="font-['Lato'] text-[#7A8FA8] text-lg leading-relaxed mb-8">
                 Whether you're looking for a business analytics expert, a
@@ -120,125 +171,49 @@ export default function ContactSection() {
                 data and decisions — I'd love to connect.
               </p>
 
-              {/* Availability badge */}
-              <div className="inline-flex items-center gap-3 px-4 py-2 rounded-sm bg-[rgba(184,200,220,0.05)] border border-[rgba(184,200,220,0.2)] mb-8">
-                <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                <span className="font-['JetBrains_Mono'] text-sm text-[#B8C8DC]">
-                  Available for opportunities
-                </span>
+              {/* Contact methods */}
+              <div className="space-y-4 mb-10">
+                <a href="mailto:mr.a.aljarallah@gmail.com" className="flex items-center gap-3 text-[#B8C8DC] hover:text-white transition-colors group">
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center border border-[rgba(232,237,245,0.1)] group-hover:border-cyan-400/50 group-hover:bg-[rgba(34,211,238,0.05)] transition-all">
+                    <Mail size={16} />
+                  </div>
+                  mr.a.aljarallah@gmail.com
+                </a>
+                <div className="flex items-center gap-3 text-[#B8C8DC]">
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center border border-[rgba(232,237,245,0.1)]">
+                    <MapPin size={16} />
+                  </div>
+                  San Diego, CA
+                </div>
               </div>
 
               {/* Social links */}
-              <div className="flex gap-3 mb-8">
+              <div className="flex gap-3">
                 {socialLinks.map(({ icon: Icon, label, href, color, bg, border }) => (
                   <a
                     key={label}
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-5 py-2.5 rounded-sm font-['Lato'] font-medium text-sm transition-all duration-200 hover:scale-105"
+                    className="flex items-center gap-2 px-6 py-3 rounded-full font-['Lato'] font-medium text-sm transition-all duration-300 hover:scale-105"
                     style={{ color, background: bg, border: `1px solid ${border}` }}
                   >
-                    <Icon size={15} />
+                    <Icon size={16} />
                     {label}
                   </a>
                 ))}
               </div>
-
-              {/* Quick stats */}
-              <div className="grid grid-cols-3 gap-4">
-                {[
-                  { value: "10+", label: "Years Exp." },
-                  { value: "3", label: "Industries" },
-                  { value: "2", label: "Languages" },
-                ].map(({ value, label }) => (
-                  <div
-                    key={label}
-                    className="text-center p-3 rounded-sm"
-                    style={{
-                      background: "rgba(184,200,220,0.04)",
-                      border: "1px solid rgba(184,200,220,0.1)",
-                    }}
-                  >
-                    <div className="font-['Playfair_Display'] font-extrabold text-2xl text-gradient-cyan">
-                      {value}
-                    </div>
-                    <div className="font-['Lato'] text-xs text-[#4A5A6A] mt-0.5">
-                      {label}
-                    </div>
-                  </div>
-                ))}
-              </div>
             </motion.div>
 
-            {/* Right: Contact card */}
+            {/* Right: Agent Terminal */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
+              className="h-full"
             >
-              <div
-                className="rounded-lg p-8"
-                style={{
-                  background:
-                    "linear-gradient(135deg, rgba(19,29,46,0.8) 0%, rgba(17,24,39,0.9) 100%)",
-                  border: "1px solid rgba(184,200,220,0.2)",
-                  boxShadow: "0 0 40px rgba(184,200,220,0.08)",
-                }}
-              >
-                <h3 className="font-['Playfair_Display'] font-bold text-white text-xl mb-6 flex items-center gap-2">
-                  <span className="w-1 h-5 bg-gradient-to-b from-[#B8C8DC] to-[#7A8FA8] rounded-full" />
-                  Get In Touch
-                </h3>
-
-                {/* Contact items */}
-                <div className="space-y-4 mb-8">
-                  {contactItems.map(({ icon: Icon, label, value, href, color }) => (
-                    <a
-                      key={label}
-                      href={href}
-                      className="flex items-center gap-4 p-4 rounded-sm group transition-all duration-200 hover:bg-[rgba(184,200,220,0.04)]"
-                      style={{ border: `1px solid ${color}15` }}
-                    >
-                      <div
-                        className="w-10 h-10 rounded-sm flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform"
-                        style={{
-                          background: `${color}15`,
-                          border: `1px solid ${color}30`,
-                        }}
-                      >
-                        <Icon size={16} style={{ color }} />
-                      </div>
-                      <div>
-                        <div className="text-xs font-['JetBrains_Mono'] text-[#4A5A6A] uppercase tracking-wider">
-                          {label}
-                        </div>
-                        <div className="font-['Lato'] text-[#D8E4F0] text-sm mt-0.5 group-hover:text-white transition-colors">
-                          {value}
-                        </div>
-                      </div>
-                      <ExternalLink
-                        size={12}
-                        className="ml-auto text-[#4A5A6A] group-hover:text-[#B8C8DC] transition-colors"
-                      />
-                    </a>
-                  ))}
-                </div>
-
-                {/* CTA Button */}
-                <a
-                  href="mailto:mr.a.aljarallah@gmail.com"
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-sm font-['Playfair_Display'] font-bold text-sm transition-all duration-200 hover:shadow-[0_0_30px_rgba(184,200,220,0.4)] hover:scale-[1.02]"
-                  style={{
-                    background: "linear-gradient(90deg, #7A8FA8, #B8C8DC)",
-                    color: "#0A0E1A",
-                  }}
-                >
-                  <Send size={14} />
-                  Send a Message
-                </a>
-              </div>
+              <AgentTerminal />
             </motion.div>
           </div>
         </div>
@@ -246,41 +221,25 @@ export default function ContactSection() {
 
       {/* Footer */}
       <footer
-        className="py-8 border-t border-[rgba(184,200,220,0.1)]"
-        style={{ background: "#0A0E1A" }}
+        className="py-8 border-t border-[rgba(232,237,245,0.05)]"
+        style={{ background: "#050810" }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-7 h-7 rounded-sm bg-gradient-to-br from-[#B8C8DC] to-[#7A8FA8] flex items-center justify-center text-[#0A0E1A] font-bold text-xs font-mono">
-                AA
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#B8C8DC] to-[#7A8FA8] flex items-center justify-center text-[#0A0E1A] font-bold text-xs font-['Playfair_Display']">
+                AJ
               </div>
-              <span className="font-['Lato'] text-[#4A5A6A] text-sm">
+              <span className="font-['Lato'] text-[#4A5A6A] text-sm tracking-wide">
                 Abdullah Aljarallah © {new Date().getFullYear()}
               </span>
             </div>
-            <div className="flex items-center gap-4">
-              <a
-                href="https://www.linkedin.com/in/abdullah-aljarallah-a72512b7/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#2A3A4A] hover:text-[#5BA3E0] transition-colors"
-              >
-                <Linkedin size={16} />
+            <div className="flex items-center gap-6">
+              <a href="https://www.linkedin.com/in/abdullah-aljarallah-a72512b7/" target="_blank" rel="noopener noreferrer" className="text-[#4A5A6A] hover:text-[#B8C8DC] transition-colors">
+                <Linkedin size={18} />
               </a>
-              <a
-                href="https://github.com/rsm-aaljarallah"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#2A3A4A] hover:text-[#D8E4F0] transition-colors"
-              >
-                <Github size={16} />
-              </a>
-              <a
-                href="https://ajq8.com"
-                className="font-['JetBrains_Mono'] text-xs text-[#2A3A4A] hover:text-[#B8C8DC] transition-colors"
-              >
-                ajq8.com
+              <a href="https://github.com/rsm-aaljarallah" target="_blank" rel="noopener noreferrer" className="text-[#4A5A6A] hover:text-[#B8C8DC] transition-colors">
+                <Github size={18} />
               </a>
             </div>
           </div>
