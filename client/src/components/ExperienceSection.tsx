@@ -105,8 +105,14 @@ function ExperienceCard({
         }`}
       >
         <div
-          className="card-cyber rounded-lg p-6 group"
-          style={{ borderColor: `${exp.color}20` }}
+          className="card-cyber rounded-lg p-6 group transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_25px_50px_rgba(0,0,0,0.5)] cursor-pointer"
+          style={{ 
+            background: "rgba(18, 28, 33, 0.4)",
+            backdropFilter: "blur(16px)",
+            WebkitBackdropFilter: "blur(16px)",
+            border: `1px solid rgba(232, 237, 245, 0.05)`,
+            borderLeft: `3px solid ${exp.color}`,
+          }}
         >
           {/* Header */}
           <div className="flex items-start justify-between mb-4">

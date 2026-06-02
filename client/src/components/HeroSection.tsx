@@ -180,6 +180,41 @@ function CinematicBackground() {
           backgroundSize: "60px 60px",
         }}
       />
+      
+      {/* Decomposer-Inspired Friction-Pulse Data Nodes */}
+      <div className="absolute inset-0 pointer-events-none z-20">
+        
+        {/* Node 1: Cyan (Insights) */}
+        <div className="absolute top-[20%] right-[15%] pointer-events-auto group cursor-crosshair">
+          <div className="relative w-3 h-3 rounded-full bg-cyan-400 shadow-[0_0_16px_#22d3ee]">
+            <div className="absolute inset-[-12px] rounded-full border-2 border-cyan-400 opacity-50 animate-[ping_2s_infinite]" />
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-400 translate-y-4 group-hover:translate-y-0 bg-[rgba(10,14,26,0.95)] backdrop-blur-xl border border-[rgba(34,211,238,0.3)] p-4 rounded-xl w-56 shadow-[0_20px_40px_rgba(0,0,0,0.6)]">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                <span className="text-cyan-400 font-['JetBrains_Mono'] text-[10px] font-bold tracking-widest uppercase">System Active</span>
+              </div>
+              <p className="text-white font-['Playfair_Display'] font-bold text-lg leading-tight mb-1">10+ Years</p>
+              <p className="text-[#7A8FA8] text-xs font-['Lato']">Multidisciplinary experience driving transformation.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Node 2: Red (Friction Detected) */}
+        <div className="absolute bottom-[35%] left-[18%] pointer-events-auto group cursor-crosshair">
+          <div className="relative w-3 h-3 rounded-full bg-rose-500 shadow-[0_0_16px_#f43f5e]">
+            <div className="absolute inset-[-12px] rounded-full border-2 border-rose-500 opacity-50 animate-[ping_2.5s_infinite]" />
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-400 translate-y-4 group-hover:translate-y-0 bg-[rgba(10,14,26,0.95)] backdrop-blur-xl border border-[rgba(244,63,94,0.3)] p-4 rounded-xl w-56 shadow-[0_20px_40px_rgba(0,0,0,0.6)]">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
+                <span className="text-rose-500 font-['JetBrains_Mono'] text-[10px] font-bold tracking-widest uppercase">Anomaly</span>
+              </div>
+              <p className="text-white font-['Playfair_Display'] font-bold text-lg leading-tight mb-1">$30M+ Budgets</p>
+              <p className="text-[#7A8FA8] text-xs font-['Lato']">Optimized via Bayesian MMM and applied causal inference.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </motion.div>
   );
 }
