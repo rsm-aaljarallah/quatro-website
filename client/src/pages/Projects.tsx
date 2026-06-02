@@ -140,7 +140,7 @@ const projects = [
     githubUrl: null,
     type: "Academic",
     number: "07",
-    coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_poisson_mle_themed-TXwTh4uFv8vjdn64XEY6sb.webp",
+    coverImage: "/maxdiff_cover.png",
   },
   {
     id: "roi-dashboard-churn",
