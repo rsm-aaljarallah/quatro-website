@@ -181,8 +181,8 @@ function CinematicBackground() {
         }}
       />
       
-      {/* Decomposer-Inspired Friction-Pulse Data Nodes */}
-      <div className="absolute inset-0 pointer-events-none z-20">
+      {/* Decomposer-Inspired Friction-Pulse Data Nodes (Hidden on mobile for clarity) */}
+      <div className="hidden md:block absolute inset-0 pointer-events-none z-20">
         
         {/* Node 1: Cyan (Insights) */}
         <div className="absolute top-[20%] right-[15%] pointer-events-auto group cursor-crosshair">
