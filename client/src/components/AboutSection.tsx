@@ -24,13 +24,6 @@ const education = [
     location: "Kansas City, MO",
     year: "2015",
     highlight: false,
-  },
-  {
-    degree: "Diploma in Business Administration",
-    school: "Australian College of Kuwait",
-    location: "Kuwait",
-    year: "Pre-2015",
-    highlight: false,
   }
 ];
 
