@@ -12,12 +12,19 @@ import { Link, useParams } from "wouter";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { ArrowLeft, ExternalLink, Maximize2, Minimize2, Terminal, ChevronRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import { projects } from "../components/ProjectsSection";
+import { projects as galleryProjects } from "../components/ProjectsSection";
+import { projects as fullProjects, featuredProject } from "./Projects";
 
 export default function ProjectViewer() {
   const params = useParams<{ slug: string }>();
   const slug = params.slug || "";
-  const project = projects.find(p => p.id === slug);
+  
+  // Find base project info from the comprehensive Projects page list
+  let baseInfo = fullProjects.find(p => p.slug === slug);
+  if (slug === featuredProject.slug) {
+    baseInfo = featuredProject;
+  }
+  
   const [fullscreen, setFullscreen] = useState(false);
   
   // Reading progress bar
@@ -28,7 +35,7 @@ export default function ProjectViewer() {
     restDelta: 0.001
   });
 
-  if (!project) {
+  if (!baseInfo) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#0A0E1A]">
         <div className="text-center">
@@ -42,6 +49,18 @@ export default function ProjectViewer() {
       </div>
     );
   }
+
+  // Merge with gallery info if it exists to get the rich Agentic Summary
+  const galleryInfo = galleryProjects.find(p => p.id === slug || p.id === baseInfo?.id);
+  const project = {
+    ...baseInfo,
+    summary: galleryInfo?.summary || {
+      problem: baseInfo.description,
+      approach: baseInfo.subtitle,
+      stack: baseInfo.tags,
+      result: "See full embedded report."
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-[#050810]">

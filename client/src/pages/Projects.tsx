@@ -18,8 +18,9 @@ import {
   Github,
 } from "lucide-react";
 
-const featuredProject = {
+export const featuredProject = {
   id: "macys-ai-coworker",
+  slug: "macys-ai-coworker",
   title: "Macy's AI Marketing Coworker",
   subtitle: "Full-stack AI system for enterprise marketing operations",
   date: "Jan 2026 – May 2026",
@@ -47,7 +48,7 @@ const featuredProject = {
   tags: ["Next.js", "FastAPI", "Python", "LLM", "RAG", "FAISS", "Claude", "MCP", "Vercel", "Render"],
 };
 
-const projects = [
+export const projects = [
   {
     id: "bayesian-mmm-capstone",
     slug: null,
