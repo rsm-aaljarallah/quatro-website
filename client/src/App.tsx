@@ -96,6 +96,8 @@ function Router() {
   );
 }
 
+import { Analytics } from "@vercel/analytics/react";
+
 function App() {
   useWebMCP();
 
@@ -106,6 +108,7 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <Router />
+          <Analytics />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

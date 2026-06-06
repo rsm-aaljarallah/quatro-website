@@ -34,34 +34,64 @@ const agentResponses: Record<string, string> = {
 };
 
 function AgentTerminal() {
-  const [activeQuestion, setActiveQuestion] = useState<string | null>(null);
-  const [displayedText, setDisplayedText] = useState("");
+  const [history, setHistory] = useState<{type: 'cmd' | 'resp' | 'sys', text: React.ReactNode}[]>([
+    { type: 'sys', text: <span>$ init profile --agent<br/><span className="text-green-400">Loading candidate data... [OK]</span><br/>Type <span className="text-cyan-400">/help</span> to see available commands.</span> }
+  ]);
+  const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const endRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!activeQuestion) return;
+    endRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [history, isTyping]);
+
+  const handleCommand = (cmd: string) => {
+    if (!cmd.trim()) return;
     
+    setHistory(prev => [...prev, { type: 'cmd', text: cmd }]);
+    setInput("");
     setIsTyping(true);
-    setDisplayedText("");
     
-    const targetText = agentResponses[activeQuestion];
-    let i = 0;
+    const command = cmd.toLowerCase().trim();
+    let responseText: React.ReactNode = "";
     
-    const interval = setInterval(() => {
-      setDisplayedText((prev) => prev + targetText.charAt(i));
-      i++;
-      if (i >= targetText.length) {
-        clearInterval(interval);
+    setTimeout(() => {
+      if (command === "/help") {
+        responseText = (
+          <div className="text-[#B8C8DC]">
+            Available commands:<br/>
+            <span className="text-cyan-400">/resume</span> - Download PDF resume<br/>
+            <span className="text-cyan-400">/email</span> - Send an email<br/>
+            <span className="text-cyan-400">/skills</span> - List core expertise<br/>
+            <span className="text-cyan-400">/clear</span> - Clear terminal<br/>
+          </div>
+        );
+      } else if (command === "/resume") {
+        responseText = <span className="text-green-400">Downloading Abdullah_Aljarallah_Resume.pdf...</span>;
+        window.open('/Abdullah_Aljarallah_Resume.pdf', '_blank');
+      } else if (command === "/email") {
+        responseText = <span className="text-green-400">Opening mail client...</span>;
+        window.location.href = 'mailto:mr.a.aljarallah@gmail.com';
+      } else if (command === "/skills") {
+        responseText = "Bayesian MMM, Causal Inference, Python, PyMC, Streamlit, Claude/MCP Agent Design.";
+      } else if (command === "/clear") {
+        setHistory([{ type: 'sys', text: <span>$ init profile --agent<br/><span className="text-green-400">Loading candidate data... [OK]</span><br/>Type <span className="text-cyan-400">/help</span> to see available commands.</span> }]);
         setIsTyping(false);
+        return;
+      } else if (agentResponses[cmd]) {
+        responseText = agentResponses[cmd];
+      } else {
+        responseText = <span className="text-red-400">Command not found: {cmd}. Type /help for options.</span>;
       }
-    }, 20); // Typing speed
-    
-    return () => clearInterval(interval);
-  }, [activeQuestion]);
+      
+      setHistory(prev => [...prev, { type: 'resp', text: responseText }]);
+      setIsTyping(false);
+    }, 600);
+  };
 
   return (
     <div
-      className="rounded-lg overflow-hidden flex flex-col h-full min-h-[400px]"
+      className="rounded-lg overflow-hidden flex flex-col h-full min-h-[400px] font-['JetBrains_Mono'] text-sm"
       style={{
         background: "rgba(10, 14, 26, 0.6)",
         backdropFilter: "blur(20px)",
@@ -70,48 +100,55 @@ function AgentTerminal() {
       }}
     >
       {/* Terminal Header */}
-      <div className="flex items-center gap-2 px-4 py-3 border-b border-[rgba(232,237,245,0.1)] bg-[rgba(0,0,0,0.2)]">
+      <div className="flex items-center gap-2 px-4 py-3 border-b border-[rgba(232,237,245,0.1)] bg-[rgba(0,0,0,0.4)]">
         <div className="flex gap-1.5">
           <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
           <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
           <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
         </div>
-        <div className="flex-1 text-center font-['JetBrains_Mono'] text-xs text-[#7A8FA8] flex items-center justify-center gap-2">
+        <div className="flex-1 text-center text-xs text-[#7A8FA8] flex items-center justify-center gap-2">
           <Cpu size={14} className="text-cyan-400" />
           agent@ajq8: ~
         </div>
       </div>
 
       {/* Terminal Body */}
-      <div className="flex-1 p-6 font-['JetBrains_Mono'] text-sm overflow-y-auto">
-        <div className="text-[#7A8FA8] mb-4">
-          $ init profile --agent<br/>
-          <span className="text-green-400">Loading candidate data... [OK]</span><br/>
-          Ask the agent a question below:
-        </div>
-
-        <div className="flex flex-col gap-2 mb-6">
-          {Object.keys(agentResponses).map((q) => (
-            <button
-              key={q}
-              onClick={() => setActiveQuestion(q)}
-              disabled={isTyping}
-              className="text-left px-4 py-2 rounded-sm border border-[rgba(232,237,245,0.1)] text-[#B8C8DC] hover:bg-[rgba(232,237,245,0.05)] hover:border-cyan-400/50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <span className="text-cyan-400 mr-2">&gt;</span>{q}
-            </button>
+      <div className="flex-1 p-6 overflow-y-auto" onClick={() => document.getElementById('term-input')?.focus()}>
+        <div className="flex flex-col gap-3">
+          {history.map((entry, idx) => (
+            <div key={idx}>
+              {entry.type === 'cmd' ? (
+                <div><span className="text-cyan-400">guest@ajq8:~$</span> <span className="text-white">{entry.text}</span></div>
+              ) : entry.type === 'sys' ? (
+                <div className="text-[#7A8FA8] mb-2">{entry.text}</div>
+              ) : (
+                <div className="text-[#E8EDF5] leading-relaxed mb-2">{entry.text}</div>
+              )}
+            </div>
           ))}
+          
+          {isTyping && (
+            <div className="text-[#E8EDF5]">
+              <span className="inline-block w-2 h-4 bg-cyan-400 animate-pulse align-middle" />
+            </div>
+          )}
+          
+          {!isTyping && (
+            <form onSubmit={(e) => { e.preventDefault(); handleCommand(input); }} className="flex items-center gap-2 mt-2">
+              <span className="text-cyan-400">guest@ajq8:~$</span>
+              <input
+                id="term-input"
+                autoComplete="off"
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                className="flex-1 bg-transparent border-none outline-none text-white font-['JetBrains_Mono'] w-full"
+                autoFocus
+              />
+            </form>
+          )}
+          <div ref={endRef} />
         </div>
-
-        {activeQuestion && (
-          <div className="mt-6 border-t border-[rgba(232,237,245,0.1)] pt-4">
-            <div className="text-[#4A5A6A] text-xs uppercase mb-2">Agent Response</div>
-            <p className="text-[#E8EDF5] leading-relaxed">
-              {displayedText}
-              {isTyping && <span className="inline-block w-2 h-4 ml-1 bg-cyan-400 animate-pulse align-middle" />}
-            </p>
-          </div>
-        )}
       </div>
     </div>
   );

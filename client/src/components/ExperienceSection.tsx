@@ -5,7 +5,7 @@
  * Includes volunteer experience from Quarto site
  */
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Briefcase, TrendingUp, Award, Heart, ChevronRight } from "lucide-react";
 
@@ -199,11 +199,19 @@ function ExperienceCard({
 }
 
 export default function ExperienceSection() {
+  const containerRef = useRef<HTMLElement>(null);
   const headerRef = useRef(null);
   const headerInView = useInView(headerRef, { once: true });
+  
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+  const yBg = useTransform(scrollYProgress, [0, 1], [-200, 200]);
 
   return (
     <section
+      ref={containerRef}
       id="experience"
       className="py-24 relative"
       style={{
@@ -211,11 +219,12 @@ export default function ExperienceSection() {
       }}
     >
       {/* Background accent */}
-      <div
+      <motion.div
         className="absolute bottom-0 left-0 w-80 h-80 rounded-full opacity-5 pointer-events-none"
         style={{
           background: "radial-gradient(circle, #7A8FA8 0%, transparent 70%)",
-          transform: "translate(-30%, 30%)",
+          x: "-30%",
+          y: yBg
         }}
       />
 

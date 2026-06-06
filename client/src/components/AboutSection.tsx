@@ -4,7 +4,7 @@
  * Right: Origin Story Narrative and Education History
  */
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Mail, Linkedin, Github, GraduationCap } from "lucide-react";
 
@@ -44,9 +44,26 @@ function AnimatedSection({ children, delay = 0 }: { children: React.ReactNode; d
 }
 
 export default function AboutSection() {
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+  
+  const yLeft = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const yRight = useTransform(scrollYProgress, [0, 1], [150, -150]);
+  const yBg = useTransform(scrollYProgress, [0, 1], [0, 300]);
+
   return (
-    <section id="about" className="py-24 relative overflow-hidden" style={{ background: "#050810" }}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section ref={containerRef} id="about" className="py-24 relative overflow-hidden" style={{ background: "#050810" }}>
+      
+      {/* Parallax Background Orb */}
+      <motion.div 
+        className="absolute top-[10%] right-[5%] w-[40vw] h-[40vw] rounded-full mix-blend-screen filter blur-[120px] opacity-10 pointer-events-none"
+        style={{ background: "radial-gradient(circle, #203A43 0%, transparent 70%)", y: yBg }}
+      />
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section header */}
         <AnimatedSection>
@@ -59,7 +76,7 @@ export default function AboutSection() {
         <div className="grid lg:grid-cols-[1fr_2fr] gap-16 items-start">
           
           {/* LEFT: Entity Profile (Pic, Title, Links) */}
-          <div className="flex flex-col items-center lg:items-center text-center">
+          <motion.div className="flex flex-col items-center lg:items-center text-center" style={{ y: yLeft }}>
             <AnimatedSection delay={0.1}>
               <div className="relative mb-8">
                 {/* Glow behind image */}
@@ -109,10 +126,10 @@ export default function AboutSection() {
                 </a>
               </div>
             </AnimatedSection>
-          </div>
+          </motion.div>
 
           {/* RIGHT: Content (Bio, Education) */}
-          <div className="flex flex-col gap-12">
+          <motion.div className="flex flex-col gap-12" style={{ y: yRight }}>
             
             <AnimatedSection delay={0.2}>
               <div>
@@ -178,7 +195,7 @@ export default function AboutSection() {
               </div>
             </AnimatedSection>
             
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
