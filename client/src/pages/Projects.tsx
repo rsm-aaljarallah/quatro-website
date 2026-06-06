@@ -27,7 +27,7 @@ export const featuredProject = {
   course: "MGTA 452 / 453 / 454 · UCSD Rady",
   type: "Team Project",
   team: "Abdullah AlJarallah · Merna Saad · Shankar D.",
-  liveUrl: "https://macys-marketing-gui.vercel.app",
+  url: "https://macys-marketing-gui.vercel.app",
   githubUrl: "https://github.com/rsm-msaad/macys-marketing-gui",
   coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_macys_dark-YCoRpRaiXXvckqiTxdGxXu.webp",
   description:
@@ -51,7 +51,7 @@ export const featuredProject = {
 export const projects = [
   {
     id: "bayesian-mmm-capstone",
-    slug: null,
+    slug: "bayesian-mmm-capstone",
     title: "Bayesian MMM Capstone",
     subtitle: "Marketing Mix Modeling for Direct Avenue",
     date: "Mar – Jun 2026",
@@ -66,7 +66,7 @@ export const projects = [
   },
   {
     id: "neural-vault",
-    slug: null,
+    slug: "neural-vault",
     title: "Neural Vault",
     subtitle: "AI Knowledge System with Semantic Search",
     date: "2024 – Present",
@@ -145,7 +145,7 @@ export const projects = [
   },
   {
     id: "roi-dashboard-churn",
-    slug: null,
+    slug: "roi-dashboard-churn",
     title: "Marketing Campaign ROI Dashboard + Churn Model",
     subtitle: "Multi-channel Performance & Customer Retention",
     date: "2025",
@@ -357,17 +357,17 @@ export default function Projects() {
 
                 {/* CTAs */}
                 <div className="flex flex-wrap gap-3">
-                  <a href={featuredProject.liveUrl} target="_blank" rel="noopener noreferrer">
+                  <Link href={`/projects/${featuredProject.slug}`}>
                     <motion.button
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       className="flex items-center gap-2 px-5 py-2.5 text-sm font-bold"
                       style={{ background: "linear-gradient(135deg, #4A6A8A, #B8C8DC)", color: "#080C18" }}
                     >
-                      <ExternalLink size={13} />
-                      Live Demo
+                      <BookOpen size={13} />
+                      View Project
                     </motion.button>
-                  </a>
+                  </Link>
                   <a href={featuredProject.githubUrl} target="_blank" rel="noopener noreferrer">
                     <motion.button
                       whileHover={{ scale: 1.02 }}
@@ -375,7 +375,7 @@ export default function Projects() {
                       className="flex items-center gap-2 px-5 py-2.5 text-sm"
                       style={{ border: "1px solid rgba(232,237,245,0.12)", color: "#7A8FA8" }}
                     >
-                      <ArrowUpRight size={13} />
+                      <Github size={13} />
                       GitHub Repo
                     </motion.button>
                   </a>
@@ -469,59 +469,32 @@ export default function Projects() {
                   </div>
 
                   {/* CTA */}
-                  {project.url || project.githubUrl ? (
-                    <div className="flex flex-wrap gap-2 mt-auto">
-                      {project.url && project.slug && (
-                        <Link href={`/projects/${project.slug}`}>
-                          <motion.button
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                            className="flex items-center gap-1.5 px-4 py-2 text-xs font-bold"
-                            style={{ background: "linear-gradient(135deg, #4A6A8A, #B8C8DC)", color: "#080C18" }}
-                          >
-                            <BookOpen size={11} />
-                            View Report
-                          </motion.button>
-                        </Link>
-                      )}
-                      {project.url && (
-                        <a href={project.url} target="_blank" rel="noopener noreferrer">
-                          <motion.button
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                            className="flex items-center gap-1.5 px-4 py-2 text-xs"
-                            style={{ border: "1px solid rgba(232,237,245,0.1)", color: "#5A7A9A" }}
-                          >
-                            <ExternalLink size={11} />
-                            New Tab
-                          </motion.button>
-                        </a>
-                      )}
-                      {project.githubUrl && (
-                        <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                          <motion.button
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                            className="flex items-center gap-1.5 px-4 py-2 text-xs"
-                            style={{ border: "1px solid rgba(232,237,245,0.1)", color: "#5A7A9A" }}
-                          >
-                            <Github size={11} />
-                            GitHub
-                          </motion.button>
-                        </a>
-                      )}
-                    </div>
-                  ) : (
-                    <div className="mt-auto">
-                      <span
-                        className="text-xs flex items-center gap-1.5"
-                        style={{ color: "#2A3A4A", fontFamily: "'JetBrains Mono', monospace" }}
+                  <div className="flex flex-wrap gap-2 mt-auto">
+                    <Link href={`/projects/${project.slug}`}>
+                      <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="flex items-center gap-1.5 px-4 py-2 text-xs font-bold"
+                        style={{ background: "linear-gradient(135deg, #4A6A8A, #B8C8DC)", color: "#080C18" }}
                       >
-                        <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#2A3A4A", display: "inline-block" }} />
-                        Report coming soon
-                      </span>
-                    </div>
-                  )}
+                        <BookOpen size={11} />
+                        View Project
+                      </motion.button>
+                    </Link>
+                    {project.githubUrl && (
+                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                        <motion.button
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="flex items-center gap-1.5 px-4 py-2 text-xs"
+                          style={{ border: "1px solid rgba(232,237,245,0.1)", color: "#5A7A9A" }}
+                        >
+                          <Github size={11} />
+                          GitHub
+                        </motion.button>
+                      </a>
+                    )}
+                  </div>
                 </div>
               </motion.div>
           ))}

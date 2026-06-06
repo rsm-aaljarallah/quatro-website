@@ -12,7 +12,7 @@ import { flushSync } from "react-dom";
 
 export const projects = [
   {
-    id: "macys",
+    id: "macys-ai-coworker",
     title: "Macy's AI Marketing Coworker",
     type: "Team Project",
     coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_macys_dark-YCoRpRaiXXvckqiTxdGxXu.webp",
@@ -25,7 +25,7 @@ export const projects = [
     }
   },
   {
-    id: "bayesian-mmm",
+    id: "bayesian-mmm-capstone",
     title: "Bayesian MMM Capstone",
     type: "Capstone",
     coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_bayesian_mmm_dark-8h6Z9jLEykDH87WB3DNfaJ.webp",

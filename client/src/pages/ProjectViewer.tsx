@@ -10,7 +10,7 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "wouter";
 import { motion, useScroll, useSpring } from "framer-motion";
-import { ArrowLeft, ExternalLink, Maximize2, Minimize2, Terminal, ChevronRight } from "lucide-react";
+import { ArrowLeft, ExternalLink, Maximize2, Minimize2, Terminal, ChevronRight, Github } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { projects as galleryProjects } from "../components/ProjectsSection";
 import { projects as fullProjects, featuredProject } from "./Projects";
@@ -100,14 +100,24 @@ export default function ProjectViewer() {
               </h1>
             </div>
             
-            {project.url && (
-              <a href={project.url} target="_blank" rel="noopener noreferrer">
-                <button className="flex items-center gap-2 px-8 py-3.5 rounded-full bg-white text-[#0A0E1A] font-bold text-sm hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.15)]">
-                  <ExternalLink size={16} />
-                  Live Preview
-                </button>
-              </a>
-            )}
+            <div className="flex flex-wrap items-center gap-3">
+              {project.url && (
+                <a href={project.url} target="_blank" rel="noopener noreferrer">
+                  <button className="flex items-center gap-2 px-8 py-3.5 rounded-full bg-white text-[#0A0E1A] font-bold text-sm hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.15)]">
+                    <ExternalLink size={16} />
+                    Open in New Tab
+                  </button>
+                </a>
+              )}
+              {project.githubUrl && (
+                <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                  <button className="flex items-center gap-2 px-8 py-3.5 rounded-full border border-[rgba(232,237,245,0.2)] text-[#B8C8DC] font-bold text-sm hover:bg-[rgba(232,237,245,0.05)] transition-colors">
+                    <Github size={16} />
+                    GitHub Repo
+                  </button>
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -145,8 +155,21 @@ export default function ProjectViewer() {
                 style={{ background: "white" }}
               />
             ) : (
-              <div className="flex items-center justify-center h-full text-[#7A8FA8]">
-                Detailed view not available for this project.
+              <div className="flex flex-col items-center justify-center h-full text-center p-8">
+                <Terminal size={48} className="text-[#3A4A5A] mb-4" />
+                <h3 className="font-['Playfair_Display'] text-2xl text-white mb-2">Web View Not Available</h3>
+                <p className="text-[#7A8FA8] max-w-md">
+                  This project does not have a web-accessible report or demo. 
+                  Please review the Agentic Summary or visit the GitHub repository for technical details.
+                </p>
+                {project.githubUrl && (
+                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="mt-6">
+                    <button className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#1A2333] border border-[#2A3A4A] text-[#B8C8DC] font-bold text-sm hover:bg-[#2A3A4A] transition-colors">
+                      <Github size={16} />
+                      View Source Code
+                    </button>
+                  </a>
+                )}
               </div>
             )}
           </div>
