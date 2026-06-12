@@ -2315,6 +2315,21 @@ window.Quarto = {
 };
 </script>
 
+
+<style>
+/* Force Quarto TOC to the left */
+@media (min-width: 992px) {
+  #quarto-margin-sidebar {
+    grid-column: page-start / body-start-outset !important;
+    padding-right: 20px;
+    padding-left: 0 !important;
+  }
+  .toc-active {
+    text-align: left !important;
+  }
+}
+</style>
+
 </head>
 
 <body class="quarto-light">
