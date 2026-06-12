@@ -188,7 +188,6 @@ export default function ProjectViewer() {
                 src={project.url}
                 title={project.title}
                 className="w-full h-full border-0 rounded-xl"
-                style={{ background: "white" }}
               />
             ) : (
               <div className="flex flex-col items-center justify-center h-full text-center p-8">
