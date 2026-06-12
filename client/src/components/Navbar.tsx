@@ -58,9 +58,9 @@ export default function Navbar() {
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-[#0A0E1A]/90 backdrop-blur-xl border-b border-[rgba(184,200,220,0.15)] shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
+          ? "bg-[#0A0E1A]/60 backdrop-blur-2xl border-b border-[rgba(184,200,220,0.08)] shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
           : "bg-transparent"
       }`}
     >
@@ -147,7 +147,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-[#0A0E1A]/95 backdrop-blur-xl border-b border-[rgba(184,200,220,0.15)]"
+            className="lg:hidden bg-[#0A0E1A]/80 backdrop-blur-2xl border-b border-[rgba(184,200,220,0.08)]"
           >
             <div className="px-4 py-4 space-y-1">
               {navLinks.map((link) => (

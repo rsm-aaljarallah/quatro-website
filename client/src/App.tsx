@@ -9,7 +9,7 @@ import ThemePreview from "./pages/ThemePreview";
 import Projects from "./pages/Projects";
 import ProjectViewer from "./pages/ProjectViewer";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 function SpotlightCursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -83,16 +83,30 @@ function useWebMCP() {
   }, []);
 }
 
+import { useLocation } from "wouter";
+
 function Router() {
+  const [location] = useLocation();
+  
   return (
-    <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path={"/theme-preview"} component={ThemePreview} />
-      <Route path={"/projects"} component={Projects} />
-      <Route path={"/projects/:slug"} component={ProjectViewer} />
-      <Route path={"/404"} component={NotFound} />
-      <Route component={NotFound} />
-    </Switch>
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={location}
+        initial={{ opacity: 0, filter: "blur(4px)" }}
+        animate={{ opacity: 1, filter: "blur(0px)" }}
+        exit={{ opacity: 0, filter: "blur(4px)" }}
+        transition={{ duration: 0.35, ease: "easeOut" }}
+      >
+        <Switch>
+          <Route path={"/"} component={Home} />
+          <Route path={"/theme-preview"} component={ThemePreview} />
+          <Route path={"/projects"} component={Projects} />
+          <Route path={"/projects/:slug"} component={ProjectViewer} />
+          <Route path={"/404"} component={NotFound} />
+          <Route component={NotFound} />
+        </Switch>
+      </motion.div>
+    </AnimatePresence>
   );
 }
 
@@ -104,6 +118,7 @@ function App() {
   return (
     <ErrorBoundary>
       <ThemeProvider defaultTheme="dark">
+        <div className="bg-noise" />
         <SpotlightCursor />
         <TooltipProvider>
           <Toaster />

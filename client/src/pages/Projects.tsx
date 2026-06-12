@@ -170,9 +170,10 @@ export default function Projects() {
       <nav
         className="sticky top-0 z-50 flex items-center justify-between px-6 md:px-10 py-4 border-b"
         style={{
-          background: "rgba(8,12,24,0.96)",
-          borderColor: "rgba(232,237,245,0.07)",
-          backdropFilter: "blur(16px)",
+          background: "rgba(10, 14, 26, 0.6)",
+          borderColor: "rgba(232, 237, 245, 0.08)",
+          backdropFilter: "blur(24px)",
+          WebkitBackdropFilter: "blur(24px)"
         }}
       >
         <Link href="/">
