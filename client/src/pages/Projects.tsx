@@ -153,7 +153,7 @@ export const projects = [
     tags: ["Key Drivers", "Random Forest", "Python", "Feature Importance"],
     description:
       "Analyzed survey data to identify key perception drivers of customer satisfaction using Random Forest feature importance and linear regression coefficients. Computed impact metrics to allocate importance across highly correlated brand perception variables.",
-    url: null,
+    url: "/projects/hw5-key-drivers.html",
     githubUrl: null,
     type: "Academic",
     number: "08",
