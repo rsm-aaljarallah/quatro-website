@@ -163,51 +163,63 @@ export default function ProjectViewer() {
             </button>
           </div>
           
-          <motion.div 
-            layout
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className={`relative rounded-xl overflow-hidden border border-[rgba(232,237,245,0.1)] bg-[rgba(10,14,26,0.5)] ${
-              fullscreen 
-                ? "fixed inset-4 md:inset-8 lg:inset-12 z-[100] mt-0 shadow-[0_0_100px_rgba(0,0,0,0.8)]" 
-                : "h-[800px]"
-            }`}
-          >
+          {/* Inline Viewer (When not fullscreen) */}
+          {!fullscreen && (
+            <div className="relative rounded-xl overflow-hidden border border-[rgba(232,237,245,0.1)] bg-[rgba(10,14,26,0.5)] h-[800px]">
+              {project.url ? (
+                <iframe
+                  src={project.url}
+                  title={project.title}
+                  className="w-full h-full border-0"
+                />
+              ) : (
+                <div className="flex flex-col items-center justify-center h-full text-center p-8">
+                  <Terminal size={48} className="text-[#3A4A5A] mb-4" />
+                  <h3 className="font-['Playfair_Display'] text-2xl text-white mb-2">Web View Not Available</h3>
+                  <p className="text-[#7A8FA8] max-w-md">
+                    This project does not have a web-accessible report or demo. 
+                    Please review the Agentic Summary or visit the GitHub repository for technical details.
+                  </p>
+                  {project.githubUrl && (
+                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="mt-6">
+                      <button className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#1A2333] border border-[#2A3A4A] text-[#B8C8DC] font-bold text-sm hover:bg-[#2A3A4A] transition-colors">
+                        <Github size={16} />
+                        View Source Code
+                      </button>
+                    </a>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Fullscreen Viewer Modal */}
+          <AnimatePresence>
             {fullscreen && (
-               <motion.button
-                 initial={{ opacity: 0, scale: 0.8 }}
-                 animate={{ opacity: 1, scale: 1 }}
-                 exit={{ opacity: 0, scale: 0.8 }}
-                 onClick={() => setFullscreen(false)}
-                 className="absolute top-4 right-4 z-[110] flex items-center gap-2 px-4 py-2 rounded-full bg-black/60 text-white border border-white/20 backdrop-blur-md hover:bg-black/90 transition-colors shadow-lg"
-               >
-                 <Minimize2 size={16} /> Exit
-               </motion.button>
-            )}
-            {project.url ? (
-              <iframe
-                src={project.url}
-                title={project.title}
-                className="w-full h-full border-0 rounded-xl"
-              />
-            ) : (
-              <div className="flex flex-col items-center justify-center h-full text-center p-8">
-                <Terminal size={48} className="text-[#3A4A5A] mb-4" />
-                <h3 className="font-['Playfair_Display'] text-2xl text-white mb-2">Web View Not Available</h3>
-                <p className="text-[#7A8FA8] max-w-md">
-                  This project does not have a web-accessible report or demo. 
-                  Please review the Agentic Summary or visit the GitHub repository for technical details.
-                </p>
-                {project.githubUrl && (
-                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="mt-6">
-                    <button className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#1A2333] border border-[#2A3A4A] text-[#B8C8DC] font-bold text-sm hover:bg-[#2A3A4A] transition-colors">
-                      <Github size={16} />
-                      View Source Code
-                    </button>
-                  </a>
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="fixed inset-4 md:inset-8 lg:inset-12 z-[100] rounded-xl overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.9)] border border-[rgba(232,237,245,0.1)] bg-[#050810]"
+              >
+                <button
+                  onClick={() => setFullscreen(false)}
+                  className="absolute top-4 right-4 md:top-6 md:right-6 z-[110] flex items-center gap-2 px-5 py-2.5 rounded-full bg-black/80 text-white border border-white/20 backdrop-blur-xl hover:bg-black transition-colors shadow-2xl"
+                >
+                  <Minimize2 size={16} /> Exit Fullscreen
+                </button>
+                
+                {project.url && (
+                  <iframe
+                    src={project.url}
+                    title={project.title}
+                    className="w-full h-full border-0"
+                  />
                 )}
-              </div>
+              </motion.div>
             )}
-          </motion.div>
+          </AnimatePresence>
         </div>
 
         {/* Right Sidebar: Agentic Summary */}
