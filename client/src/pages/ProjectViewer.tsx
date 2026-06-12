@@ -9,7 +9,7 @@
 
 import { useState, useEffect } from "react";
 import { Link, useParams } from "wouter";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ExternalLink, Maximize2, Minimize2, Terminal, ChevronRight, Github } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { projects as galleryProjects } from "../components/ProjectsSection";
@@ -25,7 +25,7 @@ export default function ProjectViewer() {
     baseInfo = featuredProject;
   }
   
-  const [fullscreen, setFullscreen] = useState(false);
+  const [fullscreen, setFullscreen] = useState(!!baseInfo?.url);
   
   // Reading progress bar
   const { scrollYProgress } = useScroll();
@@ -34,6 +34,18 @@ export default function ProjectViewer() {
     damping: 30,
     restDelta: 0.001
   });
+
+  // Lock body scroll when fullscreen
+  useEffect(() => {
+    if (fullscreen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [fullscreen]);
 
   if (!baseInfo) {
     return (
@@ -64,6 +76,19 @@ export default function ProjectViewer() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#050810]">
+      {/* Fullscreen Backdrop */}
+      <AnimatePresence>
+        {fullscreen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            onClick={() => setFullscreen(false)}
+            className="fixed inset-0 z-[90] bg-[#050810]/80 backdrop-blur-xl"
+          />
+        )}
+      </AnimatePresence>
       {/* Scrollytelling Progress Bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-cyan-400 origin-left z-50"
@@ -138,14 +163,25 @@ export default function ProjectViewer() {
             </button>
           </div>
           
-          <div className={`relative rounded-xl overflow-hidden border border-[rgba(232,237,245,0.1)] bg-[rgba(10,14,26,0.5)] ${fullscreen ? "fixed inset-4 z-[100] mt-0" : "h-[800px]"}`}>
+          <motion.div 
+            layout
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className={`relative rounded-xl overflow-hidden border border-[rgba(232,237,245,0.1)] bg-[rgba(10,14,26,0.5)] ${
+              fullscreen 
+                ? "fixed inset-4 md:inset-8 lg:inset-12 z-[100] mt-0 shadow-[0_0_100px_rgba(0,0,0,0.8)]" 
+                : "h-[800px]"
+            }`}
+          >
             {fullscreen && (
-               <button
+               <motion.button
+                 initial={{ opacity: 0, scale: 0.8 }}
+                 animate={{ opacity: 1, scale: 1 }}
+                 exit={{ opacity: 0, scale: 0.8 }}
                  onClick={() => setFullscreen(false)}
-                 className="absolute top-4 right-4 z-10 flex items-center gap-2 px-4 py-2 rounded-full bg-black/50 text-white border border-white/20 backdrop-blur-md hover:bg-black/80"
+                 className="absolute top-4 right-4 z-[110] flex items-center gap-2 px-4 py-2 rounded-full bg-black/60 text-white border border-white/20 backdrop-blur-md hover:bg-black/90 transition-colors shadow-lg"
                >
                  <Minimize2 size={16} /> Exit
-               </button>
+               </motion.button>
             )}
             {project.url ? (
               <iframe
@@ -172,7 +208,7 @@ export default function ProjectViewer() {
                 )}
               </div>
             )}
-          </div>
+          </motion.div>
         </div>
 
         {/* Right Sidebar: Agentic Summary */}
