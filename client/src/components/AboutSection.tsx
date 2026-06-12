@@ -73,7 +73,16 @@ export default function AboutSection() {
           </div>
         </AnimatedSection>
 
-        <div className="grid lg:grid-cols-[1fr_2fr] gap-16 items-start">
+        <div 
+          className="grid lg:grid-cols-[1fr_2fr] gap-16 items-start p-10 md:p-16 rounded-[2rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.6)]"
+          style={{
+            background: "rgba(10, 14, 26, 0.45)",
+            backdropFilter: "blur(24px)",
+            WebkitBackdropFilter: "blur(24px)",
+            border: "1px solid rgba(232, 237, 245, 0.08)",
+            boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.03)"
+          }}
+        >
           
           {/* LEFT: Entity Profile (Pic, Title, Links) */}
           <motion.div className="flex flex-col items-center lg:items-center text-center" style={{ y: yLeft }}>
