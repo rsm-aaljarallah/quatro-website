@@ -96,7 +96,7 @@ export const projects = [
     id: "key-drivers",
     title: "Key Drivers Analysis",
     type: "Academic",
-    coverImage: "/key_drivers_dashboard.png",
+    coverImage: "/key_drivers_abstract.png",
     tags: ["Random Forest", "Python", "Feature Importance"],
     summary: {
       problem: "Identifying which brand perception variables most strongly influence overall customer satisfaction in survey data.",

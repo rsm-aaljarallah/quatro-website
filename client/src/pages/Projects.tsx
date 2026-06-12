@@ -157,7 +157,7 @@ export const projects = [
     githubUrl: null,
     type: "Academic",
     number: "08",
-    coverImage: "/key_drivers_dashboard.png",
+    coverImage: "/key_drivers_abstract.png",
   },
   {
     id: "roi-dashboard-churn",
