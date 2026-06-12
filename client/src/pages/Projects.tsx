@@ -144,6 +144,22 @@ export const projects = [
     coverImage: "/maxdiff_cover.png",
   },
   {
+    id: "key-drivers",
+    slug: "key-drivers",
+    title: "Key Drivers Analysis",
+    subtitle: "Identifying high-impact variables driving customer satisfaction",
+    date: "May 2026",
+    course: "Marketing Analytics · UCSD Rady",
+    tags: ["Key Drivers", "Random Forest", "Python", "Feature Importance"],
+    description:
+      "Analyzed survey data to identify key perception drivers of customer satisfaction using Random Forest feature importance and linear regression coefficients. Computed impact metrics to allocate importance across highly correlated brand perception variables.",
+    url: null,
+    githubUrl: null,
+    type: "Academic",
+    number: "08",
+    coverImage: "/key_drivers_dashboard.png",
+  },
+  {
     id: "roi-dashboard-churn",
     slug: "roi-dashboard-churn",
     title: "Marketing Campaign ROI Dashboard + Churn Model",

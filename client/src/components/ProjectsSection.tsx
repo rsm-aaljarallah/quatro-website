@@ -92,6 +92,19 @@ export const projects = [
       result: "Built an interactive visualization of the log-likelihood surface to demonstrate convergence."
     }
   },
+  {
+    id: "key-drivers",
+    title: "Key Drivers Analysis",
+    type: "Academic",
+    coverImage: "/key_drivers_dashboard.png",
+    tags: ["Random Forest", "Python", "Feature Importance"],
+    summary: {
+      problem: "Identifying which brand perception variables most strongly influence overall customer satisfaction in survey data.",
+      approach: "Used Random Forest feature importance and linear regression coefficients to allocate impact across highly correlated variables.",
+      stack: ["Python", "scikit-learn", "Pandas", "Shapley Values"],
+      result: "Isolated the top 3 high-leverage drivers, providing clear strategic recommendations for marketing interventions."
+    }
+  },
 ];
 
 // Variants for staggered children
