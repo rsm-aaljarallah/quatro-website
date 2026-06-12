@@ -180,6 +180,14 @@ function CinematicBackground() {
           backgroundSize: "60px 60px",
         }}
       />
+
+      {/* Cinematic Edge Vignette */}
+      <div 
+        className="absolute inset-0 z-10 pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse at center, transparent 40%, rgba(5,8,16,0.8) 100%)"
+        }}
+      />
       
       {/* Decomposer-Inspired Friction-Pulse Data Nodes (Hidden on mobile for clarity) */}
       <div className="hidden md:block absolute inset-0 pointer-events-none z-20">
@@ -299,27 +307,33 @@ export default function HeroSection() {
             transition={{ delay: 0.6 }}
             className="flex flex-wrap justify-center gap-4"
           >
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
-              className="flex items-center gap-2 px-8 py-3.5 rounded-full bg-white text-[#0A0E1A] font-bold text-sm hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.15)]"
+              className="flex items-center gap-2 px-8 py-3.5 rounded-full bg-white text-[#0A0E1A] font-bold text-sm shadow-[0_0_20px_rgba(255,255,255,0.15)] transition-colors hover:shadow-[0_0_30px_rgba(255,255,255,0.3)]"
             >
               See my work
               <ArrowRight size={16} />
-            </button>
-            <button
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05, backgroundColor: "rgba(232,237,245,0.05)", borderColor: "rgba(232,237,245,0.4)" }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
-              className="px-8 py-3.5 rounded-full border border-[rgba(232,237,245,0.2)] text-[#B8C8DC] font-bold text-sm hover:bg-[rgba(232,237,245,0.05)] hover:border-[rgba(232,237,245,0.4)] transition-all duration-300"
+              className="px-8 py-3.5 rounded-full border border-[rgba(232,237,245,0.2)] text-[#B8C8DC] font-bold text-sm transition-colors"
             >
               About me
-            </button>
-            <a
+            </motion.button>
+            <motion.a
+              whileHover={{ scale: 1.05, backgroundColor: "rgba(232,237,245,0.05)", borderColor: "rgba(232,237,245,0.4)" }}
+              whileTap={{ scale: 0.95 }}
               href="/Abdullah_Aljarallah_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-3.5 rounded-full border border-[rgba(232,237,245,0.2)] text-[#B8C8DC] font-bold text-sm hover:bg-[rgba(232,237,245,0.05)] hover:border-[rgba(232,237,245,0.4)] transition-all duration-300"
+              className="px-8 py-3.5 rounded-full border border-[rgba(232,237,245,0.2)] text-[#B8C8DC] font-bold text-sm transition-colors"
             >
               Resume
-            </a>
+            </motion.a>
           </motion.div>
         </motion.div>
       </motion.div>
