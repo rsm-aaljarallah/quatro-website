@@ -12,6 +12,23 @@ import { flushSync } from "react-dom";
 
 export const projects = [
   {
+    id: "equiledger",
+    title: "EquiLedger",
+    type: "Personal · Live App",
+    coverImage: "/project_equiledger.png",
+    tags: ["React", "TypeScript", "Turso", "PWA"],
+    url: "https://equiledger.ajq8.com",
+    summary: {
+      problem:
+        "Splitwise capped its free tier (3–5 expenses/day, ads, paywalled essentials), making it unusable for casual group trips and dinners.",
+      approach:
+        "Built a frictionless, account-free expense splitter: share a link, log unlimited bills with four split types, and auto-settle with a greedy debt-simplification algorithm. Money is stored as integer cents to avoid rounding errors.",
+      stack: ["React", "TypeScript", "Express", "libSQL / Turso", "Vite PWA", "Vercel"],
+      result:
+        "An installable PWA on Vercel + Turso — no sign-up, no caps, no ads — that settles any group in at most n-1 payments.",
+    },
+  },
+  {
     id: "macys-ai-coworker",
     title: "Macy's AI Marketing Coworker",
     type: "Team Project",
