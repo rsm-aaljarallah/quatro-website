@@ -17,7 +17,7 @@ export const projects = [
     type: "Personal · Live App",
     coverImage: "/project_equiledger.png",
     tags: ["React", "TypeScript", "Turso", "PWA"],
-    url: "https://equiledger.ajq8.com",
+    url: "https://split-wise-nu.vercel.app",
     summary: {
       problem:
         "Splitwise capped its free tier (3–5 expenses/day, ads, paywalled essentials), making it unusable for casual group trips and dinners.",
