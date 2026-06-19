@@ -50,6 +50,22 @@ export const featuredProject = {
 
 export const projects = [
   {
+    id: "equiledger",
+    slug: "equiledger",
+    title: "EquiLedger",
+    subtitle: "A frictionless, account-free Splitwise alternative",
+    date: "2026",
+    course: "Independent · Self-initiated",
+    tags: ["React", "TypeScript", "Express", "libSQL / Turso", "PWA", "Vercel"],
+    description:
+      "A modern expense-splitting app built after Splitwise locked its free tier behind daily caps and ads. Create a group, share a link, and split unlimited bills — no sign-up required. Supports equal, percentage, exact, and share-based splits with money stored as integer cents (no rounding errors), real-time balances, and a greedy debt-simplification engine that settles any group in at most n-1 payments. Ships as an installable PWA deployed on Vercel + Turso (serverless SQLite).",
+    url: "https://split-wise-nu.vercel.app",
+    githubUrl: "https://github.com/rsm-aaljarallah/split-wise",
+    type: "Personal",
+    number: "00",
+    coverImage: "/project_equiledger.png",
+  },
+  {
     id: "bayesian-mmm-capstone",
     slug: "bayesian-mmm-capstone",
     title: "Bayesian MMM Capstone",
