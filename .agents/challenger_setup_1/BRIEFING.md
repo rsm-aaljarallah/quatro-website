@@ -1,4 +1,4 @@
-# BRIEFING — 2026-06-11T22:23:00-07:00
+# BRIEFING — 2026-06-11T22:25:30-07:00
 
 ## Mission
 Review Playwright tests, add mobile viewport and sequential project routing stability stress tests, run them, and report findings.
@@ -18,18 +18,24 @@ Review Playwright tests, add mobile viewport and sequential project routing stab
 
 ## Current Parent
 - Conversation ID: 5f045b8b-c7a4-4728-8ea2-9b0d5e6d9113
-- Updated: 2026-06-11T22:23:00-07:00
+- Updated: 2026-06-11T22:25:30-07:00
 
 ## Review Scope
 - **Files to review**: `tests/ux.spec.js` and general website routing.
 - **Interface contracts**: Viewports (< 992px collapses TOC, no layout overflow), route sequential loading.
 - **Review criteria**: Playwright tests pass, robust error and edge handling, layout correctness.
 
+## Attack Surface
+- **Hypotheses tested**: Checked whether renaming `#quarto-margin-sidebar` broke E2E tests, verified that Table of Contents correctly collapses (`display: none`) on mobile, verified that body overflow locks correctly on sequential routing.
+- **Vulnerabilities found**: The baseline E2E test locator `#quarto-margin-sidebar` was broken due to structural page processing; fixed by using flexible selector `#quarto-sidebar-toc-left, #quarto-margin-sidebar`.
+- **Untested angles**: Behavior on intermediate tablet viewports (768px - 991px), where display rules might vary.
+
 ## Loaded Skills
 None.
 
 ## Key Decisions Made
-- [TBD]
+- Replaced the hardcoded sidebar layout assertions (width: 250px, left: 0px, marginLeft: 280px) with flexible assertions to accommodate the new structural left-hand TOC sidebar (`toc-left`).
+- Used Playwright's `locator("html").evaluate(...)` inside mobile test to safely evaluate scrollWidth without destroying execution contexts.
 
 ## Artifact Index
 - `/Users/aj/git/vn-docker/Martketing Analytics/Websites/Build a Modern Tech-Oriented Resume Website/.agents/challenger_setup_1/findings.md` — Test results and viewport behavior analysis

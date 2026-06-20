@@ -57,47 +57,52 @@ test.describe("Resume Website UX E2E Tests", () => {
 
     // Access the iframe pointing to /projects/hw5-key-drivers.html
     const frame = page.frameLocator("div.fixed.z-\\[100\\] iframe");
-    const sidebar = frame.locator("#quarto-sidebar-toc-left, #quarto-margin-sidebar");
+    const sidebar = frame.locator(
+      "#quarto-sidebar-toc-left, #quarto-margin-sidebar"
+    );
 
     // Wait for the iframe and sidebar to load/render
     await expect(sidebar).toBeVisible({ timeout: 15000 });
 
-    // Assert: #quarto-sidebar-toc-left / #quarto-margin-sidebar is visible and positioned on the left side of viewport
-    // Assert: #quarto-sidebar-toc-left / #quarto-margin-sidebar is visible and positioned on the left side of viewport
-    const sidebarStyles = await sidebar.evaluate(el => {
-      const style = window.getComputedStyle(el);
-      const rect = el.getBoundingClientRect();
-      return {
-        left: style.left,
-        width: style.width,
-        position: style.position,
-        display: style.display,
-        rectLeft: rect.left,
-        rectWidth: rect.width,
-      };
-    });
-    console.log("DESKTOP SIDEBAR STYLES:", sidebarStyles);
+    // Check that the sidebar is visible inside the iframe
+    await expect(sidebar).toBeVisible();
 
-    // Assert flexible width (usually between 200px and 260px)
-    const parsedWidth = parseFloat(sidebarStyles.width);
-    expect(parsedWidth).toBeGreaterThan(200);
-    expect(parsedWidth).toBeLessThan(260);
+    // Assert: sidebar is visible inside the iframe and positioned on the left
+    const sidebarBox = await sidebar.boundingBox();
+    expect(sidebarBox).not.toBeNull();
+    expect(sidebarBox.width).toBeGreaterThanOrEqual(200);
+    expect(sidebarBox.width).toBeLessThanOrEqual(260);
+    expect(sidebarBox.x).toBeLessThan(150);
 
-    // Assert: #quarto-content margin-left is offset by margin-left
+    // Verify that the main content #quarto-content is visible
     const content = frame.locator("#quarto-content");
     await expect(content).toBeVisible();
 
-    const contentStyles = await content.evaluate(el => {
-      const style = window.getComputedStyle(el);
-      return {
-        marginLeft: style.marginLeft,
-      };
-    });
-    console.log("DESKTOP CONTENT STYLES:", contentStyles);
+    // To verify that there are no overlaps under native grid styling, we verify that the main document
+    // content (#quarto-document-content) is visible and its x-coordinate starts after the sidebar.
+    const docContent = frame.locator("#quarto-document-content");
+    await expect(docContent).toBeVisible();
+    const contentBox = await docContent.boundingBox();
+    expect(contentBox).not.toBeNull();
+    expect(contentBox.x).toBeGreaterThanOrEqual(
+      sidebarBox.x + sidebarBox.width
+    );
 
-    // Assert flexible margin-left (with the new toc-left layout, marginLeft is 0px)
-    const parsedMarginLeft = parseFloat(contentStyles.marginLeft);
-    expect(parsedMarginLeft).toBe(0);
+    // Verify exiting fullscreen using the specific locator to avoid strict mode locator conflict
+    const exitButton = page.locator(
+      'div.fixed.z-\\[100\\] button:has-text("Exit Fullscreen")'
+    );
+    await expect(exitButton).toBeVisible();
+    await exitButton.click();
+
+    // Verify modal is closed/hidden
+    await expect(modal).not.toBeVisible();
+
+    // Verify body overflow is unlocked (overflow: auto)
+    const bodyOverflowAfter = await page.evaluate(
+      () => window.getComputedStyle(document.body).overflow
+    );
+    expect(bodyOverflowAfter).toBe("auto");
   });
 
   test("should collapse/hide TOC and verify no layout overflow on mobile viewports", async ({
@@ -114,7 +119,9 @@ test.describe("Resume Website UX E2E Tests", () => {
     await expect(modal).toBeVisible();
 
     const frame = page.frameLocator("div.fixed.z-\\[100\\] iframe");
-    const sidebar = frame.locator("#quarto-sidebar-toc-left, #quarto-margin-sidebar");
+    const sidebar = frame.locator(
+      "#quarto-sidebar-toc-left, #quarto-margin-sidebar"
+    );
 
     const sidebarMobileStyles = await sidebar.evaluate(el => {
       const style = window.getComputedStyle(el);
@@ -154,13 +161,18 @@ test.describe("Resume Website UX E2E Tests", () => {
     // Viewport size
     await page.setViewportSize({ width: 1280, height: 800 });
 
-    const projectSlugs = ["key-drivers", "poisson-mle", "card-krueger", "ab-testing"];
+    const projectSlugs = [
+      "key-drivers",
+      "poisson-mle",
+      "card-krueger",
+      "ab-testing",
+    ];
 
     for (const slug of projectSlugs) {
       // Navigate to project route
       await page.goto(`/projects/${slug}`);
       await page.waitForLoadState("domcontentloaded");
-      
+
       // Wait a short duration for client-side routing / state stabilization
       await page.waitForTimeout(500);
 
@@ -181,5 +193,3 @@ test.describe("Resume Website UX E2E Tests", () => {
     }
   });
 });
-
-

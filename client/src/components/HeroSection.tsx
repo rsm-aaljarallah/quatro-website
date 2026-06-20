@@ -311,10 +311,15 @@ export default function HeroSection() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
-              className="flex items-center gap-2 px-8 py-3.5 rounded-full bg-white text-[#0A0E1A] font-bold text-sm shadow-[0_0_20px_rgba(255,255,255,0.15)] transition-colors hover:shadow-[0_0_30px_rgba(255,255,255,0.3)]"
+              className="relative flex items-center gap-2 px-8 py-3.5 rounded-full bg-transparent font-bold text-sm text-[#F0F4F8] transition-all hover:text-white group overflow-hidden"
             >
-              See my work
-              <ArrowRight size={16} />
+              <div className="absolute inset-0 bg-[#0A0E1A] rounded-full z-0"></div>
+              <div className="absolute inset-[-2px] bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 rounded-full z-[-1] opacity-70 group-hover:opacity-100 animate-[spin_3s_linear_infinite]" style={{ backgroundSize: '200% 100%' }}></div>
+              <div className="absolute inset-[1px] bg-[#0A0E1A] rounded-full z-0 transition-colors group-hover:bg-[#0c1222]"></div>
+              <span className="relative z-10 flex items-center gap-2">
+                See my work
+                <ArrowRight size={16} />
+              </span>
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.05, backgroundColor: "rgba(232,237,245,0.05)", borderColor: "rgba(232,237,245,0.4)" }}

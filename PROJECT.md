@@ -10,8 +10,8 @@
 |---|------|-------|-------------|--------|
 | 1 | Setup & Exploration | Start the local server, verify routing, find dependencies. | None | DONE |
 | 2 | Automated Test implementation | Create headless browser testing script `test_ux.js` to inspect the DOM. | M1 | DONE |
-| 3 | Verification & Analysis | Execute the test script on the local server and verify assertions. | M2 | IN_PROGRESS (2afc07ce-9edb, 339e19a4-363c, 358a8677-c0b7) |
-| 4 | Final Report Generation | Compile findings into `ux_analysis_report.md` in the root folder. | M3 | PLANNED |
+| 3 | Verification & Analysis | Execute the test script on the local server and verify assertions. | M2 | DONE |
+| 4 | Final Report Generation | Compile findings into `ux_analysis_report.md` in the root folder. | M3 | DONE |
 
 ## Interface Contracts
 ### Client App ↔ Quarto Reports
