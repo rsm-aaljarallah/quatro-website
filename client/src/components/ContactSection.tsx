@@ -143,7 +143,6 @@ function AgentTerminal() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 className="flex-1 bg-transparent border-none outline-none text-white font-['JetBrains_Mono'] w-full"
-                autoFocus
               />
             </form>
           )}
