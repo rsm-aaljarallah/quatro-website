@@ -25,7 +25,9 @@ export default function ProjectViewer() {
     baseInfo = featuredProject;
   }
   
-  const [fullscreen, setFullscreen] = useState(!!baseInfo?.url);
+  // Start with the clean inline preview; the user can go fullscreen or open in
+  // a new tab. (Auto-fullscreen on load made the embed feel cropped.)
+  const [fullscreen, setFullscreen] = useState(false);
   
   // Reading progress bar
   const { scrollYProgress } = useScroll();
