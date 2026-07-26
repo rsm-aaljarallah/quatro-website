@@ -41,7 +41,7 @@ const certGroups = [
     id: "other",
     title: "Other",
     certs: [
-      "PADI Master Instructor",
+      "NAUI Instructor",
     ],
   },
 ];

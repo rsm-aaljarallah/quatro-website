@@ -29,19 +29,19 @@ const ventures = [
   {
     id: "dive36",
     name: "Dive36 Diving Center",
-    tagline: "PADI-Certified Diving Center",
+    tagline: "NAUI-Certified Diving Center",
     location: "Kuwait",
     period: "2013 – Present",
-    role: "Co-Founder & PADI Master Instructor",
+    role: "Co-Founder & NAUI Instructor",
     color: "#7A8FA8",
     icon: Waves,
     description:
-      "PADI-certified diving center. 10+ years of instruction, business operations, and marketing.",
+      "NAUI-certified diving center. 10+ years of instruction, business operations, and marketing.",
     highlights: [
-      "10+ years of PADI instruction and business operations",
+      "10+ years of NAUI instruction and business operations",
       "Full marketing and brand management",
     ],
-    tags: ["PADI", "Diving Instruction", "Business Operations", "Marketing"],
+    tags: ["NAUI", "Diving Instruction", "Business Operations", "Marketing"],
   },
   {
     id: "casa-masira",
