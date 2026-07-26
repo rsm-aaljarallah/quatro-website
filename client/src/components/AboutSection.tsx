@@ -8,7 +8,7 @@ import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Mail, Linkedin, Github, GraduationCap } from "lucide-react";
 
-const PROFILE_PIC = "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/profile_pic_bf3dcadd.webp";
+const PROFILE_PIC = "/profile_pic.jpg";
 
 const education = [
   {
