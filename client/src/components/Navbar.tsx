@@ -6,8 +6,9 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Mail, FolderOpen } from "lucide-react";
+import { Menu, X, Mail, FolderOpen, FileText } from "lucide-react";
 import { Link, useLocation } from "wouter";
+import CVModal from "./CVModal";
 
 const navLinks = [
   { label: "About", href: "#about" },
@@ -24,6 +25,7 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [cvModalOpen, setCvModalOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("about");
   const [location] = useLocation();
 
@@ -118,6 +120,14 @@ export default function Navbar() {
                 <span className="relative z-10">Projects</span>
               </button>
             </Link>
+            {/* CV Modal Trigger */}
+            <button
+              onClick={() => setCvModalOpen(true)}
+              className="relative flex items-center gap-1.5 px-3 py-1.5 text-sm font-['Lato'] font-medium text-[#7A8FA8] hover:text-white transition-all duration-200 rounded-sm"
+            >
+              <FileText size={13} className="relative z-10 text-cyan-400" />
+              <span className="relative z-10">CV</span>
+            </button>
           </div>
 
           {/* CTA + Mobile Toggle */}
@@ -168,6 +178,16 @@ export default function Navbar() {
                   Projects
                 </button>
               </Link>
+              <button
+                onClick={() => {
+                  setMobileOpen(false);
+                  setCvModalOpen(true);
+                }}
+                className="w-full text-left flex items-center gap-2 px-4 py-3 text-sm font-['Lato'] text-[#B8C8DC] hover:bg-[rgba(184,200,220,0.05)] rounded-sm transition-all duration-200"
+              >
+                <FileText size={14} className="text-cyan-400" />
+                View Executive CV
+              </button>
               <a
                 href="mailto:mr.a.aljarallah@gmail.com"
                 className="flex items-center gap-2 px-4 py-3 mt-2 rounded-sm bg-gradient-to-r from-[#7A8FA8] to-[#B8C8DC] text-[#0A0E1A] text-sm font-['Playfair_Display'] font-bold"
@@ -179,6 +199,9 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Full-Screen CV Modal */}
+      <CVModal isOpen={cvModalOpen} onClose={() => setCvModalOpen(false)} />
     </motion.nav>
   );
 }

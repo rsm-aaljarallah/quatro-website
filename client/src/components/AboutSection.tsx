@@ -15,7 +15,7 @@ const education = [
     degree: "MSBA, STEM-designated",
     school: "UC San Diego — Rady School of Management",
     location: "San Diego, CA",
-    year: "Expected Jun 2026",
+    year: "Expected Dec 2026",
     highlight: true,
   },
   {
@@ -141,7 +141,7 @@ export default function AboutSection() {
           <motion.div className="flex flex-col gap-12" style={{ y: yRight }}>
             
             <AnimatedSection delay={0.2}>
-              <div>
+              <article>
                 <h3 className="font-['JetBrains_Mono'] uppercase tracking-widest text-xs text-[#4A5A6A] mb-4">
                   The Journey
                 </h3>
@@ -155,11 +155,11 @@ export default function AboutSection() {
                 <p className="font-['Lato'] text-[#7A8FA8] text-base leading-relaxed">
                   I pivoted. I wanted to build the systems that actually measure the impact of these massive investments. Today, I am finishing my STEM-designated Master of Science in Business Analytics at UC San Diego, specializing in Bayesian Marketing Mix Modeling, causal inference, and applied AI agent systems.
                 </p>
-              </div>
+              </article>
             </AnimatedSection>
 
             <AnimatedSection delay={0.3}>
-              <div>
+              <article>
                 <h3 className="font-['JetBrains_Mono'] uppercase tracking-widest text-xs text-[#4A5A6A] mb-4">
                   Academic Foundation
                 </h3>
@@ -201,7 +201,7 @@ export default function AboutSection() {
                     </div>
                   ))}
                 </div>
-              </div>
+              </article>
             </AnimatedSection>
             
           </motion.div>

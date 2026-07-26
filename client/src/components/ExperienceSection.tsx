@@ -104,7 +104,7 @@ function ExperienceCard({
           index % 2 === 0 ? "lg:mr-auto lg:pr-8" : "lg:ml-auto lg:pl-8"
         }`}
       >
-        <div
+        <article
           className="card-cyber rounded-lg p-6 group transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_25px_50px_rgba(0,0,0,0.5)] cursor-pointer"
           style={{ 
             background: "rgba(18, 28, 33, 0.4)",
@@ -115,7 +115,7 @@ function ExperienceCard({
           }}
         >
           {/* Header */}
-          <div className="flex items-start justify-between mb-4">
+          <header className="flex items-start justify-between mb-4">
             <div className="flex items-center gap-3">
               <div
                 className="w-10 h-10 rounded-sm flex items-center justify-center flex-shrink-0"
@@ -149,11 +149,11 @@ function ExperienceCard({
               >
                 {exp.type}
               </span>
-              <span className="text-xs font-['Lato'] text-[#4A5A6A]">
+              <time className="text-xs font-['Lato'] text-[#4A5A6A]">
                 {exp.period}
-              </span>
+              </time>
             </div>
-          </div>
+          </header>
 
           {/* Description */}
           <p className="font-['Lato'] text-[#7A8FA8] text-sm leading-relaxed mb-4">
@@ -192,7 +192,7 @@ function ExperienceCard({
               </span>
             ))}
           </div>
-        </div>
+        </article>
       </div>
     </div>
   );

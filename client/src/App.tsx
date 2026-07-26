@@ -111,6 +111,7 @@ function Router() {
 }
 
 import { Analytics } from "@vercel/analytics/react";
+import AICopilot from "./components/AICopilot";
 
 function App() {
   useWebMCP();
@@ -123,6 +124,7 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <Router />
+          <AICopilot />
           <Analytics />
         </TooltipProvider>
       </ThemeProvider>

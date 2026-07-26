@@ -53,7 +53,7 @@ const projects = [
     slug: null,
     title: "Bayesian MMM Capstone",
     subtitle: "Marketing Mix Modeling for Direct Avenue",
-    date: "Mar – Jun 2026",
+    date: "Mar – Dec 2026",
     course: "MSBA Capstone · UCSD Rady",
     tags: ["Bayesian MMM", "PyMC", "Streamlit", "scikit-learn", "Claude"],
     description:

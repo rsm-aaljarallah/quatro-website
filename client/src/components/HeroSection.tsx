@@ -7,124 +7,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronDown, ArrowRight } from "lucide-react";
 import { useEffect, useRef } from "react";
-
-// Interactive Data Network (Canvas)
-function NodeGraphCanvas() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let width = window.innerWidth;
-    let height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
-
-    const nodes: { x: number, y: number, vx: number, vy: number, radius: number }[] = [];
-    const numNodes = Math.floor((width * height) / 15000); // Responsive node count
-    const maxDistance = 150;
-    
-    let mouse = { x: -1000, y: -1000 };
-
-    for (let i = 0; i < numNodes; i++) {
-      nodes.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        radius: Math.random() * 1.5 + 0.5
-      });
-    }
-
-    const handleResize = () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
-    };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    };
-
-    const handleMouseLeave = () => {
-      mouse.x = -1000;
-      mouse.y = -1000;
-    };
-
-    window.addEventListener("resize", handleResize);
-    window.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseleave", handleMouseLeave);
-
-    let animationFrameId: number;
-
-    const draw = () => {
-      ctx.clearRect(0, 0, width, height);
-      
-      // Update and draw nodes
-      for (let i = 0; i < nodes.length; i++) {
-        const node = nodes[i];
-        
-        node.x += node.vx;
-        node.y += node.vy;
-
-        if (node.x < 0 || node.x > width) node.vx *= -1;
-        if (node.y < 0 || node.y > height) node.vy *= -1;
-
-        // Interaction with mouse (repel/attract)
-        const dx = mouse.x - node.x;
-        const dy = mouse.y - node.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        
-        if (dist < 200) {
-          // Attract slowly
-          node.x += dx * 0.01;
-          node.y += dy * 0.01;
-        }
-
-        ctx.beginPath();
-        ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(184, 200, 220, 0.5)";
-        ctx.fill();
-
-        // Connect nodes
-        for (let j = i + 1; j < nodes.length; j++) {
-          const other = nodes[j];
-          const dx2 = other.x - node.x;
-          const dy2 = other.y - node.y;
-          const dist2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
-
-          if (dist2 < maxDistance) {
-            ctx.beginPath();
-            ctx.moveTo(node.x, node.y);
-            ctx.lineTo(other.x, other.y);
-            const alpha = 1 - dist2 / maxDistance;
-            ctx.strokeStyle = `rgba(184, 200, 220, ${alpha * 0.15})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        }
-      }
-      
-      animationFrameId = requestAnimationFrame(draw);
-    };
-
-    draw();
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseleave", handleMouseLeave);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
-
-  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full opacity-60 mix-blend-screen" />;
-}
+import OffscreenParticleBackground from "./OffscreenParticleBackground";
 
 // Cinematic fluid background 
 function CinematicBackground() {
@@ -136,7 +19,7 @@ function CinematicBackground() {
       className="absolute inset-0 overflow-hidden pointer-events-none" 
       style={{ background: "#050810", y: bgY }}
     >
-      <NodeGraphCanvas />
+      <OffscreenParticleBackground />
       
       {/* Orb 1 - Deep Blue */}
       <motion.div

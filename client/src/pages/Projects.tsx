@@ -6,7 +6,8 @@
  * Fonts: Playfair Display (headings) + Lato (body) + JetBrains Mono (labels)
  */
 
-import { motion } from "framer-motion";
+import { useState, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
 import {
   ArrowLeft,
@@ -16,6 +17,9 @@ import {
   Users,
   Zap,
   Github,
+  Search,
+  X,
+  Filter,
 } from "lucide-react";
 
 export const featuredProject = {
@@ -27,7 +31,7 @@ export const featuredProject = {
   course: "MGTA 452 / 453 / 454 · UCSD Rady",
   type: "Team Project",
   team: "Abdullah AlJarallah · Merna Saad · Shankar D.",
-  url: "https://macys-marketing-gui.vercel.app",
+  url: "https://macysai.vercel.app/",
   githubUrl: "https://github.com/rsm-msaad/macys-marketing-gui",
   coverImage: "https://d2xsxph8kpxj0f.cloudfront.net/114078457/ULQx4AJViqVMVWnbawSWeU/project_macys_dark-YCoRpRaiXXvckqiTxdGxXu.webp",
   description:
@@ -70,7 +74,7 @@ export const projects = [
     slug: "bayesian-mmm-capstone",
     title: "Bayesian MMM Capstone",
     subtitle: "Marketing Mix Modeling for Direct Avenue",
-    date: "Mar – Jun 2026",
+    date: "Mar – Dec 2026",
     course: "MSBA Capstone · UCSD Rady",
     tags: ["Bayesian MMM", "PyMC", "Streamlit", "scikit-learn", "Claude"],
     description:
@@ -193,6 +197,32 @@ export const projects = [
 ];
 
 export default function Projects() {
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [activeCategory, setActiveCategory] = useState<string>("All");
+
+  const categories = ["All", "AI Systems", "Causal Inference", "Marketing Analytics", "Academic"];
+
+  const filteredProjects = useMemo(() => {
+    return projects.filter((p) => {
+      const matchesCategory =
+        activeCategory === "All" ||
+        (activeCategory === "AI Systems" && (p.tags.includes("LLM") || p.tags.includes("Claude") || p.type === "Team Project" || p.id === "neural-vault")) ||
+        (activeCategory === "Causal Inference" && (p.tags.includes("Causal Inference") || p.tags.includes("DiD"))) ||
+        (activeCategory === "Marketing Analytics" && (p.tags.includes("Bayesian MMM") || p.tags.includes("MaxDiff") || p.tags.includes("Key Drivers") || p.tags.includes("Power BI"))) ||
+        (activeCategory === "Academic" && p.type === "Academic");
+
+      const query = searchQuery.toLowerCase().trim();
+      const matchesSearch =
+        query === "" ||
+        p.title.toLowerCase().includes(query) ||
+        p.subtitle.toLowerCase().includes(query) ||
+        p.description.toLowerCase().includes(query) ||
+        p.tags.some((t) => t.toLowerCase().includes(query));
+
+      return matchesCategory && matchesSearch;
+    });
+  }, [searchQuery, activeCategory]);
+
   return (
     <div
       className="min-h-screen"
@@ -418,18 +448,71 @@ export default function Projects() {
           </motion.div>
         </motion.div>
 
-        {/* ── PROJECT GRID ── */}
-        <div className="mb-10">
-          <p
-            className="text-xs tracking-widest uppercase"
-            style={{ color: "#3A4A5A", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.2em" }}
-          >
-            All Projects
-          </p>
+        {/* ── PROJECT GRID & FILTER CONTROLS ── */}
+        <div className="mb-10 space-y-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <p
+              className="text-xs tracking-widest uppercase"
+              style={{ color: "#3A4A5A", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.2em" }}
+            >
+              All Projects ({filteredProjects.length})
+            </p>
+
+            {/* JetBrains Mono Search Input */}
+            <div className="relative w-full md:w-72">
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#5A7A9A]" />
+              <input
+                type="text"
+                placeholder="Search title, tag, or topic..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-[rgba(10,14,26,0.6)] border border-[rgba(232,237,245,0.1)] rounded-lg pl-9 pr-8 py-2 text-xs text-[#B8C8DC] placeholder-[#3A4A5A] font-['JetBrains_Mono'] focus:outline-none focus:border-cyan-500/50 transition-colors"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#5A7A9A] hover:text-white"
+                >
+                  <X size={12} />
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Filter Pills */}
+          <div className="flex flex-wrap gap-2">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-['JetBrains_Mono'] border transition-all ${
+                  activeCategory === cat
+                    ? "bg-cyan-500/20 text-cyan-300 border-cyan-500/40 font-bold"
+                    : "bg-[rgba(10,14,26,0.4)] text-[#5A7A9A] border-[rgba(232,237,245,0.06)] hover:text-[#B8C8DC]"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 mb-28">
-          {projects.map((project, i) => (
+        {filteredProjects.length === 0 ? (
+          <div className="text-center py-20 bg-[rgba(10,14,26,0.4)] border border-[rgba(232,237,245,0.06)] rounded-xl mb-28">
+            <p className="text-[#5A7A9A] text-sm font-['JetBrains_Mono'] mb-4">No projects found matching your search criteria.</p>
+            <button
+              onClick={() => {
+                setSearchQuery("");
+                setActiveCategory("All");
+              }}
+              className="px-4 py-2 text-xs font-['JetBrains_Mono'] bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 rounded-lg hover:bg-cyan-500/30 transition-colors"
+            >
+              Reset Search & Filters
+            </button>
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-2 gap-6 mb-28">
+            {filteredProjects.map((project, i) => (
             <motion.div
               key={project.id}
               initial={{ opacity: 0, y: 32 }}
@@ -532,6 +615,7 @@ export default function Projects() {
               </motion.div>
           ))}
         </div>
+        )}
 
         {/* Footer note */}
         <div className="pb-16 text-center">

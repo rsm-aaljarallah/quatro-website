@@ -26,7 +26,7 @@ const education = [
       "Bayesian methods, optimization, classification, uplift modeling",
       "GenAI for Business (Prof. Vincent Nijs, MGTA 454)",
       "Regression, digital disruption (Prof. Thales Teixeira)",
-      "Expected graduation: June 2026",
+      "Expected graduation: December 2026",
     ],
   },
   {

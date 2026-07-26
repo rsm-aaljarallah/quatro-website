@@ -14,13 +14,19 @@ import { ArrowLeft, ExternalLink, Maximize2, Minimize2, Terminal, ChevronRight, 
 import Navbar from "@/components/Navbar";
 import { projects as galleryProjects } from "../components/ProjectsSection";
 import { projects as fullProjects, featuredProject } from "./Projects";
+import BayesianMMMSimulator from "@/components/simulators/BayesianMMMSimulator";
+import ChurnPredictorSimulator from "@/components/simulators/ChurnPredictorSimulator";
+import NeuralVaultSimulator from "@/components/simulators/NeuralVaultSimulator";
+import ABTestingSimulator from "@/components/simulators/ABTestingSimulator";
+import MacysAICoworkerSimulator from "@/components/simulators/MacysAICoworkerSimulator";
+import EquiLedgerSimulator from "@/components/simulators/EquiLedgerSimulator";
 
 export default function ProjectViewer() {
   const params = useParams<{ slug: string }>();
   const slug = params.slug || "";
   
   // Find base project info from the comprehensive Projects page list
-  let baseInfo = fullProjects.find(p => p.slug === slug);
+  let baseInfo: any = fullProjects.find(p => p.slug === slug);
   if (slug === featuredProject.slug) {
     baseInfo = featuredProject;
   }
@@ -165,17 +171,40 @@ export default function ProjectViewer() {
             </button>
           </div>
           
-          {/* Inline Viewer (When not fullscreen) */}
+          {/* Inline Viewer / Simulator (When not fullscreen) */}
           {!fullscreen && (
-            <div className="relative rounded-xl overflow-hidden border border-[rgba(232,237,245,0.1)] bg-[rgba(10,14,26,0.5)] h-[800px]">
-              {project.url ? (
-                <iframe
-                  src={project.url}
-                  title={project.title}
-                  className="w-full h-full border-0"
-                />
+            <div className="w-full">
+              {project.slug === "macys-ai-coworker" ? (
+                <MacysAICoworkerSimulator />
+              ) : project.slug === "equiledger" ? (
+                <EquiLedgerSimulator />
+              ) : project.slug === "bayesian-mmm-capstone" ? (
+                <BayesianMMMSimulator />
+              ) : project.slug === "roi-dashboard-churn" ? (
+                <ChurnPredictorSimulator />
+              ) : project.slug === "neural-vault" ? (
+                <NeuralVaultSimulator />
+              ) : project.slug === "ab-testing" ? (
+                <div className="space-y-8">
+                  <div className="relative rounded-xl overflow-hidden border border-[rgba(232,237,245,0.1)] bg-[rgba(10,14,26,0.5)] h-[700px]">
+                    <iframe
+                      src={project.url!}
+                      title={project.title}
+                      className="w-full h-full border-0"
+                    />
+                  </div>
+                  <ABTestingSimulator />
+                </div>
+              ) : project.url ? (
+                <div className="relative rounded-xl overflow-hidden border border-[rgba(232,237,245,0.1)] bg-[rgba(10,14,26,0.5)] h-[800px]">
+                  <iframe
+                    src={project.url}
+                    title={project.title}
+                    className="w-full h-full border-0"
+                  />
+                </div>
               ) : (
-                <div className="flex flex-col items-center justify-center h-full text-center p-8">
+                <div className="relative rounded-xl overflow-hidden border border-[rgba(232,237,245,0.1)] bg-[rgba(10,14,26,0.5)] h-[500px] flex flex-col items-center justify-center text-center p-8">
                   <Terminal size={48} className="text-[#3A4A5A] mb-4" />
                   <h3 className="font-['Playfair_Display'] text-2xl text-white mb-2">Web View Not Available</h3>
                   <p className="text-[#7A8FA8] max-w-md">
@@ -264,7 +293,7 @@ export default function ProjectViewer() {
                   <ChevronRight size={12} className="text-cyan-400" /> Tech Stack
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {project.summary?.stack.map(tech => (
+                  {project.summary?.stack.map((tech: string) => (
                     <span key={tech} className="px-2 py-1 text-xs bg-[rgba(34,211,238,0.1)] text-cyan-400 border border-cyan-400/20 rounded-sm">
                       {tech}
                     </span>

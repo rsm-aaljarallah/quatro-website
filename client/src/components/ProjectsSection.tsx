@@ -135,7 +135,7 @@ const overlayVariants = {
 
 const itemVariants = {
   initial: { opacity: 0, y: 15 },
-  hover: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 20 } },
+  hover: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 300, damping: 20 } },
 };
 
 export default function ProjectsSection() {
@@ -190,19 +190,19 @@ export default function ProjectsSection() {
         {/* 3-Column Visual Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {projects.map((project, index) => (
-            <motion.div
+            <motion.article
               key={project.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               whileHover="hover"
-              className="relative group rounded-[1rem] overflow-hidden cursor-pointer"
+              className="relative group rounded-[1rem] overflow-hidden cursor-pointer border border-[rgba(232,237,245,0.08)]"
               style={{
                 aspectRatio: "4/3",
                 boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
               }}
-              onClick={(e) => handleNavigate(e, project.id)}
+              onClick={(e) => handleNavigate(e as any, project.id)}
             >
               {/* Cover Image */}
               <motion.img
@@ -244,7 +244,7 @@ export default function ProjectsSection() {
                   ))}
                 </div>
               </motion.div>
-            </motion.div>
+            </motion.article>
           ))}
         </div>
 
