@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CA M1 Motorcycle Knowledge Test — Simulator | Abdullah Al-Jarallah</title>
+<meta name="author" content="Abdullah Al-Jarallah">
+<meta name="description" content="California Class M1 motorcycle knowledge test simulator. Shared by Abdullah Al-Jarallah.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Playfair+Display:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy-bg:#0A0E1A;
+  --navy-card:#111827;
+  --navy-surface:#162032;
+  --line:rgba(232,237,245,0.1);
+  --line-strong:rgba(232,237,245,0.2);
+  --gold:#E8B93A;
+  --gold-dim:#8A6F22;
+  --gold-light:#FCD34D;
+  --cyan:#38BDF8;
+  --cyan-dim:#0284C7;
+  --text-main:#F8FAFC;
+  --text-muted:#94A3B8;
+  --go:#10B981;
+  --stop:#F43F5E;
+  --sans:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,sans-serif;
+  --serif:"Playfair Display",Georgia,serif;
+  --mono:"JetBrains Mono","SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--navy-bg);
+  color:var(--text-main);
+  font-family:var(--sans);
+  line-height:1.55;
+  padding:20px 16px 80px;
+  min-height:100vh;
+  position:relative;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at 50% 0%, rgba(232,185,58,0.12) 0%, rgba(6,182,212,0.06) 40%, transparent 70%);
+  pointer-events:none;
+  z-index:-1;
+}
+.wrap{max-width:760px;margin:0 auto}
+
+/* Top utility bar */
+.topbar{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:24px;padding-bottom:14px;
+  border-bottom:1px solid var(--line);
+}
+.brand-link{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:12px;font-weight:700;
+  color:var(--text-muted);text-decoration:none;
+  padding:4px 10px;border-radius:6px;background:rgba(255,255,255,0.03);
+  border:1px solid var(--line);transition:all .15s;
+}
+.brand-link:hover{color:var(--cyan);border-color:var(--cyan-dim)}
+.audio-btn{
+  background:transparent;border:1px solid var(--line);color:var(--text-muted);
+  padding:6px 12px;border-radius:6px;font-size:12px;cursor:pointer;
+  font-family:var(--mono);display:inline-flex;align-items:center;gap:6px;
+  transition:all .15s;
+}
+.audio-btn:hover{color:var(--gold);border-color:var(--gold)}
+
+/* ---------- masthead ---------- */
+.mast{border-bottom:2px solid var(--gold);padding-bottom:16px;margin-bottom:26px}
+.mast .kicker{
+  font-family:var(--mono);font-size:11px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:700;
+}
+.mast h1{font-family:var(--serif);font-size:30px;font-weight:800;letter-spacing:-.01em;color:#FFF}
+.mast p{color:var(--text-muted);font-size:14px;margin-top:6px}
+.mast p b{color:var(--gold);font-family:var(--mono)}
+
+/* ---------- buttons ---------- */
+button{font-family:inherit;font-size:15px;cursor:pointer;border:none;border-radius:8px}
+.btn{
+  background:var(--gold);color:#0A0E1A;font-weight:700;
+  padding:13px 24px;letter-spacing:.01em;border-radius:8px;
+  box-shadow:0 0 20px rgba(232,185,58,0.25);transition:all .15s;
+}
+.btn:hover{background:var(--gold-light);transform:translateY(-1px)}
+.btn.ghost{background:rgba(255,255,255,0.04);color:var(--text-main);border:1px solid var(--line);font-weight:600;box-shadow:none}
+.btn.ghost:hover{border-color:var(--gold);color:var(--gold);background:rgba(232,185,58,0.08)}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn:focus-visible,.opt:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* ---------- mode cards ---------- */
+.modes{display:grid;gap:12px;margin-bottom:24px}
+.mode{
+  background:var(--navy-card);border:1px solid var(--line);
+  border-left:3px solid var(--gold-dim);
+  border-radius:10px;padding:18px 20px;text-align:left;width:100%;
+  color:var(--text-main);transition:all .15s;
+}
+.mode:hover{border-left-color:var(--gold);background:var(--navy-surface);transform:translateX(3px)}
+.mode h3{font-size:16px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.mode span{font-size:13px;color:var(--text-muted);display:block;line-height:1.45}
+
+/* ---------- dedication ---------- */
+.dedication{
+  position:relative;
+  background:radial-gradient(130% 110% at 50% 0%, rgba(232,185,58,.12), transparent 72%), var(--navy-card);
+  border:1px solid var(--line);
+  border-top:2px solid var(--gold);
+  border-radius:12px;
+  padding:26px 22px 22px;
+  margin-bottom:26px;
+  text-align:center;
+  box-shadow:0 0 40px rgba(232,185,58,0.08);
+}
+.dedication .eyebrow{
+  font-family:var(--mono);font-size:10px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:14px;font-weight:700;
+}
+.arabic{
+  direction:rtl;unicode-bidi:isolate;
+  font-family:"SF Arabic","Geeza Pro","Noto Naskh Arabic","Al Bayan","Traditional Arabic",Tahoma,sans-serif;
+  font-weight:700;color:#FFF;
+  font-size:28px;line-height:2.0;
+}
+.rule{display:flex;align-items:center;gap:12px;margin:16px auto 14px;max-width:220px}
+.rule::before,.rule::after{content:"";flex:1;height:1px;background:var(--line)}
+.rule span{font-size:12px;color:var(--gold);line-height:1}
+.sig .ar-name{
+  direction:rtl;unicode-bidi:isolate;
+  font-family:"SF Arabic","Geeza Pro","Noto Naskh Arabic",Tahoma,sans-serif;
+  font-size:20px;color:var(--gold);font-weight:600;line-height:1.8;
+}
+.sig .en-name{
+  font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--text-muted);margin-top:4px;
+}
+
+.briefing{
+  background:var(--navy-card);border:1px solid var(--line);
+  border-left:3px solid var(--cyan);border-radius:10px;
+  padding:18px 20px;margin-bottom:24px;
+}
+.briefing .btitle{
+  font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:8px;font-weight:700;
+}
+.briefing p{font-size:13.5px;color:var(--text-muted);line-height:1.6}
+.briefing p+p{margin-top:8px}
+.briefing b{color:#FFF}
+
+.mode.fresh{border-left-color:var(--gold);background:linear-gradient(90deg,rgba(232,185,58,.08),var(--navy-card) 60%)}
+.pill{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  padding:3px 8px;border-radius:99px;background:rgba(232,185,58,.16);color:var(--gold);
+  border:1px solid rgba(232,185,58,.4);font-weight:700;
+}
+.pill.go{background:rgba(16,185,129,.16);color:var(--go);border-color:rgba(16,185,129,.4)}
+.pill.stop{background:rgba(244,63,94,.16);color:var(--stop);border-color:rgba(244,63,94,.4)}
+
+.stats{
+  background:var(--navy-card);border:1px solid var(--line);border-radius:10px;
+  padding:16px 20px;font-size:13px;color:var(--text-muted);margin-top:20px;
+}
+.stats b{color:#FFF;font-family:var(--mono)}
+.stats .row{display:flex;justify-content:space-between;padding:6px 0}
+.stats .row+.row{border-top:1px solid rgba(255,255,255,0.04)}
+
+/* ---------- ALWAYS VISIBLE PRO SCOREBOARD HUD ---------- */
+.exam-hud{
+  position:sticky;top:14px;z-index:30;
+  background:rgba(10,14,26,0.95);backdrop-filter:blur(16px);
+  border:1px solid rgba(56,189,248,0.3);border-radius:12px;
+  padding:12px 18px;margin-bottom:22px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.5);
+}
+.hud-main{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:12px;flex-wrap:wrap;
+}
+.hud-left{display:flex;align-items:center;gap:8px}
+.counter{font-family:var(--mono);font-size:12px;color:var(--text-muted);font-weight:700}
+.counter b{color:#FFF;font-size:14px}
+.topic-tag{
+  font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--gold);padding:2px 8px;border-radius:4px;background:rgba(232,185,58,0.12);
+  border:1px solid rgba(232,185,58,0.25);font-weight:700;
+}
+.hud-score{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px}
+.badge-score{
+  display:inline-flex;align-items:center;gap:4px;padding:3px 10px;
+  border-radius:99px;font-weight:700;
+}
+.badge-score.ok{background:rgba(16,185,129,0.15);color:var(--go);border:1px solid rgba(16,185,129,0.35)}
+.badge-score.no{background:rgba(244,63,94,0.15);color:var(--stop);border:1px solid rgba(244,63,94,0.35)}
+.badge-score.pace{background:rgba(255,255,255,0.06);color:var(--text-main);border:1px solid var(--line)}
+
+.track{height:4px;background:rgba(255,255,255,0.08);border-radius:99px;margin-top:10px;overflow:hidden}
+.track i{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--gold),var(--go));width:0;transition:width .25s ease}
+
+.qtext{font-size:21px;font-weight:700;line-height:1.45;margin-bottom:22px;letter-spacing:-.01em;color:#FFF}
+
+/* ---------- options ---------- */
+.opts{display:grid;gap:10px}
+.opt{
+  display:flex;gap:14px;align-items:flex-start;
+  background:var(--navy-card);border:1px solid var(--line);border-radius:10px;
+  padding:16px 18px;text-align:left;width:100%;color:var(--text-main);
+  font-size:15px;line-height:1.5;transition:all .12s;
+}
+.opt:hover:not(:disabled){border-color:var(--gold);background:var(--navy-surface);transform:translateY(-1px)}
+.opt .ltr{
+  font-family:var(--mono);font-size:12px;font-weight:700;color:var(--text-muted);
+  border:1px solid var(--line);border-radius:6px;background:rgba(0,0,0,0.25);
+  width:26px;height:26px;flex:0 0 26px;
+  display:flex;align-items:center;justify-content:center;margin-top:1px;
+}
+.opt.right{border-color:var(--go);background:rgba(16,185,129,0.12);box-shadow:0 0 20px rgba(16,185,129,0.2)}
+.opt.right .ltr{border-color:var(--go);color:var(--go);background:rgba(16,185,129,0.2)}
+.opt.wrong{border-color:var(--stop);background:rgba(244,63,94,0.12);box-shadow:0 0 20px rgba(244,63,94,0.2)}
+.opt.wrong .ltr{border-color:var(--stop);color:var(--stop);background:rgba(244,63,94,0.2)}
+.opt:disabled{cursor:default}
+
+/* ---------- explain ---------- */
+.explain{
+  margin-top:18px;padding:16px 18px;border-radius:10px;
+  background:var(--navy-card);border:1px solid var(--line);border-left:3px solid var(--gold);
+  font-size:14px;line-height:1.6;
+}
+.explain .verdict{font-weight:800;margin-bottom:6px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-family:var(--mono)}
+.explain .verdict.ok{color:var(--go)}
+.explain .verdict.no{color:var(--stop)}
+.explain p{color:var(--text-muted)}
+.explain p b{color:#FFF}
+
+.foot{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+
+/* ---------- results ---------- */
+.verdict-card{
+  text-align:center;padding:40px 24px;border-radius:14px;margin-bottom:26px;
+  border:1px solid var(--line);background:var(--navy-card);box-shadow:0 0 40px rgba(0,0,0,0.6);
+}
+.verdict-card.pass{border-color:rgba(16,185,129,0.5);background:linear-gradient(180deg,rgba(16,185,129,0.1),var(--navy-card))}
+.verdict-card.fail{border-color:rgba(244,63,94,0.5);background:linear-gradient(180deg,rgba(244,63,94,0.1),var(--navy-card))}
+.verdict-card .big{font-size:64px;font-weight:800;font-family:var(--mono);letter-spacing:-.03em;line-height:1}
+.verdict-card.pass .big{color:var(--go)}
+.verdict-card.fail .big{color:var(--stop)}
+.verdict-card .label{font-family:var(--mono);font-size:13px;letter-spacing:.2em;text-transform:uppercase;margin-top:12px;color:var(--text-muted);font-weight:700}
+.verdict-card .note{font-size:15px;color:var(--text-muted);margin-top:14px;line-height:1.6}
+
+.sect-title{
+  font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);margin:30px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line);font-weight:700;
+}
+.bar-row{display:grid;grid-template-columns:1fr 60px;gap:12px;align-items:center;padding:8px 0;font-size:14px}
+.bar{height:6px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;border-radius:99px}
+.bar-row .num{font-family:var(--mono);font-size:13px;text-align:right;color:var(--text-muted)}
+
+.review{background:var(--navy-card);border:1px solid var(--line);border-left:3px solid var(--stop);border-radius:10px;padding:16px 18px;margin-bottom:12px}
+.review .q{font-size:15px;font-weight:700;margin-bottom:10px;color:#FFF}
+.review .line{font-size:13.5px;margin-bottom:5px;color:var(--text-muted)}
+.review .line b{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.review .yours b{color:var(--stop)}
+.review .theirs b{color:var(--go)}
+.review .why{font-size:13px;color:var(--text-muted);margin-top:10px;padding-top:10px;border-top:1px solid var(--line);line-height:1.6}
+
+.signoff{
+  margin-top:40px;padding-top:24px;border-top:1px solid var(--line);text-align:center;
+}
+.signoff .arabic{font-size:22px;line-height:1.95;color:var(--gold);font-weight:600}
+.signoff .en-name{
+  font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--text-muted);margin-top:8px;
+}
+@media(max-width:540px){
+  .qtext{font-size:18px}
+  .mast h1{font-size:24px}
+  .verdict-card .big{font-size:48px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a href="/" class="brand-link">
+      <span>←</span>
+      <span>ajq8.com</span>
+    </a>
+    <button class="audio-btn" id="soundToggle">
+      <span id="soundIcon">🔊</span>
+      <span id="soundLabel">Sound On</span>
+    </button>
+  </div>
+
+  <div class="mast">
+    <div class="kicker">California DL 665 · Class M1 Knowledge Test</div>
+    <h1>Motorcycle Knowledge Test Simulator</h1>
+    <p>Official California Motorcycle Standard · <b>80% to pass (24/30)</b> · <span id="bankcount"></span> in bank</p>
+  </div>
+
+  <div id="app"></div>
+</div>
+
+<script>
+// --- Audio Synthesis ---
+class SoundEffects {
+  constructor(){ this.enabled = true; this.ctx = null; }
+  init(){
+    if(!this.ctx){
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if(AC) this.ctx = new AC();
+    }
+    if(this.ctx && this.ctx.state === 'suspended') this.ctx.resume().catch(()=>{});
+  }
+  playRight(){
+    if(!this.enabled) return;
+    try{
+      this.init(); if(!this.ctx) return;
+      const t = this.ctx.currentTime;
+      const o1 = this.ctx.createOscillator();
+      const o2 = this.ctx.createOscillator();
+      const g = this.ctx.createGain();
+      o1.type = 'sine'; o2.type = 'sine';
+      o1.frequency.setValueAtTime(523.25, t); o1.frequency.exponentialRampToValueAtTime(659.25, t + 0.1);
+      o2.frequency.setValueAtTime(783.99, t + 0.08); o2.frequency.exponentialRampToValueAtTime(1046.5, t + 0.22);
+      g.gain.setValueAtTime(0.12, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
+      o1.connect(g); o2.connect(g); g.connect(this.ctx.destination);
+      o1.start(t); o1.stop(t + 0.15); o2.start(t + 0.08); o2.stop(t + 0.3);
+    }catch(e){}
+  }
+  playWrong(){
+    if(!this.enabled) return;
+    try{
+      this.init(); if(!this.ctx) return;
+      const t = this.ctx.currentTime;
+      const o = this.ctx.createOscillator();
+      const g = this.ctx.createGain();
+      o.type = 'triangle';
+      o.frequency.setValueAtTime(220, t); o.frequency.exponentialRampToValueAtTime(160, t + 0.2);
+      g.gain.setValueAtTime(0.15, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
+      o.connect(g); g.connect(this.ctx.destination);
+      o.start(t); o.stop(t + 0.25);
+    }catch(e){}
+  }
+}
+const sfx = new SoundEffects();
+
+// --- Embedded Question Bank (DL 665 Full Set) ---
+</script>
+<script src="/src/data/m1QuestionBank.js" onerror="console.log('Loading inline fallback')"></script>
+<script>
+// Local Storage & State
+const STORE_KEY = 'ajq8_m1_standalone_v2';
+let store = load();
+function load(){
+  try{ return JSON.parse(localStorage.getItem(STORE_KEY)) || {exams:[], missed:{}, explain:true, sound:true} }
+  catch(e){ return {exams:[], missed:{}, explain:true, sound:true} }
+}
+function save(){
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(store)) }catch(e){}
+}
+
+let S = null;
+const app = document.getElementById('app');
+const shuffle = a => a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(p=>p[1]);
+const esc = s => s.replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// Load questions from window or bank
+let BANK = window.M1_QUESTION_BANK || [
+  {t:"Gear & Equipment",q:"California's helmet law applies to:",o:["Riders under 21 only","All riders and passengers, regardless of age","Riders on freeways only"],a:1,e:"California is a universal helmet state. Every rider and every passenger must wear a U.S. DOT-compliant helmet, at every age, on every road."},
+  {t:"Gear & Equipment",q:"The single most important piece of protective equipment for a motorcyclist is:",o:["A DOT-compliant helmet","Leather gloves","Over-the-ankle boots"],a:0,e:"Head injuries are the leading cause of death in motorcycle crashes. Helmets are roughly 3x more effective at preventing brain injury than no helmet."},
+  {t:"Gear & Equipment",n:1,q:"Which JACKET material offers the most protection?",o:["Denim","Leather or sturdy synthetic with integrated body armor","Heavy cotton"],a:1,e:"TRAP ALERT: for jackets the answer is leather or armored synthetic. But the handbook separately states that for PANTS, denim jeans provide the best protection."},
+  {t:"Gear & Equipment",n:1,q:"According to the handbook, which offers the best protection for your legs?",o:["Short pants in warm weather","Denim jeans, with chaps over long pants as an extra layer","Athletic leggings"],a:1,e:"Handbook wording: denim jeans provide the best protection for legs, with chaps worn over long pants as an extra layer."},
+  {t:"Basic Control",n:1,q:"The front brake supplies roughly what share of total stopping power?",o:["About one-quarter","About one-half","About three-quarters"],a:2,e:"The handbook says three-quarters. Memorize that fraction — it's the phrasing they use."},
+  {t:"Basic Control",q:"To stop as quickly as possible in a straight line, you should:",o:["Use the rear brake only","Apply both brakes fully at the same instant","Apply both brakes together, progressively squeezing the front"],a:2,e:"Both brakes, at once, with firm progressive pressure on the front."},
+  {t:"Cornering",q:"The handbook's four-step sequence for a curve is:",o:["Look, Slow, Roll, Press","Slow, Look, Press, Roll","Press, Look, Slow, Roll"],a:1,e:"SLOW to entry speed, LOOK through the turn, PRESS the grip to lean, ROLL on the throttle to stabilize through and out."},
+  {t:"Lane Position",q:"A traffic lane gives a motorcycle:",o:["One usable path","Two usable paths","Three usable paths — left, center, and right"],a:2,e:"Three usable paths: left, center, and right."},
+  {t:"Following Distance",q:"The minimum recommended following distance in good conditions is:",o:["1 second","2 seconds","5 seconds"],a:1,e:"Two seconds minimum. Under slippery pavement or heavy traffic, expand to 3 seconds or more."},
+  {t:"Lane Splitting",q:"In California, lane splitting is:",o:["Illegal under all circumstances","Legal only on freeways","Legal when done in a safe and prudent manner"],a:2,e:"California explicitly authorizes lane splitting when done safely and prudently for conditions."},
+  {t:"Intersections",q:"The most common motorcycle-vehicle collision is:",o:["A rear-end collision on the freeway","A car turning left across the path of an oncoming motorcycle","A car changing lanes"],a:1,e:"Left-turning vehicles at intersections account for the largest share of multi-vehicle motorcycle crashes."},
+  {t:"CA Licensing",n:1,q:"A motorcycle towing a trailer must not exceed:",o:["55 mph","65 mph","The posted speed limit, whatever it is"],a:0,e:"55 mph, right lanes only, prohibited from carpool/HOV lanes."},
+  {t:"CA Licensing",n:1,q:"To operate a moped you must have at least a ________ license.",o:["Class M1","Class M2","Class C"],a:1,e:"M2 is the minimum for a moped. M1 also covers it."},
+  {t:"Emergencies",q:"If the front wheel locks under hard braking, you should:",o:["Hold the brake and steer out of it","Immediately release the front brake, then reapply it smoothly","Add rear brake to balance the bike"],a:1,e:"Release instantly and reapply with progressive pressure."},
+  {t:"Visibility",n:1,q:"You should signal your turn during the last:",o:["100 feet before the turning point","50 feet before the turning point","500 feet before the turning point"],a:0,e:"100 feet for a turn; at least 5 seconds before changing lanes at highway speeds."}
+];
+
+// Fetch full question bank if script didn't inject
+fetch('/src/data/m1QuestionBank.ts')
+  .then(r=>r.text())
+  .then(txt=>{
+    // parse if available
+    const m = txt.match(/M1_QUESTION_BANK: M1Question\[\] = (\[[\s\S]*?\]);\s*$/);
+    if(m) {
+      try{ eval('BANK = ' + m[1]); document.getElementById('bankcount').textContent = BANK.length + ' questions'; }catch(e){}
+    }
+  }).catch(()=>{});
+
+document.getElementById('bankcount').textContent = BANK.length + ' questions';
+
+// Sound button setup
+const soundToggle = document.getElementById('soundToggle');
+const soundIcon = document.getElementById('soundIcon');
+const soundLabel = document.getElementById('soundLabel');
+sfx.enabled = store.sound !== false;
+function updateSoundUI(){
+  soundIcon.textContent = sfx.enabled ? '🔊' : '🔇';
+  soundLabel.textContent = sfx.enabled ? 'Sound On' : 'Muted';
+}
+updateSoundUI();
+soundToggle.onclick = ()=>{
+  sfx.enabled = !sfx.enabled;
+  store.sound = sfx.enabled;
+  save(); updateSoundUI();
+};
+
+function home(){
+  S = null;
+  const missedIds = Object.keys(store.missed).filter(k=>store.missed[k]>0);
+  const newQs = BANK.filter(q=>q.n===1);
+  const newCount = newQs.length;
+  const attempts = store.exams.length;
+  const best = attempts ? Math.max(...store.exams.map(e=>e.score)) : 0;
+  const last5 = store.exams.slice(-5);
+  const avg = last5.length ? Math.round(last5.reduce((s,e)=>s+e.pct,0)/last5.length) : 0;
+
+  app.innerHTML = `
+    <div class="dedication">
+      <div class="eyebrow">إهداء · A gift for a friend</div>
+      <div class="arabic">لا تنساني من دعائك</div>
+      <div class="rule"><span>◆</span></div>
+      <div class="sig">
+        <div class="ar-name">عبدالله الجارالله</div>
+        <div class="en-name">Abdullah Al-Jarallah</div>
+      </div>
+    </div>
+
+    <div class="briefing">
+      <div class="btitle">DMV Touchscreen Terminal Briefing</div>
+      <p><b>Text-only:</b> No photos, no diagrams, no lane-position illustrations. Three choices per question, one right answer.</p>
+      <p>Holding a Class C driver license means you take the <b>motorcycle knowledge test only</b>. 80% (24/30) is the pass threshold.</p>
+      <p><b>Leave your phone in the car.</b> Any notes or devices inside the test room cause an automatic failure.</p>
+    </div>
+
+    <div class="modes">
+      <button class="mode fresh" data-go="exam">
+        <h3>Official 30-Question DMV Exam <span class="pill go">REAL FORMAT</span></h3>
+        <span>30 randomized questions scored identically to the California DMV terminal. Live score HUD active.</span>
+      </button>
+
+      <button class="mode" data-go="new">
+        <h3>Tricky Traps & Exact Numbers <span class="pill">${newCount} TRAPS</span></h3>
+        <span>Denim pants vs leather jackets, 55 mph trailers, 3/4 front brake rule, and stopping techniques.</span>
+      </button>
+
+      <button class="mode" data-go="drill">
+        <h3>Quick Practice Drill <span class="pill">20 QUESTIONS</span></h3>
+        <span>20 questions with instant deep-dive explanations after each response. Best for learning.</span>
+      </button>
+
+      <button class="mode" data-go="missed" ${missedIds.length?'':'disabled'}>
+        <h3>Drill What You Got Wrong ${missedIds.length?`<span class="pill stop">${missedIds.length} MISSED</span>`:''}</h3>
+        <span>${missedIds.length ? 'Re-drill only questions you missed in previous rounds.' : 'Take an exam first to log your weak spots.'}</span>
+      </button>
+
+      <button class="mode" data-go="marathon">
+        <h3>Full Bank Marathon (${BANK.length} Questions)</h3>
+        <span>Every question in the bank in randomized sequence.</span>
+      </button>
+    </div>
+
+    <button class="mode" id="exptoggle" style="border-left-color:var(--cyan)">
+      <h3>Instant Explanation on Wrong Answer <span class="pill ${store.explain!==false?'go':'stop'}">${store.explain!==false?'ON':'OFF'}</span></h3>
+      <span>${store.explain!==false
+        ? 'A wrong answer stops the exam and shows you the right one immediately.'
+        : 'Silent run — review misses at the end like the real DMV terminal.'}</span>
+    </button>
+
+    <div class="stats">
+      <div class="row"><span>Exams taken</span><b>${attempts}</b></div>
+      <div class="row"><span>Best score</span><b>${attempts?best+'/30':'—'}</b></div>
+      <div class="row"><span>Average (last 5)</span><b>${last5.length?avg+'%':'—'}</b></div>
+      <div class="row"><span>Questions still weak</span><b>${missedIds.length}</b></div>
+    </div>
+
+    ${attempts?'<div class="foot"><button class="btn ghost" id="reset">Clear History</button></div>':''}
+  `;
+
+  app.querySelectorAll('[data-go]').forEach(b=>{
+    b.onclick = ()=>{
+      const m = b.dataset.go;
+      if(m==='new') start(shuffle(newQs), 'drill');
+      if(m==='exam') start(shuffle(BANK).slice(0,30), 'exam');
+      if(m==='drill') start(shuffle(BANK).slice(0,20), 'drill');
+      if(m==='missed') start(shuffle(BANK.filter((q,i)=>store.missed[q.q]>0)), 'drill');
+      if(m==='marathon') start(shuffle(BANK), 'drill');
+    };
+  });
+
+  document.getElementById('exptoggle').onclick = ()=>{
+    store.explain = store.explain === false;
+    save(); home();
+  };
+
+  const r = document.getElementById('reset');
+  if(r) r.onclick = ()=>{ store={exams:[],missed:{},explain:true,sound:sfx.enabled}; save(); home(); };
+}
+
+function scramble(q){
+  const order = shuffle(q.o.map((text,i)=>({text, was:i})));
+  return {
+    src:q, t:q.t, q:q.q, e:q.e, n:q.n,
+    o: order.map(x=>x.text),
+    a: order.findIndex(x=>x.was===q.a)
+  };
+}
+
+function start(qs, mode){
+  S = {qs: qs.map(scramble), mode, i:0, right:0, wrong:0, log:[], picked:null};
+  render();
+}
+
+function render(){
+  const q = S.qs[S.i];
+  const n = S.qs.length;
+  const answered = S.picked !== null;
+  const correct = answered && S.picked === q.a;
+  const reveal = answered && (S.mode === 'drill' || (!correct && store.explain !== false));
+  const totalDone = S.right + S.wrong;
+  const currentPct = totalDone > 0 ? Math.round((S.right / totalDone) * 100) : 0;
+
+  app.innerHTML = `
+    <!-- ALWAYS VISIBLE PRO SCOREBOARD HUD -->
+    <div class="exam-hud">
+      <div class="hud-main">
+        <div class="hud-left">
+          <div class="counter">Q <b>${S.i+1}</b> / ${n}</div>
+          <span class="topic-tag">${esc(q.t)}</span>
+        </div>
+
+        <div class="hud-score">
+          <span class="badge-score ok">✓ ${S.right} Right</span>
+          <span class="badge-score no">✗ ${S.wrong} Wrong</span>
+          <span class="badge-score pace">${totalDone>0 ? currentPct+'%' : '0%'} ${totalDone>0 ? (currentPct>=80?'● Pass Pace':'▲ Needs 80%'):''}</span>
+        </div>
+      </div>
+      <div class="track"><i style="width:${((S.i+1)/n)*100}%"></i></div>
+    </div>
+
+    ${q.n===1 ? '<div style="margin-bottom:12px"><span class="pill" style="border-color:var(--gold);color:var(--gold)">⚠ CRITICAL DMV TRAP QUESTION</span></div>' : ''}
+    <div class="qtext">${esc(q.q)}</div>
+
+    <div class="opts">
+      ${q.o.map((opt,j)=>{
+        let cls='opt';
+        if(reveal){
+          if(j===q.a) cls+=' right';
+          else if(j===S.picked) cls+=' wrong';
+        } else if(answered && j===S.picked){
+          cls+=' right';
+        }
+        return `<button class="${cls}" data-j="${j}" ${answered?'disabled':''}>
+          <span class="ltr">${'ABC'[j]}</span><span>${esc(opt)}</span>
+        </button>`;
+      }).join('')}
+    </div>
+
+    ${reveal ? `
+      <div class="explain">
+        <div class="verdict ${correct?'ok':'no'}">${correct?'✓ Correct Answer':'✗ Incorrect Answer'}</div>
+        ${correct ? '' : `<p style="margin-bottom:8px">Correct choice is <b>Option ${'ABC'[q.a]} — ${esc(q.o[q.a])}</b></p>`}
+        <p><b>DMV Rule:</b> ${esc(q.e)}</p>
+      </div>` : ''}
+
+    <div class="foot">
+      ${answered ? `<button class="btn" id="next">${S.i+1===n?'View Final Results':'Next Question →'}</button>` : ''}
+      <button class="btn ghost" id="quit">Back to Menu</button>
+    </div>
+  `;
+
+  app.querySelectorAll('.opt').forEach(b=>{
+    b.onclick = ()=>{
+      S.picked = +b.dataset.j;
+      const ok = S.picked === q.a;
+      if(ok){
+        S.right++;
+        sfx.playRight();
+        if(store.missed[q.src.q]){
+          store.missed[q.src.q] = Math.max(0, store.missed[q.src.q]-1);
+          if(store.missed[q.src.q]===0) delete store.missed[q.src.q];
+        }
+      } else {
+        S.wrong++;
+        sfx.playWrong();
+        store.missed[q.src.q] = (store.missed[q.src.q] || 0) + 1;
+      }
+      S.log.push({q, picked:S.picked, ok});
+      save();
+
+      const willReveal = S.mode === 'drill' || (!ok && store.explain !== false);
+      if(willReveal){
+        render();
+      } else {
+        setTimeout(()=>{ S.picked=null; S.i++; S.i>=S.qs.length ? results() : render(); }, 220);
+      }
+    };
+  });
+
+  const nx = document.getElementById('next');
+  if(nx) nx.onclick = ()=>{ S.picked=null; S.i++; S.i>=S.qs.length ? results() : render(); };
+  document.getElementById('quit').onclick = home;
+}
+
+function results(){
+  const n = S.qs.length;
+  const pct = Math.round((S.right/n)*100);
+  const isExam = S.mode==='exam' && n===30;
+  const passed = pct >= 80;
+
+  if(isExam){
+    store.exams.push({score:S.right, total:n, pct, when:Date.now()});
+    save();
+  }
+
+  const byTopic = {};
+  S.log.forEach(r=>{
+    const t = r.q.t;
+    byTopic[t] = byTopic[t] || {ok:0,tot:0};
+    byTopic[t].tot++;
+    if(r.ok) byTopic[t].ok++;
+  });
+  const topics = Object.entries(byTopic).sort((a,b)=> (a[1].ok/a[1].tot) - (b[1].ok/b[1].tot));
+  const wrong = S.log.filter(r=>!r.ok);
+
+  app.innerHTML = `
+    <div class="verdict-card ${passed?'pass':'fail'}">
+      <div class="big">${S.right}<span style="font-size:26px;color:var(--text-muted)">/${n}</span></div>
+      <div class="label">${passed?'Passing Grade Met':'Below Passing Grade'} · ${pct}%</div>
+      <div class="note">${isExam
+        ? (passed ? `You passed! California DMV requires 24/30 (80%). ${S.right>=27?'You passed with flying colors!':'Well done.'}`
+                  : `You need 24 of 30 questions correct to pass. You missed ${S.wrong}. Review your misses below.`)
+        : `Practice session complete — 80% is the official bar.`}</div>
+    </div>
+
+    <div class="sect-title">Topic Mastery Breakdown</div>
+    ${topics.map(([t,v])=>{
+      const p = Math.round((v.ok/v.tot)*100);
+      const col = p>=80?'var(--go)':p>=60?'var(--gold)':'var(--stop)';
+      return `<div class="bar-row">
+        <div>${esc(t)}<div class="bar"><i style="width:${p}%;background:${col}"></i></div></div>
+        <div class="num">${v.ok}/${v.tot}</div>
+      </div>`;
+    }).join('')}
+
+    ${wrong.length ? `
+      <div class="sect-title">Review — ${wrong.length} Missed Questions</div>
+      ${wrong.map(r=>`
+        <div class="review">
+          <div class="q">${esc(r.q.q)}</div>
+          <div class="line yours"><b>You Picked</b> · ${esc(r.q.o[r.picked])}</div>
+          <div class="line theirs"><b>Correct Answer</b> · ${esc(r.q.o[r.q.a])}</div>
+          <div class="why"><b>Handbook Rule:</b> ${esc(r.q.e)}</div>
+        </div>`).join('')}
+    ` : `<div class="sect-title">Clean Sweep</div><p style="color:var(--go);font-size:14px;font-weight:700">Perfect score! No questions missed.</p>`}
+
+    <div class="foot">
+      <button class="btn" id="again">Retake Full 30-Q Exam</button>
+      ${wrong.length?`<button class="btn ghost" id="fix">Drill These ${wrong.length} Missed</button>`:''}
+      <button class="btn ghost" id="menu">Main Menu</button>
+    </div>
+
+    <div class="signoff">
+      <div class="arabic">لا تنساني من دعائك</div>
+      <div class="en-name">عبدالله الجارالله · Abdullah Al-Jarallah</div>
+    </div>
+  `;
+
+  document.getElementById('again').onclick = ()=> start(shuffle(BANK).slice(0,30),'exam');
+  const fx = document.getElementById('fix');
+  if(fx) fx.onclick = ()=> start(shuffle(wrong.map(r=>r.q.src)),'drill');
+  document.getElementById('menu').onclick = home;
+}
+
+home();
+</script>
+</body>
+</html>

@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import ThemePreview from "./pages/ThemePreview";
 import Projects from "./pages/Projects";
 import ProjectViewer from "./pages/ProjectViewer";
+import M1KnowledgeTest from "./pages/M1KnowledgeTest";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -102,6 +103,9 @@ function Router() {
           <Route path={"/theme-preview"} component={ThemePreview} />
           <Route path={"/projects"} component={Projects} />
           <Route path={"/projects/:slug"} component={ProjectViewer} />
+          <Route path={"/m1"} component={M1KnowledgeTest} />
+          <Route path={"/m1-test"} component={M1KnowledgeTest} />
+          <Route path={"/m1-prep"} component={M1KnowledgeTest} />
           <Route path={"/404"} component={NotFound} />
           <Route component={NotFound} />
         </Switch>
